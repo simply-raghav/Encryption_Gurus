@@ -8,6 +8,7 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -17,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -63,16 +65,29 @@ private Stage stage;
 private Parent root;
 private Scene scene;
 
-    public void homeScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
-        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
-        stage.setScene(scene);
-        new BounceIn(root).play();
-        stage.show();
+    public void homeScene(ActionEvent event){
+        try{
+            root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new BounceIn(root).play();
+            stage.show();
+        }catch (Exception e){
+            System.out.println("Error in homeScene");
+            System.out.println(e.toString());
+        }
     }
 
+    public void historyScene(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
 
+        System.out.println("HISTORY");
+    }
         @FXML
         public void togglePassword(ActionEvent event) throws Exception {
             if (passwordField.isManaged()) {

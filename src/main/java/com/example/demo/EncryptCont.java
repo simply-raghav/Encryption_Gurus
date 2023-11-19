@@ -16,11 +16,16 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import javafx.scene.input.DragEvent;
@@ -57,6 +62,15 @@ public class EncryptCont implements Initializable {
 //    @FXML
 //    ImageView imageView = new ImageView();
 
+    public void historyScene(ActionEvent event) throws Exception{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
+        Parent root = (Parent) loader.load();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
+        System.out.println("HISTORY");
+    }
     @FXML
     public void togglePassword(ActionEvent event) throws Exception {
         if (passwordField.isManaged()) {
@@ -86,6 +100,7 @@ public class EncryptCont implements Initializable {
 
 
     ObservableList<Data> list = FXCollections.observableArrayList();
+    ObservableList<Data> historyItems = FXCollections.observableArrayList();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -121,8 +136,10 @@ try {
 
                 if (selectButton.getStyle().isEmpty()) {
                     selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
+                    historyItems.add(new Data(getItem().getPath(), getItem().getName()));
                 } else {
                     selectButton.setStyle("");
+                    historyItems.remove(getItem());
                 }
             });
         }
@@ -207,17 +224,71 @@ catch(Exception e){
         event.setDropCompleted(true);
         event.consume();
     }
-
-
-    public void encryptFiles() throws Exception{
+    public <obj> void encryptFiles() throws Exception{
         String key = passwordField.getText();
-        for(var file : selectedFiles){
-            EncryptAlgo obj = new EncryptAlgo(file);
+        for(var file : historyItems){
+            EncryptAlgo obj = new EncryptAlgo(file.getPath());
             obj.print();
             System.out.println(file + "-> " + key);
-            obj.encryptFile(file, key);
+            obj.encryptFile(file.getPath(), key);
+//            int idx = historyList.getSelectionModel().getSelectedIndex();
+            historyList.getItems().add("    " + file.getName() + "      " + file.getPath());
+            table.getItems().removeAll(file);
         }
 
+        historyList.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Display Sno along with the item
+                    int index = getIndex() + 1; // Adding 1 to make it one-based
+                    long timestamp = System.currentTimeMillis();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = dateFormat.format(new Date(timestamp));
+                    setText(index + ". |  " + formattedDate + "  |  " +  item);
+                }
+            }
+        });
+
+//        historyList.setItems(historyItems);
+
+        historyItems.clear();
+
     }
+
+    @FXML
+    private ListView<String> historyList = new ListView<>();
+
+    public void showHistory(ActionEvent event){
+        if(historyList.isVisible()){
+            historyList.setVisible(false);
+        }else{
+            historyList.setVisible(true);
+        }
+
+
+        sortMenuButton.getItems().forEach(item -> {
+            if (item instanceof RadioMenuItem) {
+                ((RadioMenuItem) item).selectedProperty().addListener((obs, wasSelected, isSelected) -> {
+                    if (isSelected) {
+                        System.out.println("Selected option: " + item.getText());
+                    }
+                });
+            }
+        });
+
+
+    }
+
+    @FXML
+    private MenuButton sortMenuButton;
+
+
+
+
+
 
 }

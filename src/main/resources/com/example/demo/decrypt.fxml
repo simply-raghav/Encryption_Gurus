@@ -49,21 +49,44 @@
                   <Font name="Bauhaus 93" size="29.0" />
                </font>
             </Label>
-            <Button alignment="BOTTOM_CENTER" layoutX="57.0" layoutY="116.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="132.0" prefWidth="132.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="57.0" layoutY="106.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="113.0" prefWidth="113.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
                <font>
                   <Font name="Bauhaus 93" size="17.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="65.0" fitWidth="56.0" onMouseClicked="#homeScene" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@home_Icon_WhiteBack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <ImageView fitHeight="65.0" fitWidth="56.0" layoutX="95.0" layoutY="142.0" onMousePressed="#homeScene" onMouseReleased="#homeScene" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@home_Icon_WhiteBack.png" />
-               </image>
-            </ImageView>
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="314.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+               <font>
+                  <Font name="Bauhaus 93" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@his6.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children></Pane>
         <Pane layoutX="288.0" layoutY="332.0" prefHeight="106.0" prefWidth="230.0">
             <children>
                 <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" style="-fx-background-radius: 5;" />
-                <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 5;" />
+                <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor></PasswordField>
                 <Label contentDisplay="BOTTOM" layoutX="37.0" layoutY="27.0" prefHeight="20.0" prefWidth="214.0" style="-fx-background-radius: 20;" text="Enter Your Key" />
                 <Button fx:id="hide_Button" layoutX="192.0" layoutY="47.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="26.0" prefWidth="38.0">
                     <cursor>

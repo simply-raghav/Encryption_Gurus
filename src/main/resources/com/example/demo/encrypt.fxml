@@ -40,7 +40,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </Button>
-      <Pane layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="554.0" prefWidth="245.0" style="-fx-background-color: F46036; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <Pane fx:id="Pane1" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="554.0" prefWidth="245.0" style="-fx-background-color: F46036; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <TextField alignment="CENTER" layoutX="47.0" layoutY="24.0" prefHeight="48.0" prefWidth="246.0" style="-fx-background-radius: 10;" />
             <Label contentDisplay="CENTER" layoutX="93.0" layoutY="30.0" prefHeight="40.0" prefWidth="170.0" text="Encryption" textFill="#ff6a41">
@@ -48,16 +48,36 @@
                   <Font name="Bauhaus 93" size="34.0" />
                </font>
             </Label>
-            <Button alignment="BOTTOM_CENTER" layoutX="57.0" layoutY="132.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="132.0" prefWidth="132.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="57.0" layoutY="97.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="117.0" prefWidth="122.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
                <font>
                   <Font name="Bauhaus 93" size="17.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="70.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@home_Icon_WhiteBack.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <ImageView fitHeight="70.0" fitWidth="69.0" layoutX="90.0" layoutY="152.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@home_Icon_WhiteBack.png" />
-               </image>
-            </ImageView>
+             <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="314.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+                 <font>
+                     <Font name="Bauhaus 93" size="17.0" />
+                 </font>
+                 <cursor>
+                     <Cursor fx:constant="HAND" />
+                 </cursor>
+                 <graphic>
+                     <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                         <image>
+                             <Image url="@his6.png" />
+                         </image>
+                     </ImageView>
+                 </graphic>
+             </Button>
          </children></Pane>
       <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="230.0">
          <children>
@@ -166,6 +186,9 @@
          <font>
             <Font name="Bauhaus 93" size="17.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </MenuButton>
       <Button fx:id="encryptButton" layoutX="723.0" layoutY="462.0" mnemonicParsing="false" onAction="#encryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10;" text="Encrypt" textFill="#ff6a41">
          <font>

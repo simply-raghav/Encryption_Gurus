@@ -11,16 +11,21 @@ import java.io.IOException;
 
 public class DecryptApp extends Application {
     @Override
-    public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
-        Scene scene = new Scene(root);
-        stage.setTitle("Hello!");
+    public void start(Stage stage){
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
+            Scene scene = new Scene(root);
+            stage.setTitle("Hello!");
 
 //        new FadeIn(root).play();
-        new BounceIn(root).play();
+            new BounceIn(root).play();
 
-        stage.setScene(scene);
-        stage.show();
+            stage.setScene(scene);
+            stage.show();
+        }catch (Exception e){
+            System.out.println("Error in APp");
+            System.out.println(e.toString());
+        }
 
 
     }

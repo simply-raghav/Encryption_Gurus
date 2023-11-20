@@ -12,6 +12,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
+import javax.mail.MessagingException;
+import javax.swing.*;
+import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,7 +50,7 @@ public class RegisterApp extends Application{
     private Parent root;
     private Stage stage;
     private Scene scene;
-
+    private String otp_String_sender;
 
 
     private static final String EMAIL_REGEX =
@@ -75,9 +79,44 @@ public class RegisterApp extends Application{
         }
 
         if(emailFlag  && passFlag){
-            System.out.println(usernameField.getText());
+
+            // from here im getting the name email and password
+            // one is for otp and one for the new password
+            String otp=usernameField.getText();
+            String newpassword=newPasswordField.getText();
+
+
+//            //Isse durr rahe danger for the email purpose
+//
+//            int min=1000;
+//            int max=10000;
+//
+//            double otpsender=Math.random()*(max-min+1)+min;
+//            int realotp=(int)otpsender;
+//
+//            // What is your OTP
+//            System.out.println(realotp);
+//
+//            String otp_String_sender= Integer.toString(realotp);
+//            // calling constructor of Email
+//            Email mail=new Email();
+//            mail.setupServerProperties();
+//            mail.draftEmail(otp_String_sender);
+//            mail.sendEmail();
+
+
+            System.out.println(usernameField.getText()); //this is our opt for now
             System.out.println(emailField.getText());
             System.out.println(newPasswordField.getText());
+
+            //calling a constructor of change_password
+            if(otp_String_sender.equals(otp)){
+                change_password chg=new change_password();
+                chg.changePassword(newpassword);
+            }else{
+                JOptionPane.showMessageDialog(null,"Incorrect OTP...");
+            }
+
 
             root = FXMLLoader.load(getClass().getResource("login.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -89,6 +128,27 @@ public class RegisterApp extends Application{
             System.out.println("Enter all Elements");
         }
 
+    }
+
+    public void sendOTP(ActionEvent event) throws MessagingException, UnsupportedEncodingException {
+        //Isse durr rahe danger for the email purpose
+
+        int min=1000;
+        int max=10000;
+
+        double otpsender=Math.random()*(max-min+1)+min;
+        int realotp=(int)otpsender;
+
+        // What is your OTP
+        System.out.println(realotp);
+
+        otp_String_sender= Integer.toString(realotp);
+        // calling constructor of Email
+        Email mail=new Email();
+        mail.setupServerProperties();
+        mail.draftEmail(otp_String_sender);
+        mail.sendEmail();
+        System.out.println("OTP has been sent");
     }
 
     public static void main(String[] args) {

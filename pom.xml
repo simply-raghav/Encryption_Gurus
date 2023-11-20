@@ -31,6 +31,7 @@
             <artifactId>javafx-controls</artifactId>
             <version>19.0.2</version>
         </dependency>
+
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
@@ -54,6 +55,20 @@
             <artifactId>AnimateFX</artifactId>
             <version>1.2.4</version>
             <type>pom</type>
+        </dependency>
+
+        <!-- Mail dependency -->
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/javax.activation/activation -->
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
         </dependency>
     </dependencies>
 

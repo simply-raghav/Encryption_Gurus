@@ -2,6 +2,9 @@ module com.example.demo {
     requires javafx.controls;
     requires javafx.fxml;
     requires AnimateFX;
+    requires java.desktop;
+    requires java.sql;
+    requires java.mail;
 
 
     opens com.example.demo to javafx.fxml;

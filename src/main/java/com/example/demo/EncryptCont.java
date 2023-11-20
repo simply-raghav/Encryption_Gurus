@@ -114,6 +114,31 @@ try {
     path.setCellValueFactory(new PropertyValueFactory<Data, String>("path"));       // The name in "" must be same as Data class attribute's  name
     path.setResizable(false);
 
+    name.setCellFactory(
+            column -> {
+                return new TableCell<Data, String>(){
+                    @Override
+                    protected void updateItem(String item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        setText( item );
+                        setTooltip(new Tooltip(item));
+                    }
+                };
+            });
+    path.setCellFactory(
+            column -> {
+                return new TableCell<Data, String>(){
+                    @Override
+                    protected void updateItem(String item, boolean empty)
+                    {
+                        super.updateItem(item, empty);
+                        setText( item );
+                        setTooltip(new Tooltip(item));
+                    }
+                };
+            });
+
 
     select_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
     select_Button.setResizable(false);

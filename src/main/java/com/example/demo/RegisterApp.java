@@ -75,6 +75,7 @@ public class RegisterApp extends Application{
         }
 
         if(emailFlag  && passFlag){
+
             System.out.println(usernameField.getText());
             System.out.println(emailField.getText());
             System.out.println(newPasswordField.getText());

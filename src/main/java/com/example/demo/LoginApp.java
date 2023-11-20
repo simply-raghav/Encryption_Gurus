@@ -13,7 +13,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.IOException;
+import java.sql.*;
+
 public class LoginApp extends Application {
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
@@ -44,6 +47,34 @@ public class LoginApp extends Application {
         boolean usrFlag = false, pwdFlag = false;
         String usrName = usernameField.getText();
         String pwd = passwordField.getText();
+
+
+
+        //from here i get the password
+
+
+
+            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
+            str.checkdata(event);
+
+//            Statement stmt= con.createStatement();
+//            //String q="select username,password from login_info where username='"+usrName+"'and password='"+pwd+"'";
+//            String q = "select username, password from login_info where username='" + usrName + "' and password='" + pwd + "'";
+//            ResultSet resultSet= stmt.executeQuery(q);
+//            if(resultSet.next()){
+//
+//                System.out.println("Successful");
+//                //JOptionPane.showMessageDialog(null,"successful");
+//            }else{
+//                JOptionPane.showMessageDialog(null,"Incorrect UserName or Password");
+//                con.close();
+//            }
+
+//        }catch(Exception e ){
+//            e.printStackTrace();
+//            System.out.println("Invalid Password");
+//        }
+
         System.out.println(usernameField.getText());
         System.out.println(passwordField.getText());
 
@@ -62,14 +93,14 @@ public class LoginApp extends Application {
             passwordLoginLabel.setVisible(false);
         }
 
-        if(usrFlag && pwdFlag){
-            root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            new BounceIn(root).play();
-            stage.show();
-        }
+//        if(usrFlag && pwdFlag){
+//        root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+//                stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+//                scene = new Scene(root);
+//                stage.setScene(scene);
+//                new BounceIn(root).play();
+//                stage.show();
+//        }
     }
 
     public void registerScene(ActionEvent event) throws Exception{

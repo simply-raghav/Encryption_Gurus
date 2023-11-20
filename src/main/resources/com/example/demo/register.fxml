@@ -68,6 +68,7 @@
             </Label>
             </children>
         </Pane>
+      <Button layoutX="512.0" layoutY="158.0" mnemonicParsing="false" onAction="#sendOTP" text="Send OTP" />
     </children>
 
 </AnchorPane>

@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -56,11 +57,6 @@ public class DecryptCont implements Initializable{
         @FXML
         private TextField textField = new TextField();
 
-//    Image eyeImage = new Image(getClass().getResourceAsStream("/Eye.png"));
-//    Image eye_SlashImage = new Image(getClass().getResourceAsStream("/Eye_Slash.png"));
-//    @FXML
-//    ImageView imageView = new ImageView();
-
 private Stage stage;
 private Parent root;
 private Scene scene;
@@ -71,7 +67,7 @@ private Scene scene;
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            new BounceIn(root).play();
+            new FadeIn(root).play();
             stage.show();
         }catch (Exception e){
             System.out.println("Error in homeScene");
@@ -81,13 +77,49 @@ private Scene scene;
 
     public void historyScene(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
-        Parent root = (Parent) loader.load();
-        Stage stage = new Stage();
+        root = (Parent) loader.load();
+        stage = new Stage();
+        new FadeIn(root).play();
         stage.setScene(new Scene(root));
         stage.show();
 
         System.out.println("HISTORY");
     }
+
+
+    public void logoutScene(ActionEvent event){
+        try{
+            root = FXMLLoader.load(getClass().getResource("logout.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new FadeIn(root).play();
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Decrypt");
+            System.out.println(e.toString());
+        }
+
+        System.out.println("LOGOUT");
+    }
+
+    public void encryptScene(ActionEvent event){
+        try{
+            root = FXMLLoader.load(getClass().getResource("encrypt.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new FadeIn(root).play();
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Decrypt");
+            System.out.println(e.toString());
+        }
+
+        System.out.println("LOGOUT");
+    }
+
+
         @FXML
         public void togglePassword(ActionEvent event) throws Exception {
             if (passwordField.isManaged()) {

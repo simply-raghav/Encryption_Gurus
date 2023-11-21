@@ -34,6 +34,7 @@ import javafx.stage.FileChooser;
 
 public class EncryptCont implements Initializable {
 
+    // Variable for table View
     @FXML
     private TableColumn<Data, Data> delete_Button;
     @FXML
@@ -57,11 +58,7 @@ public class EncryptCont implements Initializable {
     @FXML
     private TextField textField = new TextField();
 
-//    Image eyeImage = new Image(getClass().getResourceAsStream("/Eye.png"));
-//    Image eye_SlashImage = new Image(getClass().getResourceAsStream("/Eye_Slash.png"));
-//    @FXML
-//    ImageView imageView = new ImageView();
-
+    // Switch to History Scene
     public void historyScene(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
         Parent root = (Parent) loader.load();
@@ -104,7 +101,6 @@ public class EncryptCont implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-//        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 try {
 
     sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(table.getItems().indexOf(cellData.getValue()) + 1).asObject());
@@ -113,6 +109,8 @@ try {
     name.setResizable(false);
     path.setCellValueFactory(new PropertyValueFactory<Data, String>("path"));       // The name in "" must be same as Data class attribute's  name
     path.setResizable(false);
+
+    // For Tooltip
 
     name.setCellFactory(
             column -> {
@@ -254,29 +252,42 @@ catch(Exception e){
         for(var file : historyItems){
             EncryptAlgo obj = new EncryptAlgo(file.getPath());
             obj.print();
-            System.out.println(file + "-> " + key);
+
+            //From here i get the path and file name to save it in the database
+            Saving_history_path data_path=new Saving_history_path();
+
+            //String filepath,String type,String algorithm,String file_name,String key
+            String type="Encryption";
+            //Bring here which algorithm you are selecting
+            String algorithm="";
+            //
+            data_path.path_sending(file.getPath(),type,algorithm, file.getName(), key);
+
+            System.out.println(file.getPath() + "-> " + file.getName() + "-> " + key);
             obj.encryptFile(file.getPath(), key);
 //            int idx = historyList.getSelectionModel().getSelectedIndex();
             historyList.getItems().add("    " + file.getName() + "      " + file.getPath());
             table.getItems().removeAll(file);
         }
 
-        historyList.setCellFactory(param -> new ListCell<String>() {
-            @Override
-            protected void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty || item == null) {
-                    setText(null);
-                } else {
-                    // Display Sno along with the item
-                    int index = getIndex() + 1; // Adding 1 to make it one-based
-                    long timestamp = System.currentTimeMillis();
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                    String formattedDate = dateFormat.format(new Date(timestamp));
-                    setText(index + ". |  " + formattedDate + "  |  " +  item);
-                }
-            }
-        });
+        // Try to add date feature in history table
+
+//        historyList.setCellFactory(param -> new ListCell<String>() {
+//            @Override
+//            protected void updateItem(String item, boolean empty) {
+//                super.updateItem(item, empty);
+//                if (empty || item == null) {
+//                    setText(null);
+//                } else {
+//                    // Display Sno along with the item
+//                    int index = getIndex() + 1; // Adding 1 to make it one-based
+//                    long timestamp = System.currentTimeMillis();
+//                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//                    String formattedDate = dateFormat.format(new Date(timestamp));
+//                    setText(index + ". |  " + formattedDate + "  |  " +  item);
+//                }
+//            }
+//        });
 
 //        historyList.setItems(historyItems);
 
@@ -310,10 +321,5 @@ catch(Exception e){
 
     @FXML
     private MenuButton sortMenuButton;
-
-
-
-
-
 
 }

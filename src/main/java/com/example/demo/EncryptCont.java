@@ -1,7 +1,6 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
-import animatefx.animation.FadeIn;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -58,26 +57,10 @@ public class EncryptCont implements Initializable {
     @FXML
     private TextField textField = new TextField();
 
-    public void menuHandler(ActionEvent event){
-        try{
-            List<String> selecetedMenu = new ArrayList<>();
-            MenuItem selectedItem = (MenuItem) event.getSource();
-            while(selectedItem.getParentMenu() != null){
-                selecetedMenu.add(selectedItem.getText());
-                selectedItem = selectedItem.getParentMenu();
-            }
-
-            for(var str : selecetedMenu){
-                System.out.println(str);
-            }
-        }catch (Exception e){
-            System.out.println(e.toString());
-        }
-
-    }
-
-
-
+//    Image eyeImage = new Image(getClass().getResourceAsStream("/Eye.png"));
+//    Image eye_SlashImage = new Image(getClass().getResourceAsStream("/Eye_Slash.png"));
+//    @FXML
+//    ImageView imageView = new ImageView();
 
     public void historyScene(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
@@ -89,63 +72,30 @@ public class EncryptCont implements Initializable {
         System.out.println("HISTORY");
     }
     @FXML
-    private Button hide_Button;
     public void togglePassword(ActionEvent event) throws Exception {
         if (passwordField.isManaged()) {
             passwordField.setManaged(false);
             passwordField.setVisible(false);
             String password = passwordField.getText();
             textField.setText(password);
-            hide_Button.setText("Hide");
+//            imageView.setImage(eyeImage);
         } else {
             passwordField.setVisible(true);
             passwordField.setManaged(true);
             textField.setText("");
-            hide_Button.setText("Show");
         }
     }
 
-    private Parent root;
     private Stage stage;
     private Scene scene;
 
     public void homeScene(ActionEvent event) throws IOException {
-        root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        scene = new Scene(root);
+        Scene scene = new Scene(root);
         stage.setScene(scene);
-        new FadeIn(root).play();
+        new BounceIn(root).play();
         stage.show();
-    }
-
-    public void decryptScene(ActionEvent event){
-        try{
-            root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            new FadeIn(root).play();
-            stage.show();
-        }catch(Exception e){
-            System.out.println("Decrypt");
-            System.out.println(e.toString());
-        }
-    }
-
-    public void logoutScene(ActionEvent event){
-        try{
-            root = FXMLLoader.load(getClass().getResource("logout.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
-            new FadeIn(root).play();
-            stage.show();
-        }catch(Exception e){
-            System.out.println("Decrypt");
-            System.out.println(e.toString());
-        }
-
-        System.out.println("LOGOUT");
     }
 
 

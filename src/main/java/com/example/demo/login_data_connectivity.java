@@ -33,11 +33,15 @@ public class login_data_connectivity {
 
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
+            String url = "jdbc:mysql://localhost:3306/login";
+
+
             //Connection con;
             //DatabaseMetaData DriverManager = null;
-            String url="jdbc:mysql://localhost:3306/login";
+
+            //String url="jdbc:mysql://localhost:3306/login";
             String username="root";
-            String password="0209rishi@Pa";
+            String password="admin";
             Connection con = DriverManager.getConnection(url,username,password);
             Statement stmt = con.createStatement();
             //String q="select username,password from login_info where username='"+usrName+"'and password='"+pwd+"'";

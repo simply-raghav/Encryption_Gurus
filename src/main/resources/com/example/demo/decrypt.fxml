@@ -16,10 +16,10 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="916.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.DecryptCont">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="554.0" prefWidth="916.0" style="-fx-border-color: ff6a41; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.DecryptCont">
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="43.0" layoutX="395.0" layoutY="256.0" rotate="-59.95" stroke="WHITE" strokeType="INSIDE" width="675.0" />
-      <Polygon fill="#bec0c1" layoutX="740.0" layoutY="436.0" points="-98.199951171875, 126.0, 181.0, 126.0, 184.00006103515625, -388.0" stroke="#bec0c1" strokeType="INSIDE" />
+      <Polygon fill="#bec0c1" layoutX="740.0" layoutY="436.0" points="-96.800048828125, 118.0, 176.00006103515625, 118.0, 176.00006103515625, -384.68707275390625" stroke="#bec0c1" strokeType="INSIDE" />
         <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="522.0" style="-fx-background-radius: 10; -fx-border-width: 4; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2; -fx-border-color: ff6a41;">
             <columns>
                 <TableColumn fx:id="sno" prefWidth="51.20001220703125" style="-fx-alignment: CENTER;" text="S.No." />
@@ -59,12 +59,27 @@
                <graphic>
                   <ImageView fitHeight="65.0" fitWidth="56.0" onMouseClicked="#homeScene" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@home_Icon_WhiteBack.png" />
+                        <Image url="@Images/home_Icon_WhiteBack.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
-            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="314.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="260.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+               <font>
+                  <Font name="Bauhaus 93" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="51.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/his6.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="408.0" mnemonicParsing="false" onAction="#encryptScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="ENCRYPT" textFill="#ff6a41">
                <font>
                   <Font name="Bauhaus 93" size="17.0" />
                </font>
@@ -74,32 +89,31 @@
                <graphic>
                   <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@his6.png" />
+                        <Image url="@Images/encrypt.png" />
                      </image>
                   </ImageView>
                </graphic>
             </Button>
          </children></Pane>
-        <Pane layoutX="288.0" layoutY="332.0" prefHeight="106.0" prefWidth="230.0">
+        <Pane layoutX="288.0" layoutY="332.0" prefHeight="106.0" prefWidth="298.0">
             <children>
-                <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" style="-fx-background-radius: 5;" />
-                <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 5;">
+                <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;" />
+                <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor></PasswordField>
-                <Label contentDisplay="BOTTOM" layoutX="37.0" layoutY="27.0" prefHeight="20.0" prefWidth="214.0" style="-fx-background-radius: 20;" text="Enter Your Key" />
-                <Button fx:id="hide_Button" layoutX="192.0" layoutY="47.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="26.0" prefWidth="38.0">
-                    <cursor>
-                        <Cursor fx:constant="HAND" />
-                    </cursor></Button>
-                <ImageView fx:id="imageView" fitHeight="25.0" fitWidth="20.0" layoutX="201.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@Eye_Slash.png" />
-                    </image>
+                <Label contentDisplay="BOTTOM" layoutX="37.0" layoutY="27.0" prefHeight="20.0" prefWidth="214.0" style="-fx-background-radius: 20;" text="Enter Your Key" textFill="#ff6a41">
+               <font>
+                  <Font name="Bauhaus 93" size="17.0" />
+               </font></Label>
+                <Button fx:id="hide_Button" layoutX="239.0" layoutY="48.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: ff6a41; -fx-background-radius: 5;" text="Show" textFill="WHITE">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
-                </ImageView>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
             </children>
         </Pane>
         <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
@@ -115,5 +129,20 @@
             <Cursor fx:constant="HAND" />
          </cursor>
         </Button>
+      <Button alignment="CENTER" contentDisplay="GRAPHIC_ONLY" graphicTextGap="2.0" layoutX="855.0" layoutY="14.0" mnemonicParsing="false" onAction="#logoutScene" prefHeight="45.0" prefWidth="50.0" style="-fx-background-radius: 100; -fx-background-color: fff;" textFill="#ff6a41">
+         <font>
+            <Font name="Bauhaus 93" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="29.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/pwr5.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 </AnchorPane>

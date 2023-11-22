@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomePageApp extends Application {
+    private LogOutApp newObj = new LogOutApp();
     public void start(Stage stage) throws IOException {
        try{
            Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
@@ -19,8 +20,10 @@ public class HomePageApp extends Application {
            new BounceIn(root).play();
 
            stage.setTitle("Secure Vault");
-           stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//           stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+           stage.getIcons().add(newObj.icon);
            stage.setResizable(false);
+
 
            stage.show();
        }catch (Exception e){

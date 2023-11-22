@@ -26,6 +26,8 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class HistoryApp extends Application implements Initializable {
+
+private LogOutApp newObj = new LogOutApp();
     public void start(Stage stage) throws Exception{
         try{
             Parent root = FXMLLoader.load(getClass().getResource("history.fxml"));
@@ -35,7 +37,8 @@ public class HistoryApp extends Application implements Initializable {
             stage.setScene(scene);
 
             stage.setTitle("Secure Vault");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            stage.getIcons().add(newObj.icon);
             stage.setResizable(false);
 
             stage.show();

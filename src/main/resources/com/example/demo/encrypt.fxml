@@ -231,5 +231,15 @@
             </ImageView>
          </graphic>
       </Button>
+      <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="230.0" visible="false">
+         <children>
+            <TextField fx:id="selectedALgoTextArea" layoutX="19.0" layoutY="36.0" prefHeight="25.0" prefWidth="176.0" style="-fx-background-radius: 10;" />
+            <Label contentDisplay="BOTTOM" layoutX="22.0" layoutY="14.0" prefHeight="20.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" text=" You have selected" textFill="#ff6a41">
+               <font>
+                  <Font name="Bauhaus 93" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
    </children>
 </AnchorPane>

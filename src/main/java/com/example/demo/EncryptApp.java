@@ -18,7 +18,7 @@ import java.io.IOException;
 
 
 public class EncryptApp extends Application {
-
+    private LogOutApp newObj = new LogOutApp();
 public static Parent Enc_root;
     @Override
     public void start(Stage stage) throws IOException {
@@ -31,6 +31,7 @@ public static Parent Enc_root;
 
             stage.setTitle("Secure Vault");
             stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//            stage.getIcons().add(newObj.icon);
             stage.setResizable(false);
 
 

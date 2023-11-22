@@ -18,23 +18,24 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginApp extends Application {
-
-
-
+    private LogOutApp newObj = new LogOutApp();
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
 
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(root);
+        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        scene = new Scene(root);
         new FadeIn(root).play();
 
         stage.setTitle("Secure Vault");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.getIcons().add(newObj.icon);
         stage.setResizable(false);
+
 
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     @FXML
@@ -45,9 +46,7 @@ public class LoginApp extends Application {
     private Label usernameLoginLabel;
     @FXML
     private Label passwordLoginLabel;
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
+
     public void loginSubmit(ActionEvent event) throws Exception{
         boolean usrFlag = false, pwdFlag = false;
         String usrName = usernameField.getText();
@@ -72,18 +71,22 @@ public class LoginApp extends Application {
         }
 
         if(usrFlag && pwdFlag){
-            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
-            str.checkdata(event);
+//            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
+//            str.checkdata(event);
 
             System.out.println(usernameField.getText());
             System.out.println(passwordField.getText());
 
             LogOutApp obj = new LogOutApp();
-            obj.mainStage.close();
-////            ActionEvent event = new ActionEvent();
-//            obj.closeMainStage(event);
-//            LogOutApp.getInstance().closeMainStage(event);
-//            new LogOutApp().closeMainStage(event);
+            if(obj.mainStage != null)
+                obj.mainStage.close();
+
+            root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new FadeIn(root).play();
+            stage.show();
         }
 
     }

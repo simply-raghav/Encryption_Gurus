@@ -23,7 +23,7 @@
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </TextField>
-                <Button fx:id="loginButton" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onAction="#openLoginScene" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="LOGIN" textFill="WHITE" underline="true">
+                <Button fx:id="loginButton" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onAction="#openLoginScene" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="SUBMIT" textFill="WHITE" underline="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -56,7 +56,6 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="278.0" layoutY="188.0" mnemonicParsing="false" onAction="#sendOTP" text="Send OTP" />
             </children>
         </Pane>
     </children>

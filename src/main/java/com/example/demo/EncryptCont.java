@@ -25,6 +25,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
+import java.awt.event.TextEvent;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -65,6 +66,10 @@ public class EncryptCont implements Initializable {
     PasswordField passwordField = new PasswordField();
     @FXML
     private TextField textField = new TextField();
+    @FXML
+    private Pane AlgoPane;
+    @FXML
+    private TextField selectedALgoTextArea;
 
     public void menuHandler(ActionEvent event) {
         try {
@@ -75,12 +80,33 @@ public class EncryptCont implements Initializable {
                 selectedItem = selectedItem.getParentMenu();
             }
 
+            // How To Show Selected Algorithm from User
+
+            String Algo = "";
+            Collections.reverse(selecetedMenu);
             for (var str : selecetedMenu) {
                 System.out.println(str);
+                Algo += str;
+                Algo += "/";
             }
+            StringBuffer sb= new StringBuffer(Algo);
+            sb.deleteCharAt(sb.length()-1);
+            System.out.println(sb);
+
+            if(selecetedMenu.size() > 0){
+                AlgoPane.setVisible(true);
+                selectedALgoTextArea.setText(Algo);
+            }else{
+                AlgoPane.setVisible(false);
+                selectedALgoTextArea.setText("");
+            }
+
+
         } catch (Exception e) {
             System.out.println(e.toString());
         }
+
+
 
     }
 
@@ -308,21 +334,34 @@ public class EncryptCont implements Initializable {
 
     @FXML
     private Button progressButton;
+    boolean isEncrypted = false;
 
     public void encryptFiles() throws Exception {
 
-        String key = passwordField.getText();
-        showPGBAR();
+        try{
+            String key = passwordField.getText();
+            showPGBAR();
 
 
-        for (var file : historyItems) {
-            EncryptAlgo obj = new EncryptAlgo(file.getPath());
-            obj.print();
-            System.out.println(file + "-> " + key);
-            obj.encryptFile(file.getPath(), key);
+            for (var file : historyItems) {
+                EncryptAlgo obj = new EncryptAlgo(file.getPath());
+                obj.print();
+//                System.out.println(file.getName() + "-> " + file.getPath() + "-> " + key);
+                System.out.println("File Name: " + file.getName());
+                System.out.println("File Path: " + file.getPath());
+                System.out.println("File Key: " + key);
+                System.out.println("File Method: " + selectedALgoTextArea.getText());
+                obj.encryptFile(file.getPath(), key);
 //            int idx = historyList.getSelectionModel().getSelectedIndex();
 //            historyList.getItems().add("    " + file.getName() + "      " + file.getPath());
-            table.getItems().removeAll(file);
+                table.getItems().removeAll(file);
+            }
+
+            isEncrypted = true;
+        }catch (Exception e){
+            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, "Files Not Encrypted Succesfully",
+                    "WARNING", JOptionPane.WARNING_MESSAGE);
         }
 
         historyItems.clear();
@@ -330,50 +369,48 @@ public class EncryptCont implements Initializable {
 
 
 //
+    }
 
 
 // ************************************ CODE TO SHOW PROGRESS INDICATOR ***************************************************//
 
 
+        public void showPGBAR(){
+            EncryptApp enc_Obj = new EncryptApp();
+            enc_Obj.Enc_root.setDisable(true);
 
+            BorderPane root = new BorderPane();
+            new FadeIn(root).play();
+
+
+            ProgressIndicator pi = new ProgressIndicator(0.30);
+            pi.setProgress(-1);
+            root.setCenter(pi);
+
+            stage = new Stage();
+            stage.setScene(new Scene(root));
+
+            new BounceIn(root).play();
+
+            stage.initStyle(StageStyle.UNDECORATED);
+
+            PauseTransition delay = new PauseTransition(Duration.seconds(1));
+            delay.setOnFinished(event -> {
+                stage.close();
+                enc_Obj.Enc_root.setDisable(false);
+                if(isEncrypted){
+                    JOptionPane.showMessageDialog(null, "Files Encrypted Succesfully",
+                            "INFORMATION",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            });
+
+            delay.play();
+            stage.show();
+
+        }
 
 // ************************************************ END CODE ***************************************************//
-
-    }
-
-    public void showPGBAR(){
-        EncryptApp enc_Obj = new EncryptApp();
-        enc_Obj.Enc_root.setDisable(true);
-
-        BorderPane root = new BorderPane();
-        new FadeIn(root).play();
-
-
-        ProgressIndicator pi = new ProgressIndicator(0.30);
-        pi.setProgress(-1);
-        root.setCenter(pi);
-
-        stage = new Stage();
-        stage.setScene(new Scene(root));
-
-        new BounceIn(root).play();
-
-        stage.initStyle(StageStyle.UNDECORATED);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> {
-            stage.close();
-            enc_Obj.Enc_root.setDisable(false);
-            JOptionPane.showMessageDialog(null, "Files Encrypted Succesfully",
-                    "INFORMATION",
-                    JOptionPane.INFORMATION_MESSAGE);
-        });
-
-        delay.play();
-        stage.show();
-
-    }
-
 
 }
 

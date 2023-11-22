@@ -19,6 +19,7 @@ public class LogOutApp extends Application {
     public Parent mainRoot;
     public Scene mainScene;
     public static Stage mainStage;
+    public static Image icon = new Image(LogOutApp.class.getResourceAsStream("Images/logo.png"));
     @Override
     public void start(Stage mainStage) throws IOException {
         try{
@@ -29,7 +30,8 @@ public class LogOutApp extends Application {
             mainStage.setScene(mainScene);
 
             mainStage.setTitle("Secure Vault");
-            mainStage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//            mainStage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            mainStage.getIcons().add(icon);
             mainStage.setResizable(false);
 
             mainStage.show();

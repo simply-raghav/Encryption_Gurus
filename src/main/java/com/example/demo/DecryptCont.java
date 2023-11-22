@@ -251,25 +251,21 @@ private Scene scene;
         }
 
 
-        public void encryptFiles(){
+        public void decryptFiles(){
             String key = passwordField.getText();
-        for(var file : selectedFiles){
-            EncryptAlgo obj = new EncryptAlgo(file);
-            obj.print();
-//            System.out.println(file.getAbsolutePath() + "-> " + key);
-//            obj.encryptFile(file.getAbsolutePath(), key);
-            obj.decryptFile(file, key);
+            DecryptApp  dec_Obj = new DecryptApp();
+            dec_Obj.DEC_root.setDisable(false);
 
-        }
+            for(var file : selectedFiles){
+                EncryptAlgo obj = new EncryptAlgo(file);
+                obj.print();
+                obj.decryptFile(file, key);
 
+            }
 
             selectedFiles.clear();
+            dec_Obj.DEC_root.setDisable(true);
             select_Button.setStyle("");
-
-//            for(String tempPath : selectedFiles){
-//                System.out.println(tempPath + ": " + key);
-//            }
-
         }
 
 }

@@ -1,6 +1,8 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -17,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
@@ -31,10 +34,11 @@ import java.util.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class EncryptCont implements Initializable {
 
-    // Variable for table View
     @FXML
     private TableColumn<Data, Data> delete_Button;
     @FXML
@@ -58,7 +62,25 @@ public class EncryptCont implements Initializable {
     @FXML
     private TextField textField = new TextField();
 
-    // Switch to History Scene
+    public void menuHandler(ActionEvent event){
+        try{
+            List<String> selecetedMenu = new ArrayList<>();
+            MenuItem selectedItem = (MenuItem) event.getSource();
+            while(selectedItem.getParentMenu() != null){
+                selecetedMenu.add(selectedItem.getText());
+                selectedItem = selectedItem.getParentMenu();
+            }
+
+            for(var str : selecetedMenu){
+                System.out.println(str);
+            }
+        }catch (Exception e){
+            System.out.println(e.toString());
+        }
+
+    }
+
+
     public void historyScene(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
         Parent root = (Parent) loader.load();
@@ -68,31 +90,66 @@ public class EncryptCont implements Initializable {
 
         System.out.println("HISTORY");
     }
+
+
     @FXML
+    private Button hide_Button;
     public void togglePassword(ActionEvent event) throws Exception {
         if (passwordField.isManaged()) {
             passwordField.setManaged(false);
             passwordField.setVisible(false);
             String password = passwordField.getText();
             textField.setText(password);
-//            imageView.setImage(eyeImage);
+            hide_Button.setText("Hide");
         } else {
             passwordField.setVisible(true);
             passwordField.setManaged(true);
             textField.setText("");
+            hide_Button.setText("Show");
         }
     }
 
+    private Parent root;
     private Stage stage;
     private Scene scene;
 
     public void homeScene(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+        root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
         stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root);
+        scene = new Scene(root);
         stage.setScene(scene);
-        new BounceIn(root).play();
+        new FadeIn(root).play();
         stage.show();
+    }
+
+    public void decryptScene(ActionEvent event){
+        try{
+            root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new FadeIn(root).play();
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Decrypt");
+            System.out.println(e.toString());
+        }
+    }
+
+    public void logoutScene(ActionEvent event){
+        try{
+            root = FXMLLoader.load(getClass().getResource("logout.fxml"));
+            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            new FadeIn(root).play();
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Decrypt");
+            System.out.println(e.toString());
+        }
+
+        System.out.println("LOGOUT");
     }
 
 
@@ -109,8 +166,6 @@ try {
     name.setResizable(false);
     path.setCellValueFactory(new PropertyValueFactory<Data, String>("path"));       // The name in "" must be same as Data class attribute's  name
     path.setResizable(false);
-
-    // For Tooltip
 
     name.setCellFactory(
             column -> {
@@ -247,47 +302,71 @@ catch(Exception e){
         event.setDropCompleted(true);
         event.consume();
     }
-    public <obj> void encryptFiles() throws Exception{
+    public void encryptFiles() throws Exception{
         String key = passwordField.getText();
-        for(var file : historyItems){
+        for(var file : historyItems) {
             EncryptAlgo obj = new EncryptAlgo(file.getPath());
             obj.print();
-
-            //From here i get the path and file name to save it in the database
-            Saving_history_path data_path=new Saving_history_path();
-
-            //String filepath,String type,String algorithm,String file_name,String key
-            String type="Encryption";
-            //Bring here which algorithm you are selecting
-            String algorithm="";
-            //
-            data_path.path_sending(file.getPath(),type,algorithm, file.getName(), key);
-
-            System.out.println(file.getPath() + "-> " + file.getName() + "-> " + key);
+            System.out.println(file + "-> " + key);
             obj.encryptFile(file.getPath(), key);
 //            int idx = historyList.getSelectionModel().getSelectedIndex();
             historyList.getItems().add("    " + file.getName() + "      " + file.getPath());
             table.getItems().removeAll(file);
+
+
         }
 
-        // Try to add date feature in history table
 
-//        historyList.setCellFactory(param -> new ListCell<String>() {
-//            @Override
-//            protected void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if (empty || item == null) {
-//                    setText(null);
-//                } else {
-//                    // Display Sno along with the item
-//                    int index = getIndex() + 1; // Adding 1 to make it one-based
-//                    long timestamp = System.currentTimeMillis();
-//                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                    String formattedDate = dateFormat.format(new Date(timestamp));
-//                    setText(index + ". |  " + formattedDate + "  |  " +  item);
-//                }
-//            }
-//        });
+            BorderPane root = new BorderPane();
+            new FadeIn(root).play();
+
+
+            ProgressIndicator pi = new ProgressIndicator(0.30);
+            pi.setProgress(-1);
+            root.setCenter(pi);
+
+        stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        new BounceIn(root).play();
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished( event -> {
+            stage.close();
+            EncryptApp enc_Obj = new EncryptApp();
+            enc_Obj.Enc_root.setDisable(true);
+        } );
+
+        delay.play();
+
+
+        stage.show();
+
+
+
+
+
+
+
+
+
+        historyList.setCellFactory(param -> new ListCell<String>() {
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item == null) {
+                    setText(null);
+                } else {
+                    // Display Sno along with the item
+                    int index = getIndex() + 1; // Adding 1 to make it one-based
+                    long timestamp = System.currentTimeMillis();
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                    String formattedDate = dateFormat.format(new Date(timestamp));
+                    setText(index + ". |  " + formattedDate + "  |  " +  item);
+                }
+            }
+        });
 
 //        historyList.setItems(historyItems);
 
@@ -321,5 +400,10 @@ catch(Exception e){
 
     @FXML
     private MenuButton sortMenuButton;
+
+
+
+
+
 
 }

@@ -16,51 +16,52 @@ import java.io.IOException;
 
 public class LogOutApp extends Application {
 
-    @FXML
-    private Button powerButton;
-
+    public Parent mainRoot;
+    public Scene mainScene;
+    public static Stage mainStage;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage mainStage) throws IOException {
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("logout.fxml"));
-            Scene scene = new Scene(root);
-            new BounceIn(root).play();
-            stage.setScene(scene);
+            this.mainStage = mainStage;
+            mainRoot = FXMLLoader.load(getClass().getResource("logout.fxml"));
+            mainScene = new Scene(mainRoot);
+            new BounceIn(mainRoot).play();
+            mainStage.setScene(mainScene);
 
-            stage.setTitle("Secure Vault");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
-            stage.setResizable(false);
+            mainStage.setTitle("Secure Vault");
+            mainStage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            mainStage.setResizable(false);
 
-            stage.show();
+            mainStage.show();
+
         }catch (Exception e){
             System.out.println(e.toString());
         }
 
-
     }
 
-    @FXML
     private Parent root;
     private Stage stage;
-    private Scene scene;
 
     public void openLogin(ActionEvent event){
         try{
-            root = FXMLLoader.load(getClass().getResource("login.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            root = (Parent) loader.load();
+            stage = new Stage();
+            stage.setScene(new Scene(root));
+
             new BounceIn(root).play();
             stage.show();
         }catch(Exception e){
-            System.out.println("Decrypt");
             System.out.println(e.toString());
         }
 
         System.out.println("Login");
     }
 
-    public static void main(String[] args) {
-        launch();
-    }
+//    public static void main(String[] args) {
+//        launch();
+//    }
 }

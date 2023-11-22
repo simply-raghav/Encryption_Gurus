@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +23,7 @@ public class HomePageCont {
            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
            scene = new Scene(root);
            stage.setScene(scene);
-           new BounceIn(root).play();
+           new FadeIn(root).play();
            stage.show();
        }catch(Exception e){
            System.out.println("Encrypt");
@@ -37,7 +38,7 @@ public class HomePageCont {
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
             stage.setScene(scene);
-            new BounceIn(root).play();
+            new FadeIn(root).play();
             stage.show();
         }catch (Exception e){
             System.out.println("Decrypt");

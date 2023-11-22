@@ -18,6 +18,10 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginApp extends Application {
+
+
+
+
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
         Scene scene = new Scene(root);
@@ -49,15 +53,11 @@ public class LoginApp extends Application {
         String usrName = usernameField.getText();
         String pwd = passwordField.getText();
 
-            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
-            str.checkdata(event);
-
-        System.out.println(usernameField.getText());
-        System.out.println(passwordField.getText());
 
         if(usrName.isEmpty()){
             usernameLoginLabel.setVisible(true);
             usernameField.setText("");
+            usrFlag = false;
         }else{
             usrFlag = true;
             usernameLoginLabel.setVisible(false);
@@ -65,9 +65,25 @@ public class LoginApp extends Application {
         if(pwd.isEmpty()){
             passwordLoginLabel.setVisible(true);
             passwordField.setText("");
+            pwdFlag = false;
         }else{
             pwdFlag = true;
             passwordLoginLabel.setVisible(false);
+        }
+
+        if(usrFlag && pwdFlag){
+            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
+            str.checkdata(event);
+
+            System.out.println(usernameField.getText());
+            System.out.println(passwordField.getText());
+
+            LogOutApp obj = new LogOutApp();
+            obj.mainStage.close();
+////            ActionEvent event = new ActionEvent();
+//            obj.closeMainStage(event);
+//            LogOutApp.getInstance().closeMainStage(event);
+//            new LogOutApp().closeMainStage(event);
         }
 
     }

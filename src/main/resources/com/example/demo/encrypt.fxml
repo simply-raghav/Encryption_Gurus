@@ -222,5 +222,14 @@
             </ImageView>
          </graphic>
       </Button>
+      <Button fx:id="progressButton" contentDisplay="GRAPHIC_ONLY" layoutX="483.0" layoutY="285.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: F4F4F4;" visible="false">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/PG_gif.gif" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>

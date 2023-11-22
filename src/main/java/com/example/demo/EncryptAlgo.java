@@ -46,6 +46,8 @@ public class EncryptAlgo {
             String key = reader.readLine();
 
 
+
+
             // Encrypt the file
             System.out.println("Encrypt : 1\nDecrypt : 2");
             int a=sc.nextInt();

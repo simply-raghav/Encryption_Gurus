@@ -23,7 +23,7 @@
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="543.0" layoutX="273.0" layoutY="-2.0" stroke="#ff6a41" strokeType="INSIDE" width="61.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
       <Polygon fill="#bec0c1" layoutX="859.0" layoutY="497.0" points="-325.4000244140625, 40.0, 53.99993896484375, 40.0, 53.99993896484375, -417.0" stroke="#bec0c1" strokeType="INSIDE" />
-      <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="522.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
+      <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="535.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
         <columns>
           <TableColumn fx:id="sno" prefWidth="40.79998779296875" style="-fx-alignment: CENTER;" text="S.No." />
             <TableColumn fx:id="name" prefWidth="111.20001220703125" style="-fx-alignment: CENTER;" text="Name" />
@@ -55,7 +55,7 @@
                <graphic>
                   <ImageView fitHeight="70.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@home_Icon_WhiteBack.png" />
+                        <Image url="@Images/home_Icon_WhiteBack.png" />
                      </image>
                   </ImageView>
                </graphic>
@@ -63,7 +63,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </Button>
-             <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="61.0" layoutY="314.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+             <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="257.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
                  <font>
                      <Font name="Bauhaus 93" size="17.0" />
                  </font>
@@ -71,15 +71,30 @@
                      <Cursor fx:constant="HAND" />
                  </cursor>
                  <graphic>
-                     <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <ImageView fitHeight="54.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
                          <image>
-                             <Image url="@his6.png" />
+                             <Image url="@Images/his6.png" />
                          </image>
                      </ImageView>
                  </graphic>
              </Button>
+            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="397.0" mnemonicParsing="false" onAction="#decryptScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="DECRYPT" textFill="#ff6a41">
+               <font>
+                  <Font name="Bauhaus 93" size="17.0" />
+               </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/encrypt.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children></Pane>
-      <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="230.0">
+      <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="284.0">
          <children>
             <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;">
                <cursor>
@@ -93,20 +108,14 @@
                <font>
                   <Font name="Bauhaus 93" size="18.0" />
                </font></Label>
-            <Button fx:id="hide_Button" layoutX="190.0" layoutY="53.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="24.0" prefWidth="35.0" style="-fx-background-radius: 10;">
+            <Button fx:id="hide_Button" layoutX="236.0" layoutY="53.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="25.0" prefWidth="48.0" style="-fx-background-radius: 5; -fx-background-color: ff6a41;" text="Show" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
-               <graphic>
-                  <ImageView fx:id="imageView" fitHeight="16.0" fitWidth="19.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Eye_Slash.png" />
-                     </image>
-                     <cursor>
-                        <Cursor fx:constant="HAND" />
-                     </cursor>
-                  </ImageView>
-               </graphic></Button>
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Button>
          </children>
       </Pane>
       <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
@@ -114,7 +123,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </MenuBar>
-      <MenuButton layoutX="288.0" layoutY="302.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="147.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="MenuButton" textAlignment="CENTER" textFill="#ff6a41">
+      <MenuButton layoutX="288.0" layoutY="302.0" mnemonicParsing="false" onAction="#menuHandler" prefHeight="40.0" prefWidth="147.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Algorithms" textAlignment="CENTER" textFill="#ff6a41">
         <items>
                   <Menu text="Select Method">
 
@@ -123,31 +132,31 @@
                               <items>
                                   <Menu text="CBC">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                                   <Menu text="ECB">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                               </items>
                           </Menu>
 
-                          <Menu text="DFS">
+                          <Menu text="DES">
                               <items>
                                   <Menu text="CBC">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                                   <Menu text="ECB">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                               </items>
@@ -158,14 +167,14 @@
                               <items>
                                   <Menu text="CBC">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                                   <Menu text="ECB">
                                       <items>
-                                          <MenuItem text="NoPadding" />
-                                          <MenuItem text="PKCS5Padding" />
+                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
                                       </items>
                                   </Menu>
                               </items>
@@ -173,9 +182,9 @@
 
                           <Menu text="RFS">
                               <items>
-                                  <MenuItem text="PKCS1" />
-                                  <MenuItem text="OKEP-1" />
-                                  <MenuItem text="OKEP-2" />
+                                  <MenuItem onAction="#menuHandler" text="PKCS1" />
+                                  <MenuItem onAction="#menuHandler" text="OKEP-1" />
+                                  <MenuItem onAction="#menuHandler" text="OKEP-2" />
                               </items>
                           </Menu>
 
@@ -184,7 +193,7 @@
                   </Menu>
         </items>
          <font>
-            <Font name="Bauhaus 93" size="17.0" />
+            <Font name="Bauhaus 93" size="18.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -197,6 +206,21 @@
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="857.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutScene" prefHeight="64.0" prefWidth="42.0" style="-fx-background-radius: 100; -fx-background-color: F4F4F4;" textFill="#ff6a41">
+         <font>
+            <Font name="Bauhaus 93" size="17.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/pwr5.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
    </children>
 </AnchorPane>

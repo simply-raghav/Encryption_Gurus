@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import javax.mail.MessagingException;
@@ -26,11 +28,12 @@ public class RegisterApp extends Application{
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("register.fxml"));
         Scene scene = new Scene(root);
-        stage.setTitle("Hello!");
+        new FadeIn(root).play();
 
-//        new FadeIn(root).play();
-        new BounceIn(root).play();
-        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.setTitle("Secure Vault");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.setResizable(false);
+
         stage.setScene(scene);
         stage.show();
 
@@ -40,7 +43,7 @@ public class RegisterApp extends Application{
     @FXML
     private PasswordField newPasswordField;
     @FXML
-    private TextField usernameField;
+    private TextField OTPField;
     @FXML
     private TextField emailField;
     @FXML
@@ -52,23 +55,10 @@ public class RegisterApp extends Application{
     private Scene scene;
     private String otp_String_sender;
 
-
-    private static final String EMAIL_REGEX =
-            "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$";
-
-    private static final Pattern pattern = Pattern.compile(EMAIL_REGEX);
     public void openLoginScene(ActionEvent event) throws Exception{
-        boolean emailFlag = false, passFlag = false;
+        boolean passFlag = false;
 
-        String newEmail = emailField.getText();
-        if(!pattern.matcher(newEmail).matches()){
-            emailField.setText("");
-            emailValidateLabel.setVisible(true);
-            emailFlag = false;
-        }else{
-            emailValidateLabel.setVisible(false);
-            emailFlag = true;
-        }
+
         if(newPasswordField.getText().length() <= 8){
             passwordValidateLabel.setVisible(true);
             passFlag = false;
@@ -78,41 +68,24 @@ public class RegisterApp extends Application{
             passFlag = true;
         }
 
-        if(emailFlag  && passFlag){
+        if(passFlag){
 
             // from here im getting the name email and password
             // one is for otp and one for the new password
-            String otp=usernameField.getText();
+            String otp=OTPField.getText();
             String newpassword=newPasswordField.getText();
 
 
-//            //Isse durr rahe danger for the email purpose
-//
-//            int min=1000;
-//            int max=10000;
-//
-//            double otpsender=Math.random()*(max-min+1)+min;
-//            int realotp=(int)otpsender;
-//
-//            // What is your OTP
-//            System.out.println(realotp);
-//
-//            String otp_String_sender= Integer.toString(realotp);
-//            // calling constructor of Email
-//            Email mail=new Email();
-//            mail.setupServerProperties();
-//            mail.draftEmail(otp_String_sender);
-//            mail.sendEmail();
 
-
-            System.out.println(usernameField.getText()); //this is our opt for now
-            System.out.println(emailField.getText());
+            System.out.println(OTPField.getText()); //this is our opt for now
+//            System.out.println(emailField.getText());
             System.out.println(newPasswordField.getText());
 
             //calling a constructor of change_password
             if(otp_String_sender.equals(otp)){
                 change_password chg=new change_password();
                 chg.changePassword(newpassword);
+                System.out.println("Successfully password Changed");
             }else{
                 JOptionPane.showMessageDialog(null,"Incorrect OTP...");
             }

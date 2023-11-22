@@ -15,13 +15,13 @@ public class HomePageApp extends Application {
        try{
            Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
            Scene scene = new Scene(root);
-
-
-           stage.setTitle("Secure Vault");
-//        Image icon = new Image("img1.png");
-//        stage.getIcons().add(icon);
            stage.setScene(scene);
            new BounceIn(root).play();
+
+           stage.setTitle("Secure Vault");
+           stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+           stage.setResizable(false);
+
            stage.show();
        }catch (Exception e){
            System.out.println("HomePAge Error");

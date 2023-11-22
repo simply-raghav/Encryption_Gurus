@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.FadeIn;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -28,10 +30,14 @@ public class HistoryApp extends Application implements Initializable {
         try{
             Parent root = FXMLLoader.load(getClass().getResource("history.fxml"));
             Scene scene = new Scene(root);
-            stage.setTitle("History!");
-            new BounceIn(root).play();
-            stage.resizableProperty().setValue(Boolean.FALSE);
+            new FadeIn(root).play();
+
             stage.setScene(scene);
+
+            stage.setTitle("Secure Vault");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            stage.setResizable(false);
+
             stage.show();
         }catch (Exception e){
             System.out.println(e.toString());

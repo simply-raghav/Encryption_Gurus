@@ -11,7 +11,7 @@
     <children>
         <ImageView fitHeight="514.0" fitWidth="938.0" layoutY="-7.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@homePage3.png" />
+                <Image url="@Images/homePage3.png" />
             </image>
         </ImageView>
       <Button fx:id="encryptButton" layoutX="415.0" layoutY="360.0" mnemonicParsing="false" onAction="#Encrypt" prefHeight="81.0" prefWidth="238.0" style="-fx-background-radius: 50; -fx-background-color: FFFFFF;" text="ENCRYPT" textFill="#ff6a41">

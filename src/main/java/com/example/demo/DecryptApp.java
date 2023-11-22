@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -16,11 +17,15 @@ public class DecryptApp extends Application {
             Parent root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
             Scene scene = new Scene(root);
             stage.setTitle("Hello!");
+            new FadeIn(root).play();
 
-//        new FadeIn(root).play();
-            new BounceIn(root).play();
 
             stage.setScene(scene);
+            stage.setTitle("Secure Vault");
+            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            stage.setResizable(false);
+
+
             stage.show();
         }catch (Exception e){
             System.out.println("Error in APp");

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import animatefx.animation.BounceIn;
 import animatefx.animation.FadeIn;
+import javafx.animation.PauseTransition;
 import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldListCell;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
@@ -32,6 +34,8 @@ import java.util.*;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
+import javafx.stage.StageStyle;
+import javafx.util.Duration;
 
 public class EncryptCont implements Initializable {
 
@@ -77,8 +81,6 @@ public class EncryptCont implements Initializable {
     }
 
 
-
-
     public void historyScene(ActionEvent event) throws Exception{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
         Parent root = (Parent) loader.load();
@@ -88,6 +90,8 @@ public class EncryptCont implements Initializable {
 
         System.out.println("HISTORY");
     }
+
+
     @FXML
     private Button hide_Button;
     public void togglePassword(ActionEvent event) throws Exception {
@@ -154,7 +158,6 @@ public class EncryptCont implements Initializable {
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-//        table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 try {
 
     sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(table.getItems().indexOf(cellData.getValue()) + 1).asObject());
@@ -299,9 +302,9 @@ catch(Exception e){
         event.setDropCompleted(true);
         event.consume();
     }
-    public <obj> void encryptFiles() throws Exception{
+    public void encryptFiles() throws Exception{
         String key = passwordField.getText();
-        for(var file : historyItems){
+        for(var file : historyItems) {
             EncryptAlgo obj = new EncryptAlgo(file.getPath());
             obj.print();
             System.out.println(file + "-> " + key);
@@ -309,7 +312,44 @@ catch(Exception e){
 //            int idx = historyList.getSelectionModel().getSelectedIndex();
             historyList.getItems().add("    " + file.getName() + "      " + file.getPath());
             table.getItems().removeAll(file);
+
+
         }
+
+
+            BorderPane root = new BorderPane();
+            new FadeIn(root).play();
+
+
+            ProgressIndicator pi = new ProgressIndicator(0.30);
+            pi.setProgress(-1);
+            root.setCenter(pi);
+
+        stage = new Stage();
+        stage.setScene(new Scene(root));
+
+        new BounceIn(root).play();
+
+        stage.initStyle(StageStyle.UNDECORATED);
+        PauseTransition delay = new PauseTransition(Duration.seconds(1));
+        delay.setOnFinished( event -> {
+            stage.close();
+            EncryptApp enc_Obj = new EncryptApp();
+            enc_Obj.Enc_root.setDisable(true);
+        } );
+
+        delay.play();
+
+
+        stage.show();
+
+
+
+
+
+
+
+
 
         historyList.setCellFactory(param -> new ListCell<String>() {
             @Override

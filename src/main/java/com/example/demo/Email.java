@@ -33,7 +33,7 @@ import java.util.Random;
 
         MimeMessage draftEmail(String realotp) throws AddressException, MessagingException, UnsupportedEncodingException {
             String[] emailRecepients={"rishirajpatel173@gmail.com","abhishek.2022ca006@mnnit.ac.in","raghav.2022ca072@mnnit.ac.in"};
-            String email_subject="Alert Alert Alert.....Its for Trial Purpose";
+            String email_subject="Your OTP for Verification...";
 
 //            int min=1000;
 //            int max=10000;

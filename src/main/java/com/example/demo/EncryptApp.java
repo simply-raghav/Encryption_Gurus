@@ -17,11 +17,12 @@ import java.io.IOException;
 
 public class EncryptApp extends Application {
 
+    public static Parent Enc_root;
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("encrypt.fxml"));
-        Scene scene = new Scene(root);
-        new FadeIn(root).play();
+        Enc_root = FXMLLoader.load(getClass().getResource("encrypt.fxml"));
+        Scene scene = new Scene(Enc_root);
+        new FadeIn(Enc_root).play();
         stage.setScene(scene);
 
 

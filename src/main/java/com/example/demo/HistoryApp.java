@@ -84,6 +84,8 @@ public class HistoryApp extends Application implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+
+        //from here i have to put the files path and name of it.
         encryptHistoryList.addAll(
                 new Data("en_path1", "en_file1"),
                 new Data("en_path2", "en_file2"),

@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
@@ -16,14 +18,14 @@
             <Font name="Bauhaus 93" size="56.0" />
         </font>
     </Label>
-        <Pane layoutX="96.0" layoutY="88.0" prefHeight="247.0" prefWidth="423.0" style="-fx-background-color: #AEB0B1; -fx-background-radius: 10;">
+        <Pane layoutX="66.0" layoutY="88.0" prefHeight="247.0" prefWidth="486.0" style="-fx-background-color: #AEB0B1; -fx-background-radius: 10;">
             <children>
-                <TextField fx:id="OTPField" layoutX="206.0" layoutY="45.0" prefHeight="25.0" prefWidth="196.0" promptText="Enter OTP" style="-fx-background-radius: 5;">
+                <TextField fx:id="OTPField" layoutX="206.0" layoutY="45.0" prefHeight="38.0" prefWidth="196.0" promptText="Enter OTP" style="-fx-background-radius: 5;">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </TextField>
-                <Button fx:id="loginButton" layoutX="134.0" layoutY="181.0" mnemonicParsing="false" onAction="#openLoginScene" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="LOGIN" textFill="WHITE" underline="true">
+                <Button fx:id="loginButton" layoutX="28.0" layoutY="180.0" mnemonicParsing="false" onAction="#openLoginSceneAfterSubmit" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="SUBMIT" textFill="WHITE" underline="true">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
@@ -31,34 +33,76 @@
                         <Font name="Bauhaus 93" size="17.0" />
                     </font>
                 </Button>
-                <Label alignment="CENTER" layoutX="28.0" layoutY="45.0" prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;" text="OTP" textFill="#ff6a41">
+                <Label alignment="CENTER" layoutX="28.0" layoutY="45.0" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;" text="OTP" textFill="#ff6a41">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
-                <PasswordField fx:id="newPasswordField" layoutX="206.0" layoutY="116.0" prefHeight="25.0" prefWidth="196.0" promptText="Set New Password" style="-fx-background-radius: 5;">
+            <TextField fx:id="textField" layoutX="206.0" layoutY="112.0" prefHeight="38.0" prefWidth="196.0" style="-fx-background-radius: 5;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </TextField>
+                <PasswordField fx:id="newPasswordField" layoutX="206.0" layoutY="113.0" prefHeight="38.0" prefWidth="196.0" promptText="Set New Password" style="-fx-background-radius: 5;">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
                 </PasswordField>
-                <Label alignment="CENTER" layoutX="28.0" layoutY="111.0" prefHeight="25.0" prefWidth="128.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;" text="New Password" textFill="#ff6a41">
+                <Label alignment="CENTER" layoutX="28.0" layoutY="116.0" prefHeight="38.0" prefWidth="128.0" style="-fx-background-color: #FFFFFF; -fx-background-radius: 5;" text="New Password" textFill="#ff6a41">
                     <font>
                         <Font name="Bauhaus 93" size="20.0" />
                     </font>
                 </Label>
-            <Label fx:id="emailValidateLabel" layoutX="218.0" layoutY="90.0" prefHeight="17.0" prefWidth="188.0" text="Please Enter Valid Email address" textFill="#ff6a41" visible="false">
+            <Label fx:id="OTPValidateLabel" alignment="CENTER_RIGHT" layoutX="210.0" layoutY="83.0" prefHeight="17.0" prefWidth="188.0" text="Please Enter Valid OTP" textFill="#ff6a41" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="passwordValidateLabel" layoutX="176.0" layoutY="141.0" prefHeight="17.0" prefWidth="234.0" text="Password Length must be greater than 8 " textFill="#ff6a41" visible="false">
+            <Label fx:id="passwordValidateLabel" layoutX="168.0" layoutY="151.0" prefHeight="17.0" prefWidth="234.0" text="Password Length must be greater than 8 " textFill="#ff6a41" visible="false">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
             </Label>
-            <Button layoutX="278.0" layoutY="188.0" mnemonicParsing="false" onAction="#sendOTP" text="Send OTP" />
+            <Button fx:id="loginButton1" layoutX="353.0" layoutY="187.0" mnemonicParsing="false" onAction="#sendOTP" prefHeight="38.0" prefWidth="114.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="Resend OTP" textFill="WHITE" underline="true">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <font>
+                  <Font name="Bauhaus 93" size="17.0" />
+               </font>
+            </Button>
+            <Button fx:id="hide_Button" alignment="CENTER" cache="true" contentDisplay="GRAPHIC_ONLY" graphicTextGap="2.0" layoutX="410.0" layoutY="109.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="25.0" prefWidth="56.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 100;">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+               <graphic>
+                  <ImageView fx:id="hideButtonImage" fitHeight="33.0" fitWidth="31.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Images/eyeHide.png" />
+                     </image>
+                     <cursor>
+                        <Cursor fx:constant="DEFAULT" />
+                     </cursor>
+                  </ImageView>
+               </graphic>
+            </Button>
             </children>
         </Pane>
+      <Button contentDisplay="GRAPHIC_ONLY" layoutX="7.0" layoutY="8.0" mnemonicParsing="false" onAction="#openLoginSceneBeforeSubmit" prefHeight="58.0" prefWidth="62.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 100;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/backIcon5.png" />
+               </image>
+               <cursor>
+                  <Cursor fx:constant="DEFAULT" />
+               </cursor>
+            </ImageView>
+         </graphic>
+      </Button>
     </children>
 
 </AnchorPane>

@@ -2,6 +2,7 @@ package com.example.demo;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import javax.swing.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -113,7 +114,8 @@ public class EncryptAlgo {
 
                 return filePath;
             } catch (Exception e) {
-                e.printStackTrace();
+                System.out.println(e.toString());
+                JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return null;
             }
         }

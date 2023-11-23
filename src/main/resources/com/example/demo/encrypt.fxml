@@ -20,207 +20,236 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="913.0" style="-fx-border-color: #ff6a41; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EncryptCont">
-   <children>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="543.0" layoutX="273.0" layoutY="-2.0" stroke="#ff6a41" strokeType="INSIDE" width="61.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
-      <Polygon fill="#bec0c1" layoutX="859.0" layoutY="497.0" points="-325.4000244140625, 40.0, 53.99993896484375, 40.0, 53.99993896484375, -417.0" stroke="#bec0c1" strokeType="INSIDE" />
-      <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="535.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
-        <columns>
-          <TableColumn fx:id="sno" prefWidth="40.79998779296875" style="-fx-alignment: CENTER;" text="S.No." />
-            <TableColumn fx:id="name" prefWidth="111.20001220703125" style="-fx-alignment: CENTER;" text="Name" />
-          <TableColumn fx:id="path" editable="false" prefWidth="198.39999389648438" text="Path" />
-            <TableColumn fx:id="select_Button" minWidth="0.0" prefWidth="85.60003662109375" style="-fx-alignment: CENTER;" text="Select" />
-            <TableColumn fx:id="delete_Button" minWidth="0.0" prefWidth="85.5999755859375" style="-fx-alignment: CENTER;" text="Delete" />
-        </columns>
-      </TableView>
-      <Button fx:id="addFileButton" alignment="CENTER" layoutX="718.0" layoutY="303.0" mnemonicParsing="false" onAction="#addElement" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Add File" textFill="#ff6a41">
-         <font>
-            <Font name="Bauhaus 93" size="17.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Pane fx:id="Pane1" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="554.0" prefWidth="245.0" style="-fx-background-color: F46036; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <TextField alignment="CENTER" layoutX="47.0" layoutY="24.0" prefHeight="48.0" prefWidth="246.0" style="-fx-background-radius: 10;" />
-            <Label contentDisplay="CENTER" layoutX="93.0" layoutY="30.0" prefHeight="40.0" prefWidth="170.0" text="Encryption" textFill="#ff6a41">
-               <font>
-                  <Font name="Bauhaus 93" size="34.0" />
-               </font>
-            </Label>
-            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="57.0" layoutY="97.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="117.0" prefWidth="122.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
-               <font>
-                  <Font name="Bauhaus 93" size="17.0" />
-               </font>
+    <children>
+        <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="543.0" layoutX="273.0" layoutY="-2.0" stroke="#ff6a41" strokeType="INSIDE" width="61.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <Polygon fill="#bec0c1" layoutX="859.0" layoutY="497.0" points="-325.4000244140625, 40.0, 53.99993896484375, 40.0, 53.99993896484375, -417.0" stroke="#bec0c1" strokeType="INSIDE" />
+        <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="535.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
+            <columns>
+                <TableColumn fx:id="sno" prefWidth="40.79998779296875" style="-fx-alignment: CENTER;" text="S.No." />
+                <TableColumn fx:id="name" prefWidth="111.20001220703125" style="-fx-alignment: CENTER;" text="Name" />
+                <TableColumn fx:id="path" editable="false" prefWidth="198.39999389648438" text="Path" />
+                <TableColumn fx:id="select_Button" minWidth="0.0" prefWidth="85.60003662109375" style="-fx-alignment: CENTER;" text="Select" />
+                <TableColumn fx:id="delete_Button" minWidth="0.0" prefWidth="85.5999755859375" style="-fx-alignment: CENTER;" text="Delete" />
+            </columns>
+        </TableView>
+        <Button fx:id="addFileButton" alignment="CENTER" layoutX="718.0" layoutY="303.0" mnemonicParsing="false" onAction="#addElement" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Add File" textFill="#ff6a41">
+            <font>
+                <Font name="Bauhaus 93" size="17.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Pane fx:id="Pane1" layoutY="1.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="554.0" prefWidth="245.0" style="-fx-background-color: F46036; -fx-background-radius: 0 20 20 0;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <TextField alignment="CENTER" layoutX="47.0" layoutY="24.0" prefHeight="48.0" prefWidth="246.0" style="-fx-background-radius: 10;" />
+                <Label contentDisplay="CENTER" layoutX="93.0" layoutY="30.0" prefHeight="40.0" prefWidth="170.0" text="Encryption" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="34.0" />
+                    </font>
+                </Label>
+                <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" layoutX="63.0" layoutY="100.0" mnemonicParsing="false" onAction="#homeScene" prefHeight="106.0" prefWidth="111.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HOME" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="17.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fitHeight="64.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/home_Icon_WhiteBack.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="245.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="17.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <graphic>
+                        <ImageView fitHeight="49.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/his6.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+                <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="397.0" mnemonicParsing="false" onAction="#decryptScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="DECRYPT" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="17.0" />
+                    </font>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <graphic>
+                        <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/encrypt.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </Button>
+            </children></Pane>
+        <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="317.0">
+            <children>
+                <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="40.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></TextField>
+                <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="40.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor></PasswordField>
+                <Label contentDisplay="BOTTOM" layoutX="37.0" layoutY="27.0" prefHeight="20.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" text="Enter Your Key" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="18.0" />
+                    </font></Label>
+                <Button fx:id="hide_Button" contentDisplay="GRAPHIC_ONLY" layoutX="238.0" layoutY="49.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="25.0" prefWidth="54.0" style="-fx-background-radius: 100; -fx-background-color: ff6a41;" textFill="WHITE">
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
                <graphic>
-                  <ImageView fitHeight="70.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fx:id="hideButtonImage" fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Images/home_Icon_WhiteBack.png" />
+                        <Image url="@Images/eyeHide.png" />
                      </image>
+                     <cursor>
+                        <Cursor fx:constant="HAND" />
+                     </cursor>
                   </ImageView>
                </graphic>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-             <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="257.0" mnemonicParsing="false" onAction="#historyScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="HISTORY" textFill="#ff6a41">
-                 <font>
-                     <Font name="Bauhaus 93" size="17.0" />
-                 </font>
-                 <cursor>
-                     <Cursor fx:constant="HAND" />
-                 </cursor>
-                 <graphic>
-                     <ImageView fitHeight="54.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                         <image>
-                             <Image url="@Images/his6.png" />
-                         </image>
-                     </ImageView>
-                 </graphic>
-             </Button>
-            <Button alignment="BOTTOM_CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="66.0" layoutY="397.0" mnemonicParsing="false" onAction="#decryptScene" prefHeight="106.0" prefWidth="105.0" style="-fx-background-radius: 100; -fx-background-color: FFFFFF;" text="DECRYPT" textFill="#ff6a41">
-               <font>
-                  <Font name="Bauhaus 93" size="17.0" />
-               </font>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <graphic>
-                  <ImageView fitHeight="60.0" fitWidth="63.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@Images/encrypt.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-         </children></Pane>
-      <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="284.0">
-         <children>
-            <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></TextField>
-            <PasswordField fx:id="passwordField" layoutX="37.0" layoutY="48.0" prefHeight="24.0" prefWidth="194.0" promptText="Enter Key" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor></PasswordField>
-            <Label contentDisplay="BOTTOM" layoutX="37.0" layoutY="27.0" prefHeight="20.0" prefWidth="194.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" text="Enter Your Key" textFill="#ff6a41">
-               <font>
-                  <Font name="Bauhaus 93" size="18.0" />
-               </font></Label>
-            <Button fx:id="hide_Button" layoutX="236.0" layoutY="53.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="25.0" prefWidth="48.0" style="-fx-background-radius: 5; -fx-background-color: ff6a41;" text="Show" textFill="WHITE">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-      <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuBar>
-      <MenuButton layoutX="288.0" layoutY="302.0" mnemonicParsing="false" onAction="#menuHandler" prefHeight="40.0" prefWidth="147.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Algorithms" textAlignment="CENTER" textFill="#ff6a41">
-        <items>
-                  <Menu text="Select Method">
+                </Button>
+            </children>
+        </Pane>
+        <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </MenuBar>
+        <MenuButton layoutX="288.0" layoutY="302.0" mnemonicParsing="false" onAction="#menuHandler" prefHeight="40.0" prefWidth="147.0" style="-fx-background-color: #ffffff; -fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Algorithms" textAlignment="CENTER" textFill="#ff6a41">
+            <items>
+                <Menu text="Select Method">
 
-                      <items>
-                          <Menu text="AES">
-                              <items>
-                                  <Menu text="CBC">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                                  <Menu text="ECB">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                              </items>
-                          </Menu>
+                    <items>
+                        <Menu text="AES">
+                            <items>
+                                <Menu text="CBC">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                                <Menu text="ECB">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                            </items>
+                        </Menu>
 
-                          <Menu text="DES">
-                              <items>
-                                  <Menu text="CBC">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                                  <Menu text="ECB">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                              </items>
-                          </Menu>
+                        <Menu text="DES">
+                            <items>
+                                <Menu text="CBC">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                                <Menu text="ECB">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                            </items>
+                        </Menu>
 
 
-                          <Menu text="DESede">
-                              <items>
-                                  <Menu text="CBC">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                                  <Menu text="ECB">
-                                      <items>
-                                          <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                          <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                      </items>
-                                  </Menu>
-                              </items>
-                          </Menu>
+                        <Menu text="DESede">
+                            <items>
+                                <Menu text="CBC">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                                <Menu text="ECB">
+                                    <items>
+                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
+                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
+                                    </items>
+                                </Menu>
+                            </items>
+                        </Menu>
 
-                          <Menu text="RFS">
-                              <items>
-                                  <MenuItem onAction="#menuHandler" text="PKCS1" />
-                                  <MenuItem onAction="#menuHandler" text="OKEP-1" />
-                                  <MenuItem onAction="#menuHandler" text="OKEP-2" />
-                              </items>
-                          </Menu>
+                        <Menu text="RFS">
+                            <items>
+                                <MenuItem onAction="#menuHandler" text="PKCS1" />
+                                <MenuItem onAction="#menuHandler" text="OKEP-1" />
+                                <MenuItem onAction="#menuHandler" text="OKEP-2" />
+                            </items>
+                        </Menu>
 
 
-                      </items>
-                  </Menu>
-        </items>
-         <font>
-            <Font name="Bauhaus 93" size="18.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </MenuButton>
-      <Button fx:id="encryptButton" layoutX="723.0" layoutY="462.0" mnemonicParsing="false" onAction="#encryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10;" text="Encrypt" textFill="#ff6a41">
-         <font>
-            <Font name="Bauhaus 93" size="17.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-      </Button>
-      <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="857.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutScene" prefHeight="64.0" prefWidth="42.0" style="-fx-background-radius: 100; -fx-background-color: F4F4F4;" textFill="#ff6a41">
-         <font>
-            <Font name="Bauhaus 93" size="17.0" />
-         </font>
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <graphic>
-            <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@Images/pwr5.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-   </children>
+                    </items>
+                </Menu>
+            </items>
+            <font>
+                <Font name="Bauhaus 93" size="18.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </MenuButton>
+        <Button fx:id="encryptButton" layoutX="723.0" layoutY="462.0" mnemonicParsing="false" onAction="#encryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10;" text="Encrypt" textFill="#ff6a41">
+            <font>
+                <Font name="Bauhaus 93" size="17.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+        </Button>
+        <Button alignment="CENTER" contentDisplay="TOP" graphicTextGap="2.0" layoutX="857.0" layoutY="5.0" mnemonicParsing="false" onAction="#logoutScene" prefHeight="64.0" prefWidth="42.0" style="-fx-background-radius: 100; -fx-background-color: F4F4F4;" textFill="#ff6a41">
+            <font>
+                <Font name="Bauhaus 93" size="17.0" />
+            </font>
+            <cursor>
+                <Cursor fx:constant="HAND" />
+            </cursor>
+            <graphic>
+                <ImageView fitHeight="25.0" fitWidth="28.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/pwr5.png" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="progressButton" contentDisplay="GRAPHIC_ONLY" layoutX="483.0" layoutY="285.0" mnemonicParsing="false" prefHeight="81.0" prefWidth="80.0" style="-fx-background-color: F4F4F4;" visible="false">
+            <graphic>
+                <ImageView fitHeight="85.0" fitWidth="86.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@Images/PG_gif.gif" />
+                    </image>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="230.0" visible="false">
+            <children>
+                <TextField fx:id="selectedALgoTextArea" layoutX="19.0" layoutY="36.0" prefHeight="25.0" prefWidth="176.0" style="-fx-background-radius: 10;" />
+                <Label contentDisplay="BOTTOM" layoutX="22.0" layoutY="14.0" prefHeight="20.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" text=" You have selected" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="18.0" />
+                    </font>
+                </Label>
+            </children>
+        </Pane>
+    </children>
 </AnchorPane>

@@ -18,12 +18,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,14 +51,6 @@ public class DecryptCont implements Initializable{
 
         // Common Variables...
         private List<File> files;
-        private List<String> selectedFiles = new ArrayList<>();
-        private int cnt = 1;
-
-        //Password...
-        @FXML
-        PasswordField passwordField = new PasswordField();
-        @FXML
-        private TextField textField = new TextField();
 
 private Stage stage;
 private Parent root;
@@ -68,6 +63,8 @@ private Scene scene;
             scene = new Scene(root);
             stage.setScene(scene);
             new FadeIn(root).play();
+            stage.centerOnScreen();
+            stage.setResizable(false);
             stage.show();
         }catch (Exception e){
             System.out.println("Error in homeScene");
@@ -81,6 +78,10 @@ private Scene scene;
         stage = new Stage();
         new FadeIn(root).play();
         stage.setScene(new Scene(root));
+        stage.getIcons().add(new LogOutApp().icon);
+        stage.setTitle("Secure Vault");
+        stage.centerOnScreen();
+        stage.setResizable(false);
         stage.show();
 
         System.out.println("HISTORY");
@@ -92,9 +93,10 @@ private Scene scene;
             root = FXMLLoader.load(getClass().getResource("logout.fxml"));
             stage = (Stage)((Node)event.getSource()).getScene().getWindow();
             scene = new Scene(root);
-            stage.setScene(scene);
+            this.stage.close();
+            new LogOutApp().mainStage.setScene(scene);
             new FadeIn(root).play();
-            stage.show();
+            new LogOutApp().mainStage.show();
         }catch(Exception e){
             System.out.println("Decrypt");
             System.out.println(e.toString());
@@ -110,6 +112,8 @@ private Scene scene;
             scene = new Scene(root);
             stage.setScene(scene);
             new FadeIn(root).play();
+            stage.centerOnScreen();
+            stage.setResizable(false);
             stage.show();
         }catch(Exception e){
             System.out.println("Decrypt");
@@ -120,24 +124,38 @@ private Scene scene;
     }
 
 
-        @FXML
-        public void togglePassword(ActionEvent event) throws Exception {
-            if (passwordField.isManaged()) {
-                passwordField.setManaged(false);
-                passwordField.setVisible(false);
-                String password = passwordField.getText();
-                textField.setText(password);
-//            imageView.setImage(eyeImage);
-            } else {
-                passwordField.setVisible(true);
-                passwordField.setManaged(true);
-                textField.setText("");
-//            imageView.setImage(eye_SlashImage);
-            }
+    //Password...
+    @FXML
+    PasswordField passwordField;
+    @FXML
+    private TextField textField;
+    @FXML
+    private ImageView hideButtonImage;
+
+
+    // Function to show and hide password and toggle Image as well...
+    public void togglePassword(ActionEvent event) throws Exception {
+        if (passwordField.isManaged()) {
+            passwordField.setManaged(false);
+            passwordField.setVisible(false);
+            String password = passwordField.getText();
+            textField.setText(password);
+
+            // Change Eye Image
+            hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eye2.png")));
+        } else {
+            passwordField.setVisible(true);
+            passwordField.setManaged(true);
+            textField.setText("");
+
+            // Change Eye Image
+            hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eyeHide.png")));
         }
+    }
 
 
         ObservableList<Data> list = FXCollections.observableArrayList();
+        ObservableList<Data> selectedFiles = FXCollections.observableArrayList();
 
         public void initialize(URL url, ResourceBundle resourceBundle) {
             sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(table.getItems().indexOf(cellData.getValue()) + 1).asObject());
@@ -152,20 +170,20 @@ private Scene scene;
             select_Button.setResizable(false);
             select_Button.setCellFactory(param -> new TableCell<Data, Data>() {
                 private final Button selectButton = new Button("Select");
-
                 @Override
-                protected void updateItem(Data person, boolean empty) {
-                    super.updateItem(person, empty);
+                protected void updateItem(Data entry, boolean empty) {
+                    super.updateItem(entry, empty);
 
-                    if (person == null) {
+                    if (entry == null) {
                         setGraphic(null);
                         return;
                     }
 
                     setGraphic(selectButton);
+                    // Function mentions that what work the Select button will does
                     selectButton.setOnAction(event -> {
                         System.out.println(getItem().getPath());
-                        selectedFiles.add(getItem().getPath());
+                        selectedFiles.add(getItem());
 
                         if (selectButton.getStyle().isEmpty()) {
                             selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
@@ -251,25 +269,23 @@ private Scene scene;
         }
 
 
-        public void encryptFiles(){
-            String key = passwordField.getText();
-        for(var file : selectedFiles){
-            EncryptAlgo obj = new EncryptAlgo(file);
-            obj.print();
-//            System.out.println(file.getAbsolutePath() + "-> " + key);
-//            obj.encryptFile(file.getAbsolutePath(), key);
-            obj.decryptFile(file, key);
+        public void decryptFiles(){
+            try{
+                String key = passwordField.getText();
+                for(var file : selectedFiles){
+                    EncryptAlgo obj = new EncryptAlgo(file.getPath());
+                    obj.print();
+//                    System.out.println(file.getAbsolutePath() + "-> " + key);
+//                    obj.encryptFile(file.getAbsolutePath(), key);
+                    obj.decryptFile(file.getPath(), key);
 
-        }
-
-
-            selectedFiles.clear();
-            select_Button.setStyle("");
-
-//            for(String tempPath : selectedFiles){
-//                System.out.println(tempPath + ": " + key);
-//            }
-
+                }
+                selectedFiles.clear();
+                select_Button.setStyle("");
+            }catch (Exception e){
+                System.out.println(e.toString());
+                JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 }

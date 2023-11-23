@@ -20,7 +20,7 @@
     <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="43.0" layoutX="395.0" layoutY="256.0" rotate="-59.95" stroke="WHITE" strokeType="INSIDE" width="675.0" />
       <Polygon fill="#bec0c1" layoutX="740.0" layoutY="436.0" points="-96.800048828125, 118.0, 176.00006103515625, 118.0, 176.00006103515625, -384.68707275390625" stroke="#bec0c1" strokeType="INSIDE" />
-        <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="522.0" style="-fx-background-radius: 10; -fx-border-width: 4; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2; -fx-border-color: ff6a41;">
+        <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="536.0" style="-fx-background-radius: 10; -fx-border-width: 4; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2; -fx-border-color: ff6a41;">
             <columns>
                 <TableColumn fx:id="sno" prefWidth="51.20001220703125" style="-fx-alignment: CENTER;" text="S.No." />
                 <TableColumn fx:id="name" prefWidth="100.0" style="-fx-alignment: CENTER;" text="Name" />
@@ -106,14 +106,24 @@
                <font>
                   <Font name="Bauhaus 93" size="17.0" />
                </font></Label>
-                <Button fx:id="hide_Button" layoutX="239.0" layoutY="48.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="26.0" prefWidth="50.0" style="-fx-background-color: ff6a41; -fx-background-radius: 5;" text="Show" textFill="WHITE">
+                <Button fx:id="hide_Button" contentDisplay="GRAPHIC_ONLY" layoutX="238.0" layoutY="49.0" mnemonicParsing="false" onAction="#togglePassword" prefHeight="25.0" prefWidth="54.0" style="-fx-background-radius: 100; -fx-background-color: ff6a41;" textFill="WHITE">
                     <cursor>
                         <Cursor fx:constant="HAND" />
                     </cursor>
-               <font>
-                  <Font name="System Bold" size="12.0" />
-               </font>
-            </Button>
+                    <font>
+                        <Font name="System Bold" size="12.0" />
+                    </font>
+                    <graphic>
+                        <ImageView fx:id="hideButtonImage" fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@Images/eyeHide.png" />
+                            </image>
+                            <cursor>
+                                <Cursor fx:constant="HAND" />
+                            </cursor>
+                        </ImageView>
+                    </graphic>
+                </Button>
             </children>
         </Pane>
         <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
@@ -121,7 +131,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </MenuBar>
-        <Button fx:id="encryptButton" layoutX="331.0" layoutY="453.0" mnemonicParsing="false" onAction="#encryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Decrypt" textFill="#ff6a41">
+        <Button fx:id="decryptButton" layoutX="331.0" layoutY="453.0" mnemonicParsing="false" onAction="#decryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Decrypt" textFill="#ff6a41">
             <font>
                 <Font name="Bauhaus 93" size="20.0" />
             </font>

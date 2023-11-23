@@ -21,7 +21,8 @@ public class Saving_history_path {
 //                String algorithm=br.readLine();
 
                 String username="root";
-                String password="0209rishi@Pa";
+//                String password="0209rishi@Pa";
+                String password="admin";
                 //here you have to give your own system details
                 String url="jdbc:mysql://localhost:3306/history";
                 //loading class

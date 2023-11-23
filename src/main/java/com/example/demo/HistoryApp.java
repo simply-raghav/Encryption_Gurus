@@ -31,6 +31,7 @@ public class HistoryApp extends Application implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("history.fxml"));
             Scene scene = new Scene(root);
             new FadeIn(root).play();
+            stage.centerOnScreen();
 
             stage.setScene(scene);
 

@@ -377,8 +377,13 @@ public class EncryptCont implements Initializable {
                 }
 
                 else if (AlgoMethod.equalsIgnoreCase("DES/CBC/PKCS5Padding")) {
-                    System.out.println("DES/Padding");
+                    System.out.println("DES/CBC/Padding");
                     new DES_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
+                }
+
+                else if (AlgoMethod.equalsIgnoreCase("DES/ECB/PKCS5Padding")) {
+                    System.out.println("DES/ECB/Padding");
+                    new DES_ECB_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
 
                 else if (AlgoMethod.equalsIgnoreCase("Desede/CBC/PKCS5Padding")) {

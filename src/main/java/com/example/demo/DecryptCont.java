@@ -278,7 +278,8 @@ private Scene scene;
 //                    new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
 //                    new AES_ECB_NoPadding().decryptFile(file.getPath(), key);
 //                    new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
-                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                    new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key);
+//                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                 }
                 selectedFiles.clear();
                 select_Button.setStyle("");

@@ -135,18 +135,18 @@ private Scene scene;
 
     // Function to show and hide password and toggle Image as well...
     public void togglePassword(ActionEvent event) throws Exception {
+
         if (passwordField.isManaged()) {
             passwordField.setManaged(false);
             passwordField.setVisible(false);
-            String password = passwordField.getText();
-            textField.setText(password);
+            textField.setText(passwordField.getText());
 
             // Change Eye Image
             hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eye2.png")));
-        } else {
+        }else{
+            passwordField.setText(textField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
-            textField.setText("");
 
             // Change Eye Image
             hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eyeHide.png")));
@@ -270,22 +270,31 @@ private Scene scene;
 
 
         public void decryptFiles(){
+            boolean isDecrypted = false;
+
             try{
                 String key = passwordField.getText();
                 for(var file : selectedFiles){
-                    EncryptAlgo obj = new EncryptAlgo(file.getPath());
-                    obj.print();
-//                    System.out.println(file.getAbsolutePath() + "-> " + key);
-//                    obj.encryptFile(file.getAbsolutePath(), key);
-                    obj.decryptFile(file.getPath(), key);
-
+//                    new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+//                    new AES_ECB_NoPadding().decryptFile(file.getPath(), key);
+//                    new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                 }
                 selectedFiles.clear();
                 select_Button.setStyle("");
+                isDecrypted = true;
             }catch (Exception e){
                 System.out.println(e.toString());
                 JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
+            finally {
+                if(isDecrypted){
+                    JOptionPane.showMessageDialog(null, "Files Decrypted Succesfully",
+                            "INFORMATION",
+                            JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
         }
 
 }
+

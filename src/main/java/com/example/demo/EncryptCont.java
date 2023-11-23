@@ -65,7 +65,7 @@ public class EncryptCont implements Initializable {
     @FXML
     private Pane AlgoPane;
     @FXML
-    private TextField selectedALgoTextArea;
+    private Label selectedALgoTextArea;
 
     public void menuHandler(ActionEvent event) {
         try {
@@ -85,14 +85,16 @@ public class EncryptCont implements Initializable {
                 Algo += str;
                 Algo += "/";
             }
-            StringBuffer sb= new StringBuffer(Algo);
-            sb.deleteCharAt(sb.length()-1);
+            StringBuffer sb = new StringBuffer(Algo);
+            sb.deleteCharAt(sb.length() - 1);
             System.out.println(sb);
+            Algo = sb.toString();
 
-            if(selecetedMenu.size() > 0){
+            if (selecetedMenu.size() > 0) {
                 AlgoPane.setVisible(true);
                 selectedALgoTextArea.setText(Algo);
-            }else{
+//                selectedALgoTextArea.
+            } else {
                 AlgoPane.setVisible(false);
                 selectedALgoTextArea.setText("");
             }
@@ -101,7 +103,6 @@ public class EncryptCont implements Initializable {
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
 
 
     }
@@ -136,15 +137,14 @@ public class EncryptCont implements Initializable {
         if (passwordField.isManaged()) {
             passwordField.setManaged(false);
             passwordField.setVisible(false);
-            String password = passwordField.getText();
-            textField.setText(password);
+            textField.setText(passwordField.getText());
 
             // Change Eye Image
             hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eye2.png")));
         } else {
+            passwordField.setText(textField.getText());
             passwordField.setVisible(true);
             passwordField.setManaged(true);
-            textField.setText("");
 
             // Change Eye Image
             hideButtonImage.setImage(new Image(getClass().getResourceAsStream("Images/eyeHide.png")));
@@ -355,135 +355,53 @@ public class EncryptCont implements Initializable {
 
     public void encryptFiles() throws Exception {
 
-        try{
+        try {
             String key = passwordField.getText();
-//            showPGBAR();
-
-
             for (var file : historyItems) {
-                EncryptAlgo obj = new EncryptAlgo(file.getPath());
-                obj.print();
+
+                String AlgoMethod = selectedALgoTextArea.getText();
 
                 System.out.println("File Name: " + file.getName());
                 System.out.println("File Path: " + file.getPath());
                 System.out.println("File Key: " + key);
-                System.out.println("File Method: " + selectedALgoTextArea.getText());
+                System.out.println("File Method: " + AlgoMethod);
 
-                obj.encryptFile(file.getPath(), key);
+                if (AlgoMethod.equalsIgnoreCase("AES/CBC/PKCS5Padding")) {
+                    System.out.println("AES/Padding");
+                    new AES_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
+                }
+
+                else if (AlgoMethod.equalsIgnoreCase("AES/ECB/NoPadding")) {
+                    System.out.println("AES/NoPadding");
+                    new AES_ECB_NoPadding().encryptFile(file.getPath(), key);
+                }
+
+                else if (AlgoMethod.equalsIgnoreCase("DES/CBC/PKCS5Padding")) {
+                    System.out.println("DES/Padding");
+                    new DES_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
+                }
+
+                else if (AlgoMethod.equalsIgnoreCase("Desede/CBC/PKCS5Padding")) {
+                    System.out.println("Desede/Padding");
+                    new Desede_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
+                }
+
             }
-
             isEncrypted = true;
-        }catch (Exception e){
+
+        } catch (Exception e) {
             System.out.println(e.toString());
-            JOptionPane.showMessageDialog(null, "Files Not Encrypted Succesfully",
+            JOptionPane.showMessageDialog(null, "Files Not Encrypted Successfully",
                     "WARNING", JOptionPane.WARNING_MESSAGE);
-        }
-
-        historyItems.clear();
-        passwordField.clear();
-
-
-//
-    }
-
-
-// ************************************ CODE TO SHOW PROGRESS INDICATOR ***************************************************//
-
-
-    public void showPGBAR(){
-        EncryptApp enc_Obj = new EncryptApp();
-        enc_Obj.Enc_root.setDisable(true);
-
-        BorderPane root = new BorderPane();
-        new FadeIn(root).play();
-
-
-        ProgressIndicator pi = new ProgressIndicator(0.30);
-        pi.setProgress(-1);
-        root.setCenter(pi);
-
-        stage = new Stage();
-        stage.setScene(new Scene(root));
-
-        new BounceIn(root).play();
-
-        stage.initStyle(StageStyle.UNDECORATED);
-
-        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-        delay.setOnFinished(event -> {
-            stage.close();
-            enc_Obj.Enc_root.setDisable(false);
-            if(isEncrypted){
-                JOptionPane.showMessageDialog(null, "Files Encrypted Succesfully",
+        } finally {
+            if (isEncrypted) {
+                JOptionPane.showMessageDialog(null, "Files Encrypted Successfully",
                         "INFORMATION",
                         JOptionPane.INFORMATION_MESSAGE);
             }
-        });
+        }
 
-        delay.play();
-        stage.show();
-
+        historyItems.clear();
+//        passwordField.clear();
     }
-
-// ************************************************ END CODE ***************************************************//
-
 }
-
-//
-//
-//        historyList.setCellFactory(param -> new ListCell<String>() {
-//            @Override
-//            protected void updateItem(String item, boolean empty) {
-//                super.updateItem(item, empty);
-//                if (empty || item == null) {
-//                    setText(null);
-//                } else {
-//                    // Display Sno along with the item
-//                    int index = getIndex() + 1; // Adding 1 to make it one-based
-//                    long timestamp = System.currentTimeMillis();
-//                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//                    String formattedDate = dateFormat.format(new Date(timestamp));
-//                    setText(index + ". |  " + formattedDate + "  |  " +  item);
-//                }
-//            }
-//        });
-//
-////        historyList.setItems(historyItems);
-//
-
-//
-//    }
-//
-//    @FXML
-//    private ListView<String> historyList = new ListView<>();
-//
-//    public void showHistory(ActionEvent event){
-//        if(historyList.isVisible()){
-//            historyList.setVisible(false);
-//        }else{
-//            historyList.setVisible(true);
-//        }
-//
-//
-//        sortMenuButton.getItems().forEach(item -> {
-//            if (item instanceof RadioMenuItem) {
-//                ((RadioMenuItem) item).selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-//                    if (isSelected) {
-//                        System.out.println("Selected option: " + item.getText());
-//                    }
-//                });
-//            }
-//        });
-//
-//
-//    }
-//
-//    @FXML
-//    private MenuButton sortMenuButton;
-//
-//
-//
-//
-//
-//
-//}

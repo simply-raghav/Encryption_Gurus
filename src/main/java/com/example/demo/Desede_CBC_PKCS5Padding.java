@@ -9,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.Base64;
 import java.util.Scanner;
 
-public class Desede_cbc_pkcs5padding {
+public class Desede_CBC_PKCS5Padding {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -22,11 +22,11 @@ public class Desede_cbc_pkcs5padding {
             String key = scanner.nextLine();
 
             // Encrypt the file
-            String encryptedFilePath = encryptFileDESede(filePath, key);
+            String encryptedFilePath = encryptFile(filePath, key);
             System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
 
             // Decrypt the file
-            String decryptedFilePath = decryptFileDESede(encryptedFilePath, key);
+            String decryptedFilePath = decryptFile(encryptedFilePath, key);
             System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
 
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class Desede_cbc_pkcs5padding {
         }
     }
 
-    public static String encryptFileDESede(String filePath, String key) throws Exception {
+    public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");
         IvParameterSpec iv = new IvParameterSpec(new byte[8]);
@@ -58,7 +58,7 @@ public class Desede_cbc_pkcs5padding {
         return encryptedFilePath.toString();
     }
 
-    public static String decryptFileDESede(String filePath, String key) throws Exception {
+    public static String decryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");
 

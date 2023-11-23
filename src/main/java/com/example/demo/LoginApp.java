@@ -110,8 +110,8 @@ public class LoginApp extends Application {
         stage.setResizable(false);
         stage.show();
 
-        //calling the register page
-//        new RegisterApp().sendOTP(event);
+//        calling the register page
+        new RegisterApp().sendOTP(event);
     }
 
     public static void main(String[] args) {

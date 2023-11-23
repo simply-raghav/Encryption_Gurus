@@ -14,14 +14,14 @@ import java.util.Base64;
 import java.io.*;
 import java.util.Scanner;
 
-public class EncryptAlgo {
+public class DES_ECB_PKCS5Padding {
 
         private static String the_Path;
 
-        public EncryptAlgo(String path) {
-            this.the_Path = path;
-//            System.out.println(the_Path);
-        }
+//        public DES_ECB_PKCS5Padding(String path) {
+//            this.the_Path = path;
+////            System.out.println(the_Path);
+//        }
 
        public void print(){
             System.out.println(the_Path);

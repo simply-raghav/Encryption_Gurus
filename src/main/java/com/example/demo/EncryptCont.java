@@ -65,8 +65,7 @@ public class EncryptCont implements Initializable {
     @FXML
     private Pane AlgoPane;
     @FXML
-    private Label selectedALgoTextArea;
-
+    private Label selectedALgoTextArea, algoSelectedLabel, passwordLengthLabel;
     public void menuHandler(ActionEvent event) {
         try {
             List<String> selecetedMenu = new ArrayList<>();
@@ -93,10 +92,36 @@ public class EncryptCont implements Initializable {
             if (selecetedMenu.size() > 0) {
                 AlgoPane.setVisible(true);
                 selectedALgoTextArea.setText(Algo);
-//                selectedALgoTextArea.
-            } else {
-                AlgoPane.setVisible(false);
-                selectedALgoTextArea.setText("");
+                algoSelectedLabel.setText("You have selected");
+            }
+
+            if (selectedALgoTextArea.getText().equals("AES/CBC-PKCS5Padding")) {
+                System.out.println("AES/Padding");
+                passwordLengthLabel.setText("* Password must be equal to 16 characters");
+            }
+
+            else if (selectedALgoTextArea.getText().equals("AES/ECB-NoPadding")) {
+                System.out.println("AES/NoPadding");
+                passwordLengthLabel.setText("* Password must be equal to 16 characters");
+
+            }
+
+            else if (selectedALgoTextArea.getText().equals("DES/CBC-PKCS5Padding")) {
+                System.out.println("DES/CBC/Padding");
+                passwordLengthLabel.setText("* Password must be equal to 8 characters");
+
+            }
+
+            else if (selectedALgoTextArea.getText().equals("DES/ECB-PKCS5Padding")) {
+                System.out.println("DES/ECB/Padding");
+                passwordLengthLabel.setText("* Password must be equal to 8 characters");
+
+            }
+
+            else if (selectedALgoTextArea.getText().equals("DESede/CBC-PKCS5Padding")) {
+                System.out.println("Desede/Padding");
+                passwordLengthLabel.setText("* Password must be equal to 24 characters");
+
             }
 
 
@@ -106,7 +131,6 @@ public class EncryptCont implements Initializable {
 
 
     }
-
 
     public void historyScene(ActionEvent event) throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("history.fxml"));
@@ -380,27 +404,27 @@ public class EncryptCont implements Initializable {
                 System.out.println("File Method: " + AlgoMethod);
 
 
-                if (AlgoMethod.equalsIgnoreCase("AES/CBC/PKCS5Padding")) {
+                if (AlgoMethod.equalsIgnoreCase("AES/CBC-PKCS5Padding")) {
                     System.out.println("AES/Padding");
                     new AES_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
 
-                else if (AlgoMethod.equalsIgnoreCase("AES/ECB/NoPadding")) {
+                else if (AlgoMethod.equalsIgnoreCase("AES/ECB-NoPadding")) {
                     System.out.println("AES/NoPadding");
                     new AES_ECB_NoPadding().encryptFile(file.getPath(), key);
                 }
 
-                else if (AlgoMethod.equalsIgnoreCase("DES/CBC/PKCS5Padding")) {
+                else if (AlgoMethod.equalsIgnoreCase("DES/CBC-PKCS5Padding")) {
                     System.out.println("DES/CBC/Padding");
                     new DES_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
 
-                else if (AlgoMethod.equalsIgnoreCase("DES/ECB/PKCS5Padding")) {
+                else if (AlgoMethod.equalsIgnoreCase("DES/ECB/-PKCS5Padding")) {
                     System.out.println("DES/ECB/Padding");
                     new DES_ECB_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
 
-                else if (AlgoMethod.equalsIgnoreCase("Desede/CBC/PKCS5Padding")) {
+                else if (AlgoMethod.equalsIgnoreCase("Desede/CBC-PKCS5Padding")) {
                     System.out.println("Desede/Padding");
                     new Desede_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
@@ -429,7 +453,6 @@ public class EncryptCont implements Initializable {
         }
 
         selectedItems_toEncrypt.clear();
-//        passwordField.clear();
         initialize(null,null);
     }
 }

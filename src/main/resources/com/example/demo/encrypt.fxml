@@ -21,9 +21,9 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="913.0" style="-fx-border-color: #ff6a41; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EncryptCont">
     <children>
-        <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="280.0" visible="false">
+        <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="280.0">
             <children>
-                <Label fx:id="algoSelectedLabel" alignment="CENTER" contentDisplay="BOTTOM" layoutX="42.0" layoutY="14.0" prefHeight="20.0" prefWidth="187.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #FFFFFF;" text="You have selected" textAlignment="CENTER" textFill="#ff6a41">
+                <Label fx:id="algoSelectedLabel" alignment="CENTER" contentDisplay="BOTTOM" layoutX="42.0" layoutY="14.0" prefHeight="20.0" prefWidth="187.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #FFFFFF;" text="By default" textAlignment="CENTER" textFill="#ff6a41">
                     <font>
                         <Font name="Bauhaus 93" size="18.0" />
                     </font>
@@ -140,7 +140,7 @@
                   </ImageView>
                </graphic>
                 </Button>
-            <Label fx:id="passwordLengthLabel" layoutX="37.0" layoutY="84.0" prefHeight="29.0" prefWidth="253.0" text="Password must not be less than 8 characters" textFill="#ff6a41" visible="false">
+            <Label fx:id="passwordLengthLabel" layoutX="43.0" layoutY="84.0" prefHeight="29.0" prefWidth="255.0" text="* Password must be equal to 8 characters" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
@@ -159,63 +159,72 @@
                     <items>
                         <Menu text="AES">
                             <items>
-                                <Menu text="CBC">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
-                                <Menu text="ECB">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
+                                <MenuItem onAction="#menuHandler" text="CBC-PKCS5Padding" />
+                                <MenuItem onAction="#menuHandler" text="ECB-NoPadding" />
+
+<!--                                <Menu text="CBC">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
+<!--                                <Menu text="ECB">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
                             </items>
                         </Menu>
 
                         <Menu text="DES">
                             <items>
-                                <Menu text="CBC">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
-                                <Menu text="ECB">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
+                                <MenuItem onAction="#menuHandler" text="CBC-PKCS5Padding" />
+                                <MenuItem onAction="#menuHandler" text="ECB-PKCS5Padding" />
+
+
+<!--                                <Menu text="CBC">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
+
+<!--                                <Menu text="ECB">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
                             </items>
                         </Menu>
 
 
                         <Menu text="DESede">
-                            <items>
-                                <Menu text="CBC">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
-                                <Menu text="ECB">
-                                    <items>
-                                        <MenuItem onAction="#menuHandler" text="NoPadding" />
-                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />
-                                    </items>
-                                </Menu>
-                            </items>
+                        <MenuItem onAction="#menuHandler" text="CBC-PKCS5Padding" />
+<!--                            <items>-->
+<!--                                <Menu text="CBC">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
+<!--                                <Menu text="ECB">-->
+<!--                                    <items>-->
+<!--                                        <MenuItem onAction="#menuHandler" text="NoPadding" />-->
+<!--                                        <MenuItem onAction="#menuHandler" text="PKCS5Padding" />-->
+<!--                                    </items>-->
+<!--                                </Menu>-->
+<!--                            </items>-->
                         </Menu>
 
-                        <Menu text="RFS">
-                            <items>
-                                <MenuItem onAction="#menuHandler" text="PKCS1" />
-                                <MenuItem onAction="#menuHandler" text="OKEP-1" />
-                                <MenuItem onAction="#menuHandler" text="OKEP-2" />
-                            </items>
-                        </Menu>
+<!--                        <Menu text="RFS">-->
+<!--                            <items>-->
+<!--                                <MenuItem onAction="#menuHandler" text="PKCS1" />-->
+<!--                                <MenuItem onAction="#menuHandler" text="OKEP-1" />-->
+<!--                                <MenuItem onAction="#menuHandler" text="OKEP-2" />-->
+<!--                            </items>-->
+<!--                        </Menu>-->
 
 
                     </items>

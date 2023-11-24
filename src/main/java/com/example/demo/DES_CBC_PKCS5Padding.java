@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class DES_CBC_PKCS5Padding {
 
+    // **** DES key msut be equals to (8 characters)... ****
      public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 

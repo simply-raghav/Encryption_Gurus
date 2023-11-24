@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
@@ -36,7 +37,7 @@
                 <TableColumn fx:id="name" prefWidth="100.800048828125" style="-fx-alignment: CENTER;" text="Name" />
                 <TableColumn fx:id="path" prefWidth="197.5999755859375" style="-fx-alignment: CENTER;" text="Path" />
                 <TableColumn fx:id="method" prefWidth="108.00009155273438" style="-fx-alignment: CENTER;" text="Method" />
-            <TableColumn fx:id="preview_Button" minWidth="0.0" prefWidth="88.800048828125" style="-fx-alignment: CENTER; " text="Preview" />
+                <TableColumn fx:id="preview_Button" minWidth="0.0" prefWidth="88.800048828125" style="-fx-alignment: CENTER; " text="Preview" />
                 <!--            <TableColumn fx:id="select" prefWidth="108.00009155273438" style="-fx-alignment: CENTER;" text="Select" />-->
                 <TableColumn fx:id="select_Button" minWidth="0.0" prefWidth="88.800048828125" style="-fx-alignment: CENTER;" text="Select">
                     <graphic>
@@ -60,19 +61,7 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </Button>
-        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="668.0" layoutY="12.0" mnemonicParsing="false" onAction="#shareFiles" prefHeight="0.0" prefWidth="45.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 100;">
-            <cursor>
-                <Cursor fx:constant="HAND" />
-            </cursor>
-            <graphic>
-                <ImageView fitHeight="41.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
-                    <image>
-                        <Image url="@Images/shareIcon.png" />
-                    </image>
-                </ImageView>
-            </graphic>
-        </Button>
-        <MenuButton contentDisplay="GRAPHIC_ONLY" layoutX="7.0" layoutY="12.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="70.0" style="-fx-background-color: ffffff; -fx-background-radius: 10;">
+        <MenuButton contentDisplay="GRAPHIC_ONLY" layoutX="668.0" layoutY="16.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" style="-fx-background-color: ffffff; -fx-background-radius: 100;">
             <items>
                 <MenuItem mnemonicParsing="false" text="Export with Encrypt">
 
@@ -83,6 +72,7 @@
                             </cursor></RadioButton>
                     </graphic>
                 </MenuItem>
+            <SeparatorMenuItem mnemonicParsing="false" />
                 <MenuItem mnemonicParsing="false" text="Export with Decrypt">
                     <graphic>
                         <RadioButton fx:id="exportWithDecrypt_RadioButton" mnemonicParsing="false" onAction="#exportWithDecrypt">
@@ -95,7 +85,7 @@
             <graphic>
                 <ImageView fitHeight="34.0" fitWidth="34.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@Images/settingIcon2.png" />
+                        <Image url="@Images/shareIcon.png" />
                     </image>
                 </ImageView>
             </graphic>

@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class AES_ECB_NoPadding {
 
+    // **** AES key msut be equals to (16 characters)... ****
+
     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 

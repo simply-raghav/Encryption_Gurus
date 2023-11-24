@@ -232,9 +232,9 @@ public class HistoryApp extends Application implements Initializable {
     }
 
     public void selectAllFiles(){
-         for(var file :  selectedHistoryFiles){
-             System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
-         }
+        for(var file :  selectedHistoryFiles){
+            System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
+        }
     }
 
 }

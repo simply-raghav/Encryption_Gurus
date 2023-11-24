@@ -16,7 +16,8 @@ import java.util.Scanner;
 
 public class DES_ECB_PKCS5Padding {
 
-        //encryption work done here
+        // **** DES key msut be equals to (8 characters)... ****
+
         public static String encryptFile(String filePath, String key) throws Exception {
                 System.out.println("Encyption: " + filePath + " and " + key);
 

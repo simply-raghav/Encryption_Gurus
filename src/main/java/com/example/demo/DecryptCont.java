@@ -334,27 +334,27 @@ private Scene scene;
 
 
 
-                    if (AlgoMethod.equalsIgnoreCase("AES/CBC/PKCS5Padding")) {
+                    if (AlgoMethod.equalsIgnoreCase("AES/CBC-PKCS5Padding")) {
                         System.out.println("AES/Padding");
                         new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                     }
 
-                    else if (AlgoMethod.equalsIgnoreCase("AES/ECB/NoPadding")) {
+                    else if (AlgoMethod.equalsIgnoreCase("AES/ECB-NoPadding")) {
                         System.out.println("AES/NoPadding");
                         new AES_ECB_NoPadding().decryptFile(file.getPath(), key);
                     }
 
-                    else if (AlgoMethod.equalsIgnoreCase("DES/CBC/PKCS5Padding")) {
+                    else if (AlgoMethod.equalsIgnoreCase("DES/CBC-PKCS5Padding")) {
                         System.out.println("DES/CBC/Padding");
                         new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                     }
 
-                    else if (AlgoMethod.equalsIgnoreCase("DES/ECB/PKCS5Padding")) {     // Isme Dikkt hai
+                    else if (AlgoMethod.equalsIgnoreCase("DES/ECB-PKCS5Padding")) {     // Isme Dikkt hai
                         System.out.println("DES/ECB/Padding");
                         new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key);
                     }
 
-                    else if (AlgoMethod.equalsIgnoreCase("Desede/CBC/PKCS5Padding")) {
+                    else if (AlgoMethod.equalsIgnoreCase("Desede/CBC-PKCS5Padding")) {
                         System.out.println("Desede/Padding");
                         new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                     }

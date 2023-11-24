@@ -11,6 +11,8 @@ import java.util.Scanner;
 
 public class Desede_CBC_PKCS5Padding {
 
+    // **** Desede key msut be equals to (24 characters)... ****
+
     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");

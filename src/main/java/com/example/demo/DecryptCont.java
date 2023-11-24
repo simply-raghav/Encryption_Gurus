@@ -198,10 +198,14 @@ private Scene scene;
             // Add Select Button into Table
             select_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             select_Button.setResizable(false);
+
+
             select_Button.setCellFactory(param -> new TableCell<Data, Data>() {
                 private final Button selectButton = new Button("Select");
+                boolean temp = true;
                 @Override
                 protected void updateItem(Data entry, boolean empty) {
+                    selectButton.setStyle("-fx-cursor: hand");
                     super.updateItem(entry, empty);
 
                     if (entry == null) {
@@ -214,12 +218,14 @@ private Scene scene;
                     // Function mentions that what work the Select button will does
                     selectButton.setOnAction(event -> {
 
-                        if (selectButton.getStyle().isEmpty()) {
+                        if (temp) {
+                            temp = false;
                             selectedItems_toDecrypt.add(getItem());
-                            selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
+                            selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white; -fx-cursor: hand;");
                             System.out.println("File Seleceted");
                         } else {
-                            selectButton.setStyle("");
+                            temp = true;
+                            selectButton.setStyle("-fx-cursor: hand;");
                             selectedItems_toDecrypt.remove(getItem());
                             System.out.println("File Not Selected");
                         }
@@ -399,6 +405,25 @@ private Scene scene;
 //            }
 
             initialize(null, null);
+        }
+
+
+        public void decryptFolders(){
+            try {
+                String key = passwordField.getText();
+                for (var file : selectedItems_toDecrypt) {
+                        new FolderEncryptor().folderDec(file.getPath(), key);
+                }
+                JOptionPane.showMessageDialog(null, "Files Decrypted Succesfully",
+                        "INFORMATION",
+                        JOptionPane.INFORMATION_MESSAGE);
+            }
+            catch (Exception e){
+                System.out.println(e.toString());
+                JOptionPane.showMessageDialog(null, "Folders Not Decrypted",
+                        "ERROR",
+                        JOptionPane.ERROR_MESSAGE);
+            }
         }
 
 }

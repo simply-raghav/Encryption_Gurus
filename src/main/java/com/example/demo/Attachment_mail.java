@@ -11,9 +11,9 @@ import javax.mail.*;
 import javax.mail.internet.*;
 import javax.swing.*;
 
-public class temp_email {
+public class Attachment_mail {
 
-        public static void main(String[] args) {
+        public void send_data_to_mail(String email,String filepath) {
             final String username = "rishirajpatel172@gmail.com";
             final String password = "ojay tcvp coqy vjch";
 
@@ -23,7 +23,7 @@ public class temp_email {
             properties.put("mail.smtp.host", "smtp.gmail.com");
             properties.put("mail.smtp.port", "587");
 
-            Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+            Session session = Session.getInstance(properties, new Authenticator() {
                 protected PasswordAuthentication getPasswordAuthentication() {
                     return new PasswordAuthentication(username, password);
                 }
@@ -32,7 +32,7 @@ public class temp_email {
             try {
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("raghav.2022ca072@mnnit.ac.in"));
+                message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(email));
                 message.setSubject("Encryption Guru...");
 
                 //temp
@@ -47,11 +47,11 @@ public class temp_email {
                 // Attach the file
 //                "path/to/your/file.txt";
 
-                String filePath = "D:/practice/zipfile.zip";
+                //String filePath = "D:/practice/zipfile.zip";
                 MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-                DataSource source = new FileDataSource(new File(filePath));
+                DataSource source = new FileDataSource(new File(filepath));
                 attachmentBodyPart.setDataHandler(new DataHandler(source));
-                attachmentBodyPart.setFileName(new File(filePath).getName());
+                attachmentBodyPart.setFileName(new File(filepath).getName());
 
                 // Create the Multipart object
                 Multipart multipart = new MimeMultipart();

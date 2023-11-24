@@ -9,8 +9,8 @@ public class decrypt_history_data_DB {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url="jdbc:mysql://localhost:3306/history";
         String username="root";
-//        String password="0209rishi@Pa";
-        String password="admin";
+        String password="0209rishi@Pa";
+//        String password="admin";
         Connection con= DriverManager.getConnection(url,username,password);
         String q="select *from decrypt_history";
         Statement stmt=con.createStatement();
@@ -63,8 +63,8 @@ public class decrypt_history_data_DB {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/history";
                 String username = "root";
-//                String password = "0209rishi@Pa";
-                String password= "admin";
+                String password = "0209rishi@Pa";
+//                String password= "admin";
                 try (Connection con = DriverManager.getConnection(url, username, password)) {
                     String q = "DELETE FROM encrypt_history WHERE filepath = ?";
                     try (PreparedStatement pstmt = con.prepareStatement(q)) {
@@ -94,8 +94,8 @@ public class decrypt_history_data_DB {
                 Class.forName("com.mysql.cj.jdbc.Driver");
                 String url = "jdbc:mysql://localhost:3306/history";
                 String username = "root";
-//                String password = "0209rishi@Pa";
-                String password= "admin";
+                String password = "0209rishi@Pa";
+//                String password= "admin";
 
                 try (Connection con = DriverManager.getConnection(url, username, password)) {
                     String q = "DELETE FROM decrypt_history WHERE filepath = ?";

@@ -12,8 +12,8 @@ public class change_password {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url="jdbc:mysql://localhost:3306/login";
             String username="root";
-//            String password="0209rishi@Pa";
-            String password="admin";
+            String password="0209rishi@Pa";
+//            String password="admin";
             Connection con= DriverManager.getConnection(url,username,password);
             String q="update login_info set password= ? where username = ?";
             PreparedStatement pstmt=con.prepareStatement(q);

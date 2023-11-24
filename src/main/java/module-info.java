@@ -6,6 +6,8 @@ module com.example.demo {
     requires java.sql;
     requires java.mail;
     requires mysql.connector.j;
+    requires activation;
+    requires javafx.media;
 
 
     opens com.example.demo to javafx.fxml;

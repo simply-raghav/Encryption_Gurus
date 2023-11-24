@@ -26,8 +26,8 @@ public class saving_decrypt_path {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url="jdbc:mysql://localhost:3306/history";
         String username="root";
-//        String password="0209rishi@Pa";
-        String password= "admin";
+        String password="0209rishi@Pa";
+//        String password= "admin";
 
         Connection con= DriverManager.getConnection(url,username,password);
         String q="Insert INTO decrypt_history(filename,filepath,algorithm,keyvalue,type) values(?,?,?,?,?)";

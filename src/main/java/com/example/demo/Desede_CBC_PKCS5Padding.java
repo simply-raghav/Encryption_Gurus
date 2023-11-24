@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class Desede_CBC_PKCS5Padding {
 
-    // **** Desede key msut be equals to (24 characters)... ****
-
     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");
@@ -64,4 +62,28 @@ public class Desede_CBC_PKCS5Padding {
 
         return decryptedFilePath.toString();
     }
+
+    public static byte[] decryptFile(byte[] fileBytes, String key) throws Exception {
+        Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
+        SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");
+
+        // Decode the Base64 content
+        byte[] ivAndEncrypted = Base64.getDecoder().decode(fileBytes);
+
+        // Extract IV and ciphertext
+        byte[] ivBytes = new byte[8];
+        byte[] encryptedBytes = new byte[ivAndEncrypted.length - 8];
+        System.arraycopy(ivAndEncrypted, 0, ivBytes, 0, 8);
+        System.arraycopy(ivAndEncrypted, 8, encryptedBytes, 0, encryptedBytes.length);
+
+        IvParameterSpec iv = new IvParameterSpec(ivBytes);
+
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+
+        // Decrypt the content
+        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+        return decryptedBytes;
+
+    }
+
 }

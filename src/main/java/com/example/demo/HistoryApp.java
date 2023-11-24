@@ -21,6 +21,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -223,18 +224,34 @@ public class HistoryApp extends Application implements Initializable {
         System.out.println("Sharing Files");
     }
 
-    public void exportWithDecrypt(){
+    public void exportWithDecrypt() throws IOException {
         System.out.println("Export File After Decrypting");
+        openMailBox();
     }
 
-    public void exportWithEncrypt(){
+    public void exportWithEncrypt() throws IOException {
         System.out.println("Export File After Encrypting");
+        openMailBox();
     }
 
     public void selectAllFiles(){
         for(var file :  selectedHistoryFiles){
             System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
         }
+    }
+
+    public void openMailBox() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("enterEmail.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        new BounceIn(root).play();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.setResizable(false);
+        stage.centerOnScreen();
+
+
+        stage.show();
     }
 
 }

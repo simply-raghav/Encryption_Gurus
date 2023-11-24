@@ -16,10 +16,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.AccessibleAction;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -88,6 +85,13 @@ public class HistoryApp extends Application implements Initializable {
     @FXML
     private TableView<History> historyTable;
     private ObservableList<History> selectedHistoryFiles = FXCollections.observableArrayList();
+
+    @FXML
+    private RadioButton exportWithEncrypt_RadioButton;
+    @FXML
+    private RadioButton exportWithDecrypt_RadioButton;
+
+    private ToggleGroup toggleGroup = new ToggleGroup();
 
 
     ObservableList<History> encryptHistoryList = FXCollections.observableArrayList();
@@ -178,9 +182,28 @@ public class HistoryApp extends Application implements Initializable {
         historyTable.refresh();
 
 
+        // Add Radio Buttons in a Toggle Group
+        exportWithEncrypt_RadioButton.setToggleGroup(toggleGroup);
+        exportWithDecrypt_RadioButton.setToggleGroup(toggleGroup);
+
     }
 
     public void shareFiles(){
         System.out.println("Sharing Files");
     }
+
+    public void exportWithDecrypt(){
+        System.out.println("Export File After Decrypting");
+    }
+
+    public void exportWithEncrypt(){
+        System.out.println("Export File After Encrypting");
+    }
+
+    public void selectAllFiles(){
+         for(var file :  selectedHistoryFiles){
+             System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
+         }
+    }
+
 }

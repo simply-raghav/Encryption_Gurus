@@ -5,11 +5,20 @@ import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.*;
+import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 
 import javax.mail.*;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMultipart;
+import java.io.File;
+import java.io.UnsupportedEncodingException;
 import javax.mail.internet.*;
+import javax.sql.DataSource;
 import java.io.UnsupportedEncodingException;
 import java.util.Properties;
 import java.util.Random;
@@ -55,8 +64,10 @@ import java.util.Random;
                 mimeMessage.addRecipients(Message.RecipientType.TO, String.valueOf(new InternetAddress(emailRecepients[i])));
             }
             mimeMessage.setSubject(email_subject);
+
             MimeMultipart multiPart=new MimeMultipart();
             MimeBodyPart bodyPart=new MimeBodyPart();
+
             bodyPart.setContent(email_body,"text/html");
             multiPart.addBodyPart(bodyPart);
             mimeMessage.setContent(multiPart);
@@ -70,6 +81,54 @@ import java.util.Random;
             properties.put("mail.smtp.starttls.enable","true");
             newSession = Session.getDefaultInstance(properties,null);
         }
-    }
+//        public boolean sendEmailWithAttachment(String to, String from, String subject, String text, File file){
+//            //smtp properties
+//            Properties properties=new Properties();
+//            properties.put("mail.smtp.auth",true);
+//            properties.put("mail.smtp.starttls.enable",true);
+//            properties.put("mail.smtp.port","587");
+//            properties.put("mail.smtp.host","smtp.gmail.com");
+//
+//            String username="rishirajpatel172@gmail.com";
+//            String password="ojay tcvp coqy vjch";
+//            Session session=Session.getInstance(properties,getPassAuthentication()->{
+//               return new PasswordAuthentication(username,password);
+//            });
+//
+//        }
+
+
+
+
+            // ... (existing code)
+
+//            void attachFile(String filePath) throws MessagingException, UnsupportedEncodingException {
+//                if (mimeMessage == null) {
+//                    throw new IllegalStateException("Email not drafted. Call draftEmail() method first.");
+//                }
+//
+//                BodyPart messageBodyPart = new MimeBodyPart();
+//                Multipart multipart = new MimeMultipart();
+//
+//                // Attach file
+//                DataSource source = new FileDataSource(new File(filePath));
+//                messageBodyPart.setDataHandler(new DataHandler(source));
+//                messageBodyPart.setFileName(new File(filePath).getName());
+//
+//                // Add text content
+//                MimeBodyPart textPart = new MimeBodyPart();
+//                textPart.setText("Additional text content for the email.");
+//
+//                multipart.addBodyPart(textPart);
+//                multipart.addBodyPart(messageBodyPart);
+//
+//                // Set the email content
+//                mimeMessage.setContent(multipart);
+//            }
+
+            // ... (existing code)
+        }
+
+
 
 

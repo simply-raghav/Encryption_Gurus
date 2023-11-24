@@ -21,6 +21,20 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="537.0" prefWidth="913.0" style="-fx-border-color: #ff6a41; -fx-border-width: 5;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EncryptCont">
     <children>
+        <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="280.0" visible="false">
+            <children>
+                <Label fx:id="algoSelectedLabel" alignment="CENTER" contentDisplay="BOTTOM" layoutX="42.0" layoutY="14.0" prefHeight="20.0" prefWidth="187.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #FFFFFF;" text="You have selected" textAlignment="CENTER" textFill="#ff6a41">
+                    <font>
+                        <Font name="Bauhaus 93" size="18.0" />
+                    </font>
+                </Label>
+            <Label fx:id="selectedALgoTextArea" alignment="CENTER" contentDisplay="CENTER" focusTraversable="false" layoutX="45.0" layoutY="36.0" prefHeight="29.0" prefWidth="230.0" style="-fx-background-radius: 0 20 20 0; -fx-background-color: #ff6a41;" text="DES/CBC/PKCS5Padding" textFill="WHITE">
+               <font>
+                  <Font name="Bauhaus 93" size="15.0" />
+               </font>
+            </Label>
+            </children>
+        </Pane>
         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#ff6a41" height="543.0" layoutX="273.0" layoutY="-2.0" stroke="#ff6a41" strokeType="INSIDE" width="61.0" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <Polygon fill="#bec0c1" layoutX="859.0" layoutY="497.0" points="-325.4000244140625, 40.0, 53.99993896484375, 40.0, 53.99993896484375, -417.0" stroke="#bec0c1" strokeType="INSIDE" />
         <TableView fx:id="table" layoutX="288.0" layoutY="77.0" onDragDropped="#handleDragDropped" onDragOver="#handleDragOver" prefHeight="200.0" prefWidth="535.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
@@ -94,7 +108,7 @@
                     </graphic>
                 </Button>
             </children></Pane>
-        <Pane layoutX="578.0" layoutY="342.0" prefHeight="106.0" prefWidth="317.0">
+        <Pane layoutX="578.0" layoutY="342.0" prefHeight="114.0" prefWidth="318.0">
             <children>
                 <TextField fx:id="textField" layoutX="37.0" layoutY="48.0" prefHeight="40.0" prefWidth="194.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-radius: 10; -fx-border-width: 3; -fx-border-insets: 2 2 2 2;">
                     <cursor>
@@ -118,7 +132,7 @@
                <graphic>
                   <ImageView fx:id="hideButtonImage" fitHeight="27.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@Images/eye2.png" />
+                        <Image url="@Images/eyeHide.png" />
                      </image>
                      <cursor>
                         <Cursor fx:constant="HAND" />
@@ -126,6 +140,11 @@
                   </ImageView>
                </graphic>
                 </Button>
+            <Label fx:id="passwordLengthLabel" layoutX="37.0" layoutY="84.0" prefHeight="29.0" prefWidth="253.0" text="Password must not be less than 8 characters" textFill="#ff6a41" visible="false">
+               <font>
+                  <Font name="System Bold" size="12.0" />
+               </font>
+            </Label>
             </children>
         </Pane>
         <MenuBar fx:id="Menu" layoutX="288.0" layoutY="332.0" nodeOrientation="LEFT_TO_RIGHT" style="-fx-background-radius: 10;">
@@ -209,9 +228,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </MenuButton>
-        <Button fx:id="encryptButton" layoutX="723.0" layoutY="462.0" mnemonicParsing="false" onAction="#encryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10;" text="Encrypt" textFill="#ff6a41">
+        <Button fx:id="encryptButton" layoutX="708.0" layoutY="462.0" mnemonicParsing="false" onAction="#encryptFiles" prefHeight="35.0" prefWidth="101.0" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10;" text="Encrypt" textFill="#ff6a41">
             <font>
-                <Font name="Bauhaus 93" size="17.0" />
+                <Font name="Bauhaus 93" size="20.0" />
             </font>
             <cursor>
                 <Cursor fx:constant="HAND" />
@@ -241,19 +260,5 @@
                 </ImageView>
             </graphic>
         </Button>
-        <Pane fx:id="AlgoPane" layoutX="288.0" layoutY="347.0" prefHeight="72.0" prefWidth="230.0" visible="false">
-            <children>
-                <Label contentDisplay="BOTTOM" layoutX="22.0" layoutY="14.0" prefHeight="20.0" prefWidth="170.0" style="-fx-background-radius: 20; -fx-background-color: #FFFFFF;" text=" You have selected" textFill="#ff6a41">
-                    <font>
-                        <Font name="Bauhaus 93" size="18.0" />
-                    </font>
-                </Label>
-            <Label fx:id="selectedALgoTextArea" contentDisplay="CENTER" focusTraversable="false" layoutX="22.0" layoutY="36.0" prefHeight="29.0" prefWidth="208.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="Desede_CBC_pkcs5padding" textFill="WHITE">
-               <font>
-                  <Font name="Bauhaus 93" size="15.0" />
-               </font>
-            </Label>
-            </children>
-        </Pane>
     </children>
 </AnchorPane>

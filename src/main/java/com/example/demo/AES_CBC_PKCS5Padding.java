@@ -12,29 +12,6 @@ import java.util.Scanner;
 
     public class AES_CBC_PKCS5Padding {
 
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
-
-            // Get the file path and key from the user
-            System.out.print("Enter the file path: ");
-            String filePath = scanner.nextLine();
-
-            System.out.print("Enter the AES key (16 characters): ");
-            String key = scanner.nextLine();
-
-            try {
-                // Encrypt the file
-               // String encryptedFilePath = encryptFile(filePath, key);
-                // System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
-
-                // Decrypt the file
-                String decryptedFilePath = decryptFile(filePath, key);
-                System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
         public static String encryptFile(String filePath, String key) throws Exception {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 

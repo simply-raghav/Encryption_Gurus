@@ -202,7 +202,7 @@ public class EncryptCont implements Initializable {
 
 
     ObservableList<Data> list = FXCollections.observableArrayList();
-    ObservableList<Data> historyItems = FXCollections.observableArrayList();
+    ObservableList<Data> selectedItems_toEncrypt = FXCollections.observableArrayList();
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -215,6 +215,8 @@ public class EncryptCont implements Initializable {
             path.setCellValueFactory(new PropertyValueFactory<Data, String>("path"));       // The name in "" must be same as Data class attribute's  name
             path.setResizable(false);
 
+
+            // Add Tooltip on Name Coloumn
             name.setCellFactory(
                     column -> {
                         return new TableCell<Data, String>() {
@@ -226,6 +228,8 @@ public class EncryptCont implements Initializable {
                             }
                         };
                     });
+
+            // Add Tooltip on Path Coloumn
             path.setCellFactory(
                     column -> {
                         return new TableCell<Data, String>() {
@@ -238,6 +242,8 @@ public class EncryptCont implements Initializable {
                         };
                     });
 
+
+            // Add Select Button into Table
 
             select_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             select_Button.setResizable(false);
@@ -254,16 +260,17 @@ public class EncryptCont implements Initializable {
                     }
 
                     setGraphic(selectButton);
+                    selectButton.setStyle("-fx-cursor: hand");
                     selectButton.setOnAction(event -> {
                         System.out.println(getItem().getPath());
                         selectedFiles.add(getItem().getPath());
 
                         if (selectButton.getStyle().isEmpty()) {
                             selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
-                            historyItems.add(new Data(getItem().getPath(), getItem().getName()));
+                            selectedItems_toEncrypt.add(new Data(getItem().getPath(), getItem().getName()));
                         } else {
                             selectButton.setStyle("");
-                            historyItems.remove(getItem());
+                            selectedItems_toEncrypt.remove(getItem());
                         }
                     });
                 }
@@ -273,6 +280,10 @@ public class EncryptCont implements Initializable {
 
             delete_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             delete_Button.setResizable(false);
+
+
+            // Add Delete Button into Table
+
             delete_Button.setCellFactory(param -> new TableCell<Data, Data>() {
                 private final Button deleteButton = new Button("Delete");
 
@@ -286,6 +297,7 @@ public class EncryptCont implements Initializable {
                     }
 
                     setGraphic(deleteButton);
+                    deleteButton.setStyle("-fx-cursor: hand");
                     deleteButton.setOnAction(event -> list.remove(person));
                 }
 
@@ -304,7 +316,8 @@ public class EncryptCont implements Initializable {
             table.getSortOrder().add(name);
             table.sort();
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error in Encrypt Table initialize function...");
+            System.out.println(root.toString());
         }
 
 
@@ -349,17 +362,17 @@ public class EncryptCont implements Initializable {
     }
 
 
-    @FXML
-    private Button progressButton;
     boolean isEncrypted = false;
 
     public void encryptFiles() throws Exception {
 
         try {
             String key = passwordField.getText();
-            for (var file : historyItems) {
+            for (var file : selectedItems_toEncrypt) {
 
+                // By Default Algo Method
                 String AlgoMethod = selectedALgoTextArea.getText();
+
 
                 System.out.println("File Name: " + file.getName());
                 System.out.println("File Path: " + file.getPath());
@@ -395,15 +408,12 @@ public class EncryptCont implements Initializable {
                 /* ********************DataBase connectivity *******************************/
                 new Saving_history_path().historySave(file.getName(), file.getPath(), AlgoMethod, key, "Encrypted");
 
+                list.remove(file);
+
             }
             isEncrypted = true;
 
-            new decrypt_history_data_DB().update_DecryptHistory(historyItems);
-
-
-
-
-
+            new decrypt_history_data_DB().update_DecryptHistory(selectedItems_toEncrypt);
 
 
         } catch (Exception e) {
@@ -418,7 +428,8 @@ public class EncryptCont implements Initializable {
             }
         }
 
-        historyItems.clear();
+        selectedItems_toEncrypt.clear();
 //        passwordField.clear();
+        initialize(null,null);
     }
 }

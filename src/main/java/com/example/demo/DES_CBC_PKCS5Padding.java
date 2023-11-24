@@ -12,30 +12,7 @@ import java.util.Scanner;
 
 public class DES_CBC_PKCS5Padding {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            System.out.print("Enter the file path: ");
-            String filePath = scanner.nextLine();
-
-            System.out.print("Enter the DES key (8 characters): ");
-            String key = scanner.nextLine();
-
-            // Encrypt the file
-            String encryptedFilePath = encryptFile(filePath, key);
-            System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
-
-            // Decrypt the file
-            String decryptedFilePath = decryptFile(encryptedFilePath, key);
-            System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static String encryptFile(String filePath, String key) throws Exception {
+     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 
         // Convert the key to a SecretKey

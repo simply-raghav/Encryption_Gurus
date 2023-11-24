@@ -11,29 +11,6 @@ import java.util.Scanner;
 
 public class AES_ECB_NoPadding {
 
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
-        try {
-            System.out.print("Enter the file path: ");
-            String filePath = scanner.nextLine();
-
-            System.out.print("Enter the AES key (16 characters): ");
-            String key = scanner.nextLine();
-
-            // Encrypt the file
-            //String encryptedFilePath = encryptFile(filePath, key);
-            //System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
-
-            // Decrypt the file
-            String decryptedFilePath = decryptFile(filePath, key);
-            System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 

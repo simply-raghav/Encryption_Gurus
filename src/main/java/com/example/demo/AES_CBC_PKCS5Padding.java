@@ -10,7 +10,7 @@ import java.security.SecureRandom;
 import java.util.Base64;
 import java.util.Scanner;
 
-    public class AESCBCPKCS5PaddingExample {
+    public class AES_CBC_PKCS5Padding {
 
         public static void main(String[] args) {
             Scanner scanner = new Scanner(System.in);

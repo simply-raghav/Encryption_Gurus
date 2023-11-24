@@ -22,11 +22,11 @@ public class AES_ECB_NoPadding {
             String key = scanner.nextLine();
 
             // Encrypt the file
-            //String encryptedFilePath = encryptFileAES_ECB_NoPadding(filePath, key);
+            //String encryptedFilePath = encryptFile(filePath, key);
             //System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
 
             // Decrypt the file
-            String decryptedFilePath = decryptFileAES_ECB_NoPadding(filePath, key);
+            String decryptedFilePath = decryptFile(filePath, key);
             System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
 
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class AES_ECB_NoPadding {
         }
     }
 
-    public static String encryptFileAES_ECB_NoPadding(String filePath, String key) throws Exception {
+    public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 
         SecretKey secretKey = new SecretKeySpec(key.getBytes(), "AES");
@@ -58,7 +58,7 @@ public class AES_ECB_NoPadding {
         return encryptedFilePath.toString();
     }
 
-    public static String decryptFileAES_ECB_NoPadding(String filePath, String key) throws Exception {
+    public static String decryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 
         SecretKey secretKey = new SecretKeySpec(key.getBytes(), "AES");

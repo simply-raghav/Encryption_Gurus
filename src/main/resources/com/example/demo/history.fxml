@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,23 +18,43 @@
             <Font name="Bauhaus 93" size="56.0" />
         </font>
     </Label>
-      <Button fx:id="encryptButton" layoutX="98.0" layoutY="87.0" mnemonicParsing="false" onAction="#showEncryptedHistory" prefHeight="32.0" prefWidth="216.0" style="-fx-background-color: #fff; -fx-background-radius: 10;" text="Encrypted Files" textFill="#ff6a41">
+      <Button fx:id="encryptButton" layoutX="98.0" layoutY="87.0" mnemonicParsing="false" onAction="#showEncryptedHistory" prefHeight="32.0" prefWidth="216.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 10;" text="Encrypted Files" textFill="WHITE">
          <font>
             <Font name="Bauhaus 93" size="19.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
-      <TableView fx:id="historyTable" layoutX="90.0" layoutY="134.0" prefHeight="206.0" prefWidth="558.0">
+      <TableView fx:id="historyTable" layoutX="90.0" layoutY="134.0" prefHeight="206.0" prefWidth="558.0" style="-fx-background-radius: 10; -fx-border-color: #ff6a41; -fx-border-width: 3; -fx-border-radius: 10; -fx-border-insets: 2 2 2 2;">
         <columns>
-          <TableColumn fx:id="sno" prefWidth="49.599937438964844" text="S.No." />
+          <TableColumn fx:id="sno" prefWidth="49.599937438964844" style="-fx-alignment: CENTER;" text="S.No." />
           <TableColumn fx:id="name" prefWidth="100.800048828125" style="-fx-alignment: CENTER;" text="Name" />
-            <TableColumn fx:id="method" prefWidth="112.79998779296875" style="-fx-alignment: CENTER;" text="Method" />
-            <TableColumn fx:id="path" prefWidth="294.4001159667969" text="Path" />
+            <TableColumn fx:id="path" prefWidth="197.5999755859375" style="-fx-alignment: CENTER;" text="Path" />
+            <TableColumn fx:id="method" prefWidth="108.00009155273438" style="-fx-alignment: CENTER;" text="Method" />
+<!--            <TableColumn fx:id="select" prefWidth="108.00009155273438" style="-fx-alignment: CENTER;" text="Select" />-->
+            <TableColumn fx:id="select_Button" minWidth="0.0" prefWidth="92.800048828125" style="-fx-alignment: CENTER;" text="Select" />
         </columns>
       </TableView>
       <Button fx:id="decryptButton" layoutX="410.0" layoutY="87.0" mnemonicParsing="false" onAction="#showDecryptedHistory" prefHeight="32.0" prefWidth="216.0" style="-fx-background-color: #fff; -fx-background-radius: 10;" text="Decrypted Files" textFill="#ff6a41">
          <font>
             <Font name="Bauhaus 93" size="19.0" />
          </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="668.0" layoutY="12.0" mnemonicParsing="false" onAction="#shareFiles" prefHeight="0.0" prefWidth="45.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 100;">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <graphic>
+            <ImageView fitHeight="41.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Images/shareIcon.png" />
+               </image>
+            </ImageView>
+         </graphic>
       </Button>
     </children>
 

@@ -18,19 +18,25 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class LoginApp extends Application {
+    private LogOutApp newObj = new LogOutApp();
+    private Parent root;
+    private Scene scene;
+    private Stage stage;
+
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("login.fxml"));
-        Scene scene = new Scene(root);
+        root = FXMLLoader.load(getClass().getResource("login.fxml"));
+        scene = new Scene(root);
         new FadeIn(root).play();
 
         stage.setTitle("Secure Vault");
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+//        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.getIcons().add(newObj.icon);
         stage.setResizable(false);
+        stage.centerOnScreen();
+
 
         stage.setScene(scene);
         stage.show();
-
-
     }
 
     @FXML
@@ -41,23 +47,17 @@ public class LoginApp extends Application {
     private Label usernameLoginLabel;
     @FXML
     private Label passwordLoginLabel;
-    private Parent root;
-    private Stage stage;
-    private Scene scene;
-    public void loginSubmit(ActionEvent event) throws Exception{
+
+    public void homePageScene(ActionEvent event) throws Exception{
         boolean usrFlag = false, pwdFlag = false;
         String usrName = usernameField.getText();
         String pwd = passwordField.getText();
 
-            login_data_connectivity str=new login_data_connectivity(usrName,pwd);
-            str.checkdata(event);
-
-        System.out.println(usernameField.getText());
-        System.out.println(passwordField.getText());
 
         if(usrName.isEmpty()){
             usernameLoginLabel.setVisible(true);
             usernameField.setText("");
+            usrFlag = false;
         }else{
             usrFlag = true;
             usernameLoginLabel.setVisible(false);
@@ -65,9 +65,37 @@ public class LoginApp extends Application {
         if(pwd.isEmpty()){
             passwordLoginLabel.setVisible(true);
             passwordField.setText("");
+            pwdFlag = false;
         }else{
             pwdFlag = true;
             passwordLoginLabel.setVisible(false);
+        }
+
+        boolean chkFlag = true;
+        login_data_connectivity str=new login_data_connectivity(usrName,pwd);
+        chkFlag = str.checkdata(event);
+
+        if(usrFlag && pwdFlag && chkFlag){
+
+
+            System.out.println(usernameField.getText());
+            System.out.println(passwordField.getText());
+
+            LogOutApp obj = new LogOutApp();
+            if(obj.mainStage != null)
+                obj.mainStage.close();
+
+            root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+            stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            scene = new Scene(root);
+            stage.setScene(scene);
+            stage.centerOnScreen();
+            stage.setResizable(false);
+            new FadeIn(root).play();
+            stage.show();
+        }else{
+//            stage.show();
+            stage.toFront();
         }
 
     }
@@ -78,7 +106,12 @@ public class LoginApp extends Application {
         scene = new Scene(root);
         stage.setScene(scene);
         new BounceIn(root).play();
+        stage.centerOnScreen();
+        stage.setResizable(false);
         stage.show();
+
+//        calling the register page
+        new RegisterApp().sendOTP(event);
     }
 
     public static void main(String[] args) {

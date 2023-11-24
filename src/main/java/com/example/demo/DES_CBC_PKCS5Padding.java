@@ -23,11 +23,11 @@ public class DES_CBC_PKCS5Padding {
             String key = scanner.nextLine();
 
             // Encrypt the file
-            String encryptedFilePath = encryptFileDES_CBC_PKCS5Padding(filePath, key);
+            String encryptedFilePath = encryptFile(filePath, key);
             System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
 
             // Decrypt the file
-            String decryptedFilePath = decryptFileDES_CBC_PKCS5Padding(encryptedFilePath, key);
+            String decryptedFilePath = decryptFile(encryptedFilePath, key);
             System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
 
         } catch (Exception e) {
@@ -35,7 +35,7 @@ public class DES_CBC_PKCS5Padding {
         }
     }
 
-    public static String encryptFileDES_CBC_PKCS5Padding(String filePath, String key) throws Exception {
+    public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 
         // Convert the key to a SecretKey
@@ -53,13 +53,14 @@ public class DES_CBC_PKCS5Padding {
         // Encode the encrypted content using Base64
         String encryptedContent = Base64.getEncoder().encodeToString(encryptedBytes);
 
-        Path encryptedFilePath = Paths.get(filePath + ".encrypted");
+//        Path encryptedFilePath = Paths.get(filePath + ".encrypted");
+        Path encryptedFilePath = Paths.get(filePath);
         Files.write(encryptedFilePath, encryptedContent.getBytes(), StandardOpenOption.CREATE);
 
         return encryptedFilePath.toString();
     }
 
-    public static String decryptFileDES_CBC_PKCS5Padding(String filePath, String key) throws Exception {
+    public static String decryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 
         // Convert the key to a SecretKey
@@ -75,10 +76,12 @@ public class DES_CBC_PKCS5Padding {
         // Decrypt the content
         byte[] encryptedBytes = cipher.doFinal(fileBytes, 8, fileBytes.length - 8);
 
-        Path decryptedFilePath = Paths.get(filePath + ".decrypted");
+//        Path decryptedFilePath = Paths.get(filePath + ".decrypted");
+        Path decryptedFilePath = Paths.get(filePath);
         Files.write(decryptedFilePath, encryptedBytes, StandardOpenOption.CREATE);
 
         return decryptedFilePath.toString();
     }
 }
+
 

@@ -16,44 +16,52 @@ import java.io.IOException;
 
 public class LogOutApp extends Application {
 
-    @FXML
-    private Button powerButton;
-
+    public Parent mainRoot;
+    public Scene mainScene;
+    public static Stage mainStage;
+    public static Image icon = new Image(LogOutApp.class.getResourceAsStream("Images/logo.png"));
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage mainStage) throws IOException {
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("logout.fxml"));
-            Scene scene = new Scene(root);
-            new BounceIn(root).play();
-            stage.setScene(scene);
+            this.mainStage = mainStage;
+            mainRoot = FXMLLoader.load(getClass().getResource("logout.fxml"));
+            mainScene = new Scene(mainRoot);
+            new BounceIn(mainRoot).play();
+            mainStage.setScene(mainScene);
 
-            stage.setTitle("Secure Vault");
-            stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
-            stage.setResizable(false);
+            mainStage.setTitle("Secure Vault");
+//            mainStage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            mainStage.getIcons().add(icon);
+            mainStage.setResizable(false);
+            mainStage.centerOnScreen();
 
-            stage.show();
+            mainStage.show();
+
         }catch (Exception e){
             System.out.println(e.toString());
         }
 
-
     }
 
-    @FXML
     private Parent root;
     private Stage stage;
-    private Scene scene;
+
 
     public void openLogin(ActionEvent event){
+
         try{
-            root = FXMLLoader.load(getClass().getResource("login.fxml"));
-            stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-            scene = new Scene(root);
-            stage.setScene(scene);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+            root = (Parent) loader.load();
+            stage = new Stage();
+            stage.getIcons().add(icon);
+            stage.setTitle("Secure Vault");
+            stage.setScene(new Scene(root));
+
             new BounceIn(root).play();
+            stage.setResizable(false);
+            stage.centerOnScreen();
             stage.show();
         }catch(Exception e){
-            System.out.println("Decrypt");
             System.out.println(e.toString());
         }
 

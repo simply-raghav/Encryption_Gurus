@@ -23,7 +23,7 @@
                   <Cursor fx:constant="HAND" />
                </cursor>
             </TextField>
-            <Button fx:id="submitButton" layoutX="28.0" layoutY="102.0" mnemonicParsing="false" onAction="#loginSubmit" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="SUBMIT" textFill="WHITE">
+            <Button fx:id="loginButton" layoutX="28.0" layoutY="102.0" mnemonicParsing="false" onAction="#homePageScene" prefHeight="38.0" prefWidth="84.0" style="-fx-background-radius: 20; -fx-background-color: #ff6a41;" text="LOGIN" textFill="WHITE">
                <cursor>
                   <Cursor fx:constant="HAND" />
                </cursor>
@@ -46,12 +46,15 @@
                   <Font name="Bauhaus 93" size="20.0" />
                </font>
             </Label>
-            <Button layoutX="250.0" layoutY="108.0" mnemonicParsing="false" onAction="#registerScene" prefHeight="30.0" prefWidth="76.0" style="-fx-background-color: #AEB0B1;" text="Sign Up" textFill="WHITE" underline="true">
+            <Button layoutX="267.0" layoutY="108.0" mnemonicParsing="false" onAction="#registerScene" prefHeight="30.0" prefWidth="141.0" style="-fx-background-color: #AEB0B1;" text="Change Password" textFill="WHITE" underline="true">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
             </Button>
-            <Label layoutX="121.0" layoutY="113.0" prefHeight="17.0" prefWidth="141.0" text="Don't have an account | " textFill="WHITE">
+            <Label alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="136.0" layoutY="114.0" prefHeight="17.0" prefWidth="141.0" text="Forget Password | " textFill="WHITE">
                <font>
                   <Font size="13.0" />
                </font>

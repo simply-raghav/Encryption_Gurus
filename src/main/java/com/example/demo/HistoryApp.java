@@ -3,6 +3,7 @@ package com.example.demo;
 import animatefx.animation.BounceIn;
 import animatefx.animation.FadeIn;
 import javafx.application.Application;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,7 @@ import javafx.scene.AccessibleAction;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -23,6 +25,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class HistoryApp extends Application implements Initializable {
@@ -31,6 +36,7 @@ public class HistoryApp extends Application implements Initializable {
             Parent root = FXMLLoader.load(getClass().getResource("history.fxml"));
             Scene scene = new Scene(root);
             new FadeIn(root).play();
+            stage.centerOnScreen();
 
             stage.setScene(scene);
 
@@ -70,48 +76,96 @@ public class HistoryApp extends Application implements Initializable {
 
 
     @FXML
-    private TableColumn<Data, Integer> sno = new TableColumn<>("S.No.");;
+    private TableColumn<History, Integer> sno = new TableColumn<>("S.No.");;
     @FXML
-    private TableColumn<Data, String> path;
+    private TableColumn<History, String> path;
     @FXML
-    private TableColumn<Data, String> name;
+    private TableColumn<History, String> name;
     @FXML
-    private TableView<Data> historyTable;
+    private TableColumn<History, String> method;
+    @FXML
+    private TableColumn<History, History> select_Button;
+    @FXML
+    private TableView<History> historyTable;
+    private ObservableList<History> selectedHistoryFiles = FXCollections.observableArrayList();
 
-    ObservableList<Data> encryptHistoryList = FXCollections.observableArrayList();
-    ObservableList<Data> decryptHistoryList = FXCollections.observableArrayList();
+
+    ObservableList<History> encryptHistoryList = FXCollections.observableArrayList();
+    ObservableList<History> decryptHistoryList = FXCollections.observableArrayList();
+
+    fetch_history_data historyData=new fetch_history_data();
+    //saving_decrypt_path history_data_decrypt=new saving_decrypt_path();
+    decrypt_history_data_DB decrypt_data=new decrypt_history_data_DB();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
+        try{
+            historyData.encrypt_data_came(encryptHistoryList);
+//            System.out.println(encryptHistoryList);
+        }catch (Exception e){
+            System.out.println("Error to making Encrypt  List");
+            System.out.println(e.toString());
+        }
+//Decrypt
+        try{
+            decrypt_data.Sender_data(decryptHistoryList);
+//            System.out.println(decryptHistoryList);
+        }catch (Exception e){
+            System.out.println("Error to making Decrypt List");
+            System.out.println(e.toString());
+        }
 
-        //from here i have to put the files path and name of it.
-        encryptHistoryList.addAll(
-                new Data("en_path1", "en_file1"),
-                new Data("en_path2", "en_file2"),
-                new Data("en_path3", "en_file3"),
-                new Data("en_path4", "en_file4")
-        );
+//        new decrypt_history_data_DB().update_EncryptHistory(decryptHistoryList);
 
 
-        decryptHistoryList.addAll(
-                new Data("de_path1", "de_file1"),
-                new Data("de_path2", "de_file2"),
-                new Data("de_path3", "de_file3"),
-                new Data("de_path4", "de_file4")
-        );
 
         sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(historyTable.getItems().indexOf(cellData.getValue()) + 1).asObject());
         sno.setResizable(false);
-        name.setCellValueFactory(new PropertyValueFactory<Data, String>("name"));
+        name.setCellValueFactory(new PropertyValueFactory<History, String>("name"));
         name.setResizable(false);
-        path.setCellValueFactory(new PropertyValueFactory<Data, String>("path"));       // The name in "" must be same as Data class attribute's  name
+        path.setCellValueFactory(new PropertyValueFactory<History, String>("path"));       // The name in "" must be same as Data class attribute's  name
         path.setResizable(false);
+        method.setCellValueFactory(new PropertyValueFactory<History, String>("method"));       // The name in "" must be same as Data class attribute's  name
+        method.setResizable(false);
 
-        SortedList<Data> sortedData = new SortedList<>(encryptHistoryList);
+
+        select_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        select_Button.setResizable(false);
+        select_Button.setCellFactory(param -> new TableCell<History, History>() {
+            private final Button selectButton = new Button("Select");
+
+            @Override
+            protected void updateItem(History file, boolean empty) {
+                super.updateItem(file, empty);
+
+                if (file == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(selectButton);
+                selectButton.setOnAction(event -> {
+                    System.out.println(getItem().getPath());
+//                    selectedHistoryFiles.add(getItem());
+
+                    if (selectButton.getStyle().isEmpty()) {
+                        selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
+                        selectedHistoryFiles.add(new History(getItem().getName(), getItem().getPath(), getItem().getMethod()));
+                    } else {
+                        selectButton.setStyle("");
+                        selectedHistoryFiles.remove(getItem());
+                    }
+                });
+            }
+
+        });
+
+
+        SortedList<History> sortedData = new SortedList<>(encryptHistoryList);
         sortedData.comparatorProperty().bind(historyTable.comparatorProperty());
 
-        FilteredList<Data> filteredData = new FilteredList<>(sortedData, p -> true);
+        FilteredList<History> filteredData = new FilteredList<>(sortedData, p -> true);
 
         historyTable.setItems(filteredData);
 
@@ -120,5 +174,13 @@ public class HistoryApp extends Application implements Initializable {
         name.setSortType(TableColumn.SortType.ASCENDING);
         historyTable.getSortOrder().add(name);
         historyTable.sort();
+
+        historyTable.refresh();
+
+
+    }
+
+    public void shareFiles(){
+        System.out.println("Sharing Files");
     }
 }

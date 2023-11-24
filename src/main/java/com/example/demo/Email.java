@@ -23,6 +23,7 @@ import java.util.Random;
         void sendEmail() throws MessagingException {
             String fromuser="rishirajpatel172@gmail.com";
             String fromuserpassword="ojay tcvp coqy vjch";
+//            String fromuserpassword = "somh jrgy lmhs itlw";
             String emailHost="smtp.gmail.com";
             Transport transport=newSession.getTransport("smtp");
             transport.connect(emailHost,fromuser,fromuserpassword);

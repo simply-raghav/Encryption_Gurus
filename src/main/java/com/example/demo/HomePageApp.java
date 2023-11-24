@@ -11,22 +11,26 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class HomePageApp extends Application {
+    private LogOutApp newObj = new LogOutApp();
     public void start(Stage stage) throws IOException {
-       try{
-           Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
-           Scene scene = new Scene(root);
-           stage.setScene(scene);
-           new BounceIn(root).play();
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("homePage.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            new BounceIn(root).play();
+            stage.centerOnScreen();
 
-           stage.setTitle("Secure Vault");
-           stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
-           stage.setResizable(false);
+            stage.setTitle("Secure Vault");
+//           stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+            stage.getIcons().add(newObj.icon);
+            stage.setResizable(false);
 
-           stage.show();
-       }catch (Exception e){
-           System.out.println("HomePAge Error");
-           System.out.println(e.toString());
-       }
+
+            stage.show();
+        }catch (Exception e){
+            System.out.println("HomePAge Error");
+            System.out.println(e.toString());
+        }
 
     }
 

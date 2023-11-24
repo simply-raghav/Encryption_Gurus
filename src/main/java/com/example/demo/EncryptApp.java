@@ -24,6 +24,7 @@ public class EncryptApp extends Application {
         Scene scene = new Scene(Enc_root);
         new FadeIn(Enc_root).play();
         stage.setScene(scene);
+        stage.centerOnScreen();
 
 
         stage.setTitle("Secure Vault");

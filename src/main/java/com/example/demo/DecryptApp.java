@@ -11,13 +11,16 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class DecryptApp extends Application {
+
+    public static Parent DEC_root;
     @Override
     public void start(Stage stage){
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
-            Scene scene = new Scene(root);
+            DEC_root = FXMLLoader.load(getClass().getResource("decrypt.fxml"));
+            Scene scene = new Scene(DEC_root);
             stage.setTitle("Hello!");
-            new FadeIn(root).play();
+            new FadeIn(DEC_root).play();
+            stage.centerOnScreen();
 
 
             stage.setScene(scene);

@@ -16,14 +16,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.AccessibleAction;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -86,14 +84,23 @@ public class HistoryApp extends Application implements Initializable {
     @FXML
     private TableColumn<History, History> select_Button;
     @FXML
+    private TableColumn<History, History> preview_Button;
+    @FXML
     private TableView<History> historyTable;
     private ObservableList<History> selectedHistoryFiles = FXCollections.observableArrayList();
+
+    @FXML
+    private RadioButton exportWithEncrypt_RadioButton;
+    @FXML
+    private RadioButton exportWithDecrypt_RadioButton;
+
+    private ToggleGroup toggleGroup = new ToggleGroup();
 
 
     ObservableList<History> encryptHistoryList = FXCollections.observableArrayList();
     ObservableList<History> decryptHistoryList = FXCollections.observableArrayList();
 
-    fetch_history_data historyData=new fetch_history_data();
+    encrypt_history_data_DB historyData=new encrypt_history_data_DB();
     //saving_decrypt_path history_data_decrypt=new saving_decrypt_path();
     decrypt_history_data_DB decrypt_data=new decrypt_history_data_DB();
 
@@ -145,6 +152,7 @@ public class HistoryApp extends Application implements Initializable {
                 }
 
                 setGraphic(selectButton);
+                selectButton.setStyle("-fx-cursor: hand");
                 selectButton.setOnAction(event -> {
                     System.out.println(getItem().getPath());
 //                    selectedHistoryFiles.add(getItem());
@@ -160,6 +168,34 @@ public class HistoryApp extends Application implements Initializable {
             }
 
         });
+
+
+
+        // Preview Button
+
+        preview_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+        preview_Button.setResizable(false);
+        preview_Button.setCellFactory(param -> new TableCell<History, History>() {
+            private final Button previewButton = new Button("Preview");
+            @Override
+            protected void updateItem(History file, boolean empty) {
+                super.updateItem(file, empty);
+
+                if (file == null) {
+                    setGraphic(null);
+                    return;
+                }
+
+                setGraphic(previewButton);
+                previewButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white; -fx-cursor: hand");
+                previewButton.setOnAction(event -> {
+                    System.out.println("Showing Preview of: " + getItem().getPath());
+                });
+            }
+
+        });
+
+
 
 
         SortedList<History> sortedData = new SortedList<>(encryptHistoryList);
@@ -178,9 +214,44 @@ public class HistoryApp extends Application implements Initializable {
         historyTable.refresh();
 
 
+        // Add Radio Buttons in a Toggle Group
+        exportWithEncrypt_RadioButton.setToggleGroup(toggleGroup);
+        exportWithDecrypt_RadioButton.setToggleGroup(toggleGroup);
+
     }
 
     public void shareFiles(){
         System.out.println("Sharing Files");
     }
+
+    public void exportWithDecrypt() throws IOException {
+        System.out.println("Export File After Decrypting");
+        openMailBox();
+    }
+
+    public void exportWithEncrypt() throws IOException {
+        System.out.println("Export File After Encrypting");
+        openMailBox();
+    }
+
+    public void selectAllFiles(){
+        for(var file :  selectedHistoryFiles){
+            System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
+        }
+    }
+
+    public void openMailBox() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("enterEmail.fxml"));
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        new BounceIn(root).play();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.setResizable(false);
+        stage.centerOnScreen();
+
+
+        stage.show();
+    }
+
 }

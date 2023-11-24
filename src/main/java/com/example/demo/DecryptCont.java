@@ -156,7 +156,7 @@ private Scene scene;
 
 
         ObservableList<Data> list = FXCollections.observableArrayList();
-        ObservableList<Data> selectedFiles = FXCollections.observableArrayList();
+        ObservableList<Data> selectedItems_toDecrypt = FXCollections.observableArrayList();
 
         public void initialize(URL url, ResourceBundle resourceBundle) {
             sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(table.getItems().indexOf(cellData.getValue()) + 1).asObject());
@@ -167,6 +167,35 @@ private Scene scene;
             path.setResizable(false);
 
 
+
+            // Add Tooltip on Name Coloumn
+            name.setCellFactory(
+                    column -> {
+                        return new TableCell<Data, String>() {
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(item);
+                                setTooltip(new Tooltip(item));
+                            }
+                        };
+                    });
+
+            // Add Tooltip on Path Coloumn
+            path.setCellFactory(
+                    column -> {
+                        return new TableCell<Data, String>() {
+                            @Override
+                            protected void updateItem(String item, boolean empty) {
+                                super.updateItem(item, empty);
+                                setText(item);
+                                setTooltip(new Tooltip(item));
+                            }
+                        };
+                    });
+
+
+            // Add Select Button into Table
             select_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             select_Button.setResizable(false);
             select_Button.setCellFactory(param -> new TableCell<Data, Data>() {
@@ -181,15 +210,18 @@ private Scene scene;
                     }
 
                     setGraphic(selectButton);
+                    selectButton.setStyle("-fx-cursor: hand");
                     // Function mentions that what work the Select button will does
                     selectButton.setOnAction(event -> {
-                        System.out.println(getItem().getPath());
-                        selectedFiles.add(getItem());
 
                         if (selectButton.getStyle().isEmpty()) {
+                            selectedItems_toDecrypt.add(getItem());
                             selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
+                            System.out.println("File Seleceted");
                         } else {
                             selectButton.setStyle("");
+                            selectedItems_toDecrypt.remove(getItem());
+                            System.out.println("File Not Selected");
                         }
                     });
                 };
@@ -197,6 +229,7 @@ private Scene scene;
 
 
 
+            // Add Delete Button into Table
 
             delete_Button.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
             delete_Button.setCellFactory(param -> new TableCell<Data, Data>() {
@@ -212,6 +245,7 @@ private Scene scene;
                     }
 
                     setGraphic(deleteButton);
+                    deleteButton.setStyle("-fx-cursor: hand");
                     deleteButton.setOnAction(event -> list.remove(person));
                 }
 
@@ -270,8 +304,8 @@ private Scene scene;
         }
 
 
+        private static boolean isDecrypted = false;
         public void decryptFiles() throws SQLException, IOException, ClassNotFoundException {
-            boolean isDecrypted = false;
 
             /**************************Connectivity to DB***************************/
             searching_algo_DB search=new searching_algo_DB();
@@ -280,54 +314,91 @@ private Scene scene;
 
             try{
                 String key = passwordField.getText();
-                for(var file : selectedFiles){
-//                    new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
-//                    new AES_ECB_NoPadding().decryptFile(file.getPath(), key);
-//                    new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
-                    new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key);
-//                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                for(var file : selectedItems_toDecrypt){
 
                     /*******DB**********************Bhai aaram se contact to rishi do not touch****************************/
 
 
                     // This is to save decrypt History to database
-                    String algo= search.algo_finder(file.getPath());
-                    saving_decrypt_path setDate=new saving_decrypt_path();
-                    setDate.send_decrypt_data(file.getName(),file.getPath(),algo,key,"Decrypted");
+                    String AlgoMethod= search.algo_finder(file.getPath());            // To fetch Algo Method from encrypt_history DB
 
-//                    fetch_history_data historyData = null;
-//                    historyData.delete_encrypt_data(file.getPath());
+                    saving_decrypt_path setDate = new saving_decrypt_path();
+                    setDate.send_decrypt_data(file.getName(),file.getPath(),AlgoMethod,key,"Decrypted");      // To save data in decrypt_history DB
 
-                    System.out.println(file.getPath());
-                    System.out.println(file.getName());
-                    System.out.println(algo);
-                    System.out.println(key);
+                    new encrypt_history_data_DB().delete_encrypt_data(file.getPath());      // To delete reference selected file from encrypt_history DB
 
+                    System.out.println(file.getName() + " | " + file.getPath() + " | " + key);
+
+                    System.out.println(AlgoMethod);
 
 
+
+
+                    if (AlgoMethod.equalsIgnoreCase("AES/CBC-PKCS5Padding")) {
+                        System.out.println("AES/Padding");
+                        new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                    }
+
+                    else if (AlgoMethod.equalsIgnoreCase("AES/ECB-NoPadding")) {
+                        System.out.println("AES/NoPadding");
+                        new AES_ECB_NoPadding().decryptFile(file.getPath(), key);
+                    }
+
+                    else if (AlgoMethod.equalsIgnoreCase("DES/CBC-PKCS5Padding")) {
+                        System.out.println("DES/CBC/Padding");
+                        new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                    }
+
+                    else if (AlgoMethod.equalsIgnoreCase("DES/ECB-PKCS5Padding")) {     // Isme Dikkt hai
+                        System.out.println("DES/ECB/Padding");
+                        new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key);
+                    }
+
+                    else if (AlgoMethod.equalsIgnoreCase("Desede/CBC-PKCS5Padding")) {
+                        System.out.println("Desede/Padding");
+                        new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+                    }
+
+                    list.remove(file);
                 }
 
-                new decrypt_history_data_DB().update_EncryptHistory(selectedFiles);
+                new decrypt_history_data_DB().update_EncryptHistory(selectedItems_toDecrypt);
 
 
                 /********************************************************************************************************/
 
-
-                selectedFiles.clear();
-                select_Button.setStyle("");
                 isDecrypted = true;
 
             }catch (Exception e){
                 System.out.println(e.toString());
+                System.out.println("safbashbdjvdfvbbdjhfb");
                 JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
+                isDecrypted = false;
             }
             finally {
-                if(isDecrypted){
+                if(isDecrypted && !selectedItems_toDecrypt.isEmpty()){
                     JOptionPane.showMessageDialog(null, "Files Decrypted Succesfully",
                             "INFORMATION",
                             JOptionPane.INFORMATION_MESSAGE);
                 }
             }
+
+
+            if(selectedItems_toDecrypt.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No file Selected",
+                        "WARNING",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+
+            selectedItems_toDecrypt.clear();
+//            for(var file : selectedItems_toDecrypt){
+//                System.out.println("fsfnjk");
+//            }
+//            for(var file : list){
+//                System.out.println(file.getName());
+//            }
+
+            initialize(null, null);
         }
 
 }

@@ -16,59 +16,9 @@ import java.util.Scanner;
 
 public class DES_ECB_PKCS5Padding {
 
-        private static String the_Path;
+        // **** DES key msut be equals to (8 characters)... ****
 
-//        public DES_ECB_PKCS5Padding(String path) {
-//            this.the_Path = path;
-////            System.out.println(the_Path);
-//        }
-
-       public void print(){
-            System.out.println(the_Path);
-        }
-
-
-    public static void main(String[] args) {
-        Scanner sc=new Scanner(System.in);
-        try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-            // Ask user for file path and DES key
-            System.out.print("Enter the file path: ");
-            //We want file path here to encrypt
-            String filePath = reader.readLine();
-
-//            String filePath = the_Path;
-            System.out.println(filePath);
-
-
-            System.out.print("Enter the DES key (8 characters): ");
-            //key to do encryption
-            String key = reader.readLine();
-
-
-            // Encrypt the file
-            System.out.println("Encrypt : 1\nDecrypt : 2");
-            int a=sc.nextInt();
-            switch (a){
-                case 1:  String encryptedFilePath = encryptFile(filePath, key);
-                    System.out.println("File encrypted successfully. Encrypted file: " + encryptedFilePath);
-                    break;
-                case 2: String decryptedFilePath = decryptFile(filePath, key);
-                    System.out.println("File decrypted successfully. Decrypted file: " + decryptedFilePath);
-            }
-
-
-            // Decrypt the file
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-        //encryption work done here
-        public static String encryptFile(String filePath, String key) {
-            try {
+        public static String encryptFile(String filePath, String key) throws Exception {
                 System.out.println("Encyption: " + filePath + " and " + key);
 
                 SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DES");
@@ -86,18 +36,10 @@ public class DES_ECB_PKCS5Padding {
                 //Files.write(outputPath, encryptedBytes);
 
                 return filePath;
-            } catch (Exception e) {
-                e.printStackTrace();
-                return null;
-            }
         }
 
         //decryption work done here
-        public static String decryptFile(String filePath, String key) {
-            try {
-
-                System.out.println("Decyption: " + filePath + " and " + key);
-
+        public static String decryptFile(String filePath, String key) throws Exception{
 
                 SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DES");
                 Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
@@ -113,11 +55,6 @@ public class DES_ECB_PKCS5Padding {
                 Files.write(Paths.get(filePath), decryptedBytes);
 
                 return filePath;
-            } catch (Exception e) {
-                System.out.println(e.toString());
-                JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return null;
-            }
         }
 }
 

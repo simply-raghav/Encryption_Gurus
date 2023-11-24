@@ -14,7 +14,9 @@ public class searching_algo_DB {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url="jdbc:mysql://localhost/history";
         String username="root";
-        String password="0209rishi@Pa";
+//        String password="0209rishi@Pa";
+        String password= "admin";
+
         Connection con= DriverManager.getConnection(url,username,password);
         String q="select algorithm from encrypt_history where filepath =?";
         PreparedStatement pstmt=con.prepareStatement(q);

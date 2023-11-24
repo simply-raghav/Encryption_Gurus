@@ -50,6 +50,8 @@ public class HistoryApp extends Application implements Initializable {
 
     @FXML
     private Button encryptButton, decryptButton;
+
+    private boolean isEncrptButtonSelected = true;
     public void showEncryptedHistory(ActionEvent event){
         encryptButton.setStyle("-fx-background-color: F46036; -fx-text-fill: FFF; -fx-background-radius: 10");
         decryptButton.setStyle("-fx-background-color: FFF; -fx-text-fill: F46036; -fx-background-radius: 10");
@@ -57,6 +59,13 @@ public class HistoryApp extends Application implements Initializable {
 
         //set All elements from Encrypt files History to history-Table
         historyTable.setItems(encryptHistoryList);
+        isEncrptButtonSelected = true;
+
+
+
+        exportWithEncrypt_RadioButton.setSelected(false);
+        exportWithDecrypt_RadioButton.setSelected(false);
+
     }
     public void showDecryptedHistory(ActionEvent event){
         decryptButton.setStyle("-fx-background-color: F46036; -fx-text-fill: FFF; -fx-background-radius: 10");
@@ -65,6 +74,11 @@ public class HistoryApp extends Application implements Initializable {
 
         //set All elements from Decrypt files History to history-Table
         historyTable.setItems(decryptHistoryList);
+        isEncrptButtonSelected = false;
+
+        exportWithEncrypt_RadioButton.setSelected(false);
+        exportWithDecrypt_RadioButton.setSelected(false);
+
     }
 
     public static void main(String[] args) {
@@ -142,8 +156,12 @@ public class HistoryApp extends Application implements Initializable {
         select_Button.setCellFactory(param -> new TableCell<History, History>() {
             private final Button selectButton = new Button("Select");
 
+
             @Override
             protected void updateItem(History file, boolean empty) {
+                selectButton.setStyle("-fx-cursor: hand");
+                final boolean[] temp = {true};
+
                 super.updateItem(file, empty);
 
                 if (file == null) {
@@ -152,16 +170,17 @@ public class HistoryApp extends Application implements Initializable {
                 }
 
                 setGraphic(selectButton);
-                selectButton.setStyle("-fx-cursor: hand");
                 selectButton.setOnAction(event -> {
                     System.out.println(getItem().getPath());
 //                    selectedHistoryFiles.add(getItem());
 
-                    if (selectButton.getStyle().isEmpty()) {
-                        selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white;");
+                    if (temp[0]) {
+                        temp[0] = false;
+                        selectButton.setStyle("-fx-background-color: #F46036; -fx-text-fill: white; -fx-cursor: hand");
                         selectedHistoryFiles.add(new History(getItem().getName(), getItem().getPath(), getItem().getMethod()));
                     } else {
-                        selectButton.setStyle("");
+                        temp[0] = true;
+                        selectButton.setStyle("-fx-cursor: hand");
                         selectedHistoryFiles.remove(getItem());
                     }
                 });
@@ -226,22 +245,50 @@ public class HistoryApp extends Application implements Initializable {
 
     public void exportWithDecrypt() throws IOException {
         System.out.println("Export File After Decrypting");
-        openMailBox();
+
+        if(!isEncrptButtonSelected){
+            openMailBoxwithoutKey();
+        }else{
+            openMailBoxwithKey();
+        }
+
     }
 
     public void exportWithEncrypt() throws IOException {
         System.out.println("Export File After Encrypting");
-        openMailBox();
-    }
 
-    public void selectAllFiles(){
-        for(var file :  selectedHistoryFiles){
-            System.out.println(file.getName() + " | " + file.getPath() + " | " + file.getMethod());
+        if(isEncrptButtonSelected){
+            openMailBoxwithoutKey();
+        }else{
+            openMailBoxwithKey();
         }
     }
 
-    public void openMailBox() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("enterEmail.fxml"));
+
+    public void openMailBoxwithKey() throws IOException {
+        System.out.println("openMailBoxwithKey");
+
+        Parent root = FXMLLoader.load(getClass().getResource("enterEmailWithKey.fxml"));
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        new FadeIn(root).play();
+        stage.centerOnScreen();
+
+        stage.setScene(scene);
+
+        stage.setTitle("Secure Vault");
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("Images/logo.png")));
+        stage.setResizable(false);
+
+        stage.show();
+    }
+
+    public void openMailBoxwithoutKey() throws IOException {
+
+        System.out.println("openMailBoxwithoutKey");
+
+
+        Parent root = FXMLLoader.load(getClass().getResource("enterEmailwithoutKey.fxml"));
         Stage stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);

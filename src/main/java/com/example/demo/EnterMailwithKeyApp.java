@@ -6,16 +6,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.control.TextField;
-import java.awt.*;
 
-public class EnterMailApp extends Application {
+public class EnterMailwithKeyApp extends Application {
 
     public void start(Stage stage) throws Exception{
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("enterEMail.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("enterEmailWithKey.fxml"));
             Scene scene = new Scene(root);
             new FadeIn(root).play();
             stage.centerOnScreen();
@@ -33,7 +32,7 @@ public class EnterMailApp extends Application {
     }
 
     @FXML
-    public TextField mailTextField;
+    public TextField mailTextField, keyTextField;
 
     public boolean isValidMail(String mail){
         String regex = "^[a-zA-Z0-9.+_-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -44,8 +43,10 @@ public class EnterMailApp extends Application {
         String mail = mailTextField.getText();
         if(isValidMail(mail)){
             System.out.println("Sending Mail to: " + mail);
+            System.out.println("PIN: " + keyTextField.getText());
         }else{
             System.out.println("Invalid Email");
         }
     }
 }
+

@@ -392,11 +392,19 @@ public class EncryptCont implements Initializable {
                     new Desede_CBC_PKCS5Padding().encryptFile(file.getPath(), key);
                 }
 
-                /* DataBase connectivity */
+                /* ********************DataBase connectivity *******************************/
                 new Saving_history_path().historySave(file.getName(), file.getPath(), AlgoMethod, key, "Encrypted");
 
             }
             isEncrypted = true;
+
+            new decrypt_history_data_DB().update_DecryptHistory(historyItems);
+
+
+
+
+
+
 
         } catch (Exception e) {
             System.out.println(e.toString());

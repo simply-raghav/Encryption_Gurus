@@ -32,4 +32,25 @@ public class fetch_history_data {
             System.out.println("-----------------------");
         }
     }
+//    public void delete_encrypt_data(String filepath) {
+//
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//            String url = "jdbc:mysql://localhost:3306/history";
+//            String username = "root";
+//            String password = "0209rishi@Pa";
+//
+//            try (Connection con = DriverManager.getConnection(url, username, password)) {
+//                String q = "DELETE FROM encrypt_history WHERE filepath = ?";
+//                try (PreparedStatement pstmt = con.prepareStatement(q)) {
+//                    pstmt.setString(1, filepath);
+//                    pstmt.executeUpdate();
+//                }
+//            }
+//        } catch (ClassNotFoundException | SQLException e) {
+//            e.printStackTrace();
+//            // Handle exceptions more gracefully in a production environment
+//        }
+//    }
+
 }

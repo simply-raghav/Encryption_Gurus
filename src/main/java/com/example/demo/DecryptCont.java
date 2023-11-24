@@ -30,6 +30,7 @@ import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -269,8 +270,13 @@ private Scene scene;
         }
 
 
-        public void decryptFiles(){
+        public void decryptFiles() throws SQLException, IOException, ClassNotFoundException {
             boolean isDecrypted = false;
+
+            /**************************Connectivity to DB***************************/
+            searching_algo_DB search=new searching_algo_DB();
+
+
 
             try{
                 String key = passwordField.getText();
@@ -280,10 +286,37 @@ private Scene scene;
 //                    new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
                     new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key);
 //                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key);
+
+                    /*******DB**********************Bhai aaram se contact to rishi do not touch****************************/
+
+
+                    // This is to save decrypt History to database
+                    String algo= search.algo_finder(file.getPath());
+                    saving_decrypt_path setDate=new saving_decrypt_path();
+                    setDate.send_decrypt_data(file.getName(),file.getPath(),algo,key,"Decrypted");
+
+//                    fetch_history_data historyData = null;
+//                    historyData.delete_encrypt_data(file.getPath());
+
+                    System.out.println(file.getPath());
+                    System.out.println(file.getName());
+                    System.out.println(algo);
+                    System.out.println(key);
+
+
+
                 }
+
+                new decrypt_history_data_DB().update_EncryptHistory(selectedFiles);
+
+
+                /********************************************************************************************************/
+
+
                 selectedFiles.clear();
                 select_Button.setStyle("");
                 isDecrypted = true;
+
             }catch (Exception e){
                 System.out.println(e.toString());
                 JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);

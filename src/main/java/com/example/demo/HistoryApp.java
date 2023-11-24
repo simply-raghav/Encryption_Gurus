@@ -66,7 +66,7 @@ public class HistoryApp extends Application implements Initializable {
         System.out.println("Decrypt");
 
         //set All elements from Decrypt files History to history-Table
-//        historyTable.setItems(decryptHistoryList);
+        historyTable.setItems(decryptHistoryList);
     }
 
     public static void main(String[] args) {
@@ -94,8 +94,8 @@ public class HistoryApp extends Application implements Initializable {
     ObservableList<History> decryptHistoryList = FXCollections.observableArrayList();
 
     fetch_history_data historyData=new fetch_history_data();
-
-
+    //saving_decrypt_path history_data_decrypt=new saving_decrypt_path();
+    decrypt_history_data_DB decrypt_data=new decrypt_history_data_DB();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -107,13 +107,17 @@ public class HistoryApp extends Application implements Initializable {
             System.out.println("Error to making Encrypt  List");
             System.out.println(e.toString());
         }
+//Decrypt
         try{
-            historyData.encrypt_data_came(decryptHistoryList);
+            decrypt_data.Sender_data(decryptHistoryList);
 //            System.out.println(decryptHistoryList);
         }catch (Exception e){
             System.out.println("Error to making Decrypt List");
             System.out.println(e.toString());
         }
+
+//        new decrypt_history_data_DB().update_EncryptHistory(decryptHistoryList);
+
 
 
         sno.setCellValueFactory(cellData -> new SimpleIntegerProperty(historyTable.getItems().indexOf(cellData.getValue()) + 1).asObject());
@@ -170,6 +174,9 @@ public class HistoryApp extends Application implements Initializable {
         name.setSortType(TableColumn.SortType.ASCENDING);
         historyTable.getSortOrder().add(name);
         historyTable.sort();
+
+        historyTable.refresh();
+
 
     }
 

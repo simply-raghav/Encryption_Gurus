@@ -62,10 +62,11 @@ public class Desede_CBC_PKCS5Padding {
 
         return decryptedFilePath.toString();
     }
-
-    public static byte[] decryptFile(byte[] fileBytes, String key) throws Exception {
+    public static String decryptFile(String filePath, String key, String name) throws Exception {
         Cipher cipher = Cipher.getInstance("DESede/CBC/PKCS5Padding");
         SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DESede");
+
+        byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
 
         // Decode the Base64 content
         byte[] ivAndEncrypted = Base64.getDecoder().decode(fileBytes);
@@ -82,8 +83,11 @@ public class Desede_CBC_PKCS5Padding {
 
         // Decrypt the content
         byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        return decryptedBytes;
 
+        Path decryptedFilePath = Paths.get("D:/" + name);
+        Files.write(decryptedFilePath, decryptedBytes, StandardOpenOption.CREATE);
+
+        return decryptedFilePath.toString();
     }
 
 }

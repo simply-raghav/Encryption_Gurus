@@ -16,7 +16,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
-import javafx.scene.AccessibleAction;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -34,15 +33,12 @@ import javafx.stage.Stage;
 import javafx.scene.media.Media;
 import javafx.stage.WindowEvent;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 
 public class HistoryApp extends Application implements Initializable {
@@ -252,16 +248,16 @@ public class HistoryApp extends Application implements Initializable {
     }
 
     private void previewDecryptedFile(History file) {
-        if(file.getPath().endsWith(".mp4")) {
-            viewVideoFileDecrypted(file.getPath());
-        }
         if(file.getPath().endsWith(".txt")) {
             viewTextFileDecrypted(file.getPath());
         }
-        if(file.getPath().endsWith(".jpg") || file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif") || file.getPath().endsWith(".png") || file.getPath().endsWith(".svg")) {
+        else if(file.getPath().endsWith(".jpg") || file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif") || file.getPath().endsWith(".png") || file.getPath().endsWith(".svg")) {
             viewImageFileDecrypted(file.getPath());
+        }else{
+            JOptionPane.showMessageDialog(null, "File Not Supported to view.",
+                    "Warning",
+                    JOptionPane.WARNING_MESSAGE);
         }
-
     }
 
     private void viewImageFileDecrypted(String path) {
@@ -269,8 +265,12 @@ public class HistoryApp extends Application implements Initializable {
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().add(imageView);
-        Scene scene = new Scene(root, image.getWidth(), image.getHeight());
+        Scene scene = new Scene(root, 500, 500);
         Stage stage = new Stage();
+        imageView.setFitHeight(500);
+        imageView.setFitWidth(500);
+
+        imageView.setPreserveRatio(true);
         stage.setScene(scene);
         stage.show();
     }
@@ -364,17 +364,12 @@ public class HistoryApp extends Application implements Initializable {
         String key = showDialogBox();
 
         if (key!= null) {
-            byte[] decryptedBytes = decryptFiles(key, file);
+            decryptFiles(key, file, file.getName());
+
             if(file.getPath().endsWith(".txt")) {
-                viewTextFileEncrypted(decryptedBytes, key, file.getPath());
-            } else if(file.getPath().endsWith(".jpg")) {
-                viewImageFileEncrypted_jpg(decryptedBytes);
-            }else if(file.getPath().endsWith(".png")) {
-                viewImageFileEncrypted_png(decryptedBytes);
-            }else if(file.getPath().endsWith(".jpeg")) {
-                viewImageFileEncrypted_jpeg(decryptedBytes);
-            }else if(file.getPath().endsWith(".gif")) {
-                viewImageFileEncrypted_gif(decryptedBytes);
+                viewTextFileEncrypted(key, file.getPath(), file.getName());
+            }else if(file.getPath().endsWith(".jpg") || file.getPath().endsWith(".jpeg") || file.getPath().endsWith(".gif") || file.getPath().endsWith(".png") || file.getPath().endsWith(".svg")) {
+                viewImageFileEncrypted(file.getName());
             }else{
                 JOptionPane.showMessageDialog(null, "File Not Supported to view.",
                         "Warning",
@@ -389,24 +384,15 @@ public class HistoryApp extends Application implements Initializable {
         }
     }
 
-    private void viewImageFileEncrypted_gif(byte[] decryptedBytes) {
-        File file = new File("D:/img.gif");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void viewImageFileEncrypted(String name) {
+        File file = new File("D:/"+name);
         Image image = new Image(file.toURI().toString());
         ImageView imageView = new ImageView(image);
         Group root = new Group();
         root.getChildren().add(imageView);
-        Scene scene = new Scene(root, image.getWidth(), image.getHeight());
+        Scene scene = new Scene(root, 500, 500);
         Stage stage = new Stage();
+        imageView.fitWidthProperty().bind(stage.widthProperty());
         stage.setScene(scene);
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
@@ -417,111 +403,45 @@ public class HistoryApp extends Application implements Initializable {
         });
     }
 
-    private void viewImageFileEncrypted_jpeg(byte[] decryptedBytes) {
-        File file = new File("D:/img.jpeg");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(image);
-        Group root = new Group();
-        root.getChildren().add(imageView);
-        Scene scene = new Scene(root, image.getWidth(), image.getHeight());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                file.delete();
-            }
-        });
-    }
+    public void decryptFiles(String key, History file, String name) throws SQLException, IOException, ClassNotFoundException {
 
-    private void viewImageFileEncrypted_png(byte[] decryptedBytes) {
-        File file = new File("D:/img.png");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(image);
-        Group root = new Group();
-        root.getChildren().add(imageView);
-        Scene scene = new Scene(root, image.getWidth(), image.getHeight());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                file.delete();
-            }
-        });
-    }
-
-    public byte[] decryptFiles(String key, History file) throws SQLException, IOException, ClassNotFoundException {
-
-        /*********Connectivity to DB**********/
         searching_algo_DB search=new searching_algo_DB();
-        boolean isDecrypted = false;
-        Path inputPath = Paths.get(file.getPath());
-        byte[] encryptedBytes = null;
-        byte[] decryptedBytes = null;
-
-        try {
-            encryptedBytes = Files.readAllBytes(inputPath);
-        }catch (IOException e) {
-            System.out.println(e);
-        }
+        boolean isDecrypted= false;
         try{
-            String AlgoMethod= search.algo_finder(file.getPath());            // To fetch Algo Method from encrypt_history DB
+                // This is to save decrypt History to database
+                String AlgoMethod= search.algo_finder(file.getPath());            // To fetch Algo Method from encrypt_history DB
+                System.out.println(file.getName() + " | " + file.getPath() + " | " + key);
+                System.out.println(AlgoMethod);
+                if (AlgoMethod.equalsIgnoreCase("AES/CBC-PKCS5Padding")) {
+                    System.out.println("AES/Padding");
+                    new AES_CBC_PKCS5Padding().decryptFile(file.getPath(), key, file.getName());
+                }
 
-            if (AlgoMethod.equalsIgnoreCase("AES/CBC/PKCS5Padding")) {
-                System.out.println("AES/Padding");
-                decryptedBytes = new AES_CBC_PKCS5Padding().decryptFile(encryptedBytes, key);
-            }
+                else if (AlgoMethod.equalsIgnoreCase("AES/ECB-NoPadding")) {
+                    System.out.println("AES/NoPadding");
+                    new AES_ECB_NoPadding().decryptFile(file.getPath(), key, file.getName());
+                }
 
-            else if (AlgoMethod.equalsIgnoreCase("AES/ECB/NoPadding")) {
-                System.out.println("AES/NoPadding");
-                decryptedBytes = new AES_ECB_NoPadding().decryptFile(encryptedBytes, key);
-            }
+                else if (AlgoMethod.equalsIgnoreCase("DES/CBC-PKCS5Padding")) {
+                    System.out.println("DES/CBC/Padding");
+                    new DES_CBC_PKCS5Padding().decryptFile(file.getPath(), key, file.getName());
+                }
 
-            else if (AlgoMethod.equalsIgnoreCase("DES/CBC/PKCS5Padding")) {
-                System.out.println("DES/CBC/Padding");
-                decryptedBytes = new DES_CBC_PKCS5Padding().decryptFile(encryptedBytes, key);
-            }
+                else if (AlgoMethod.equalsIgnoreCase("DES/ECB-PKCS5Padding")) {     // Isme Dikkt hai
+                    System.out.println("DES/ECB/Padding");
+                    new DES_ECB_PKCS5Padding().decryptFile(file.getPath(), key, file.getName());
+                }
 
-            else if (AlgoMethod.equalsIgnoreCase("DES/ECB/PKCS5Padding")) {     // Isme Dikkt hai
-                System.out.println("DES/ECB/Padding");
-                decryptedBytes = new DES_ECB_PKCS5Padding().decryptFile(encryptedBytes, key);
-            }
+                else if (AlgoMethod.equalsIgnoreCase("Desede/CBC-PKCS5Padding")) {
+                    System.out.println("Desede/Padding");
+                    new Desede_CBC_PKCS5Padding().decryptFile(file.getPath(), key, file.getName());
+                }
 
-            else if (AlgoMethod.equalsIgnoreCase("Desede/CBC/PKCS5Padding")) {
-                System.out.println("Desede/Padding");
-                decryptedBytes = new Desede_CBC_PKCS5Padding().decryptFile(encryptedBytes, key);
-            }
-
-            isDecrypted = true;
-            /************************************/
-
+                isDecrypted = true;
         }catch (Exception e){
             System.out.println(e.toString());
+            System.out.println("safbashbdjvdfvbbdjhfb");
             JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
-            isDecrypted = false;
         }
         finally {
             if(isDecrypted){
@@ -530,50 +450,10 @@ public class HistoryApp extends Application implements Initializable {
                         JOptionPane.INFORMATION_MESSAGE);
             }
         }
-        return decryptedBytes;
     }
 
-    private void viewImageFileEncrypted_jpg(byte[] decryptedBytes) {
-        File file = new File("D:/img.jpg");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        Image image = new Image(file.toURI().toString());
-        ImageView imageView = new ImageView(image);
-        Group root = new Group();
-        root.getChildren().add(imageView);
-        Scene scene = new Scene(root, image.getWidth(), image.getHeight());
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                file.delete();
-            }
-        });
-    }
-
-
-    private void viewTextFileEncrypted(byte[] decryptedBytes, String key, String originalPath) {
-        File file = new File("D:/temp.txt");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void viewTextFileEncrypted(String key, String originalPath, String name) {
+        File file = new File("D:/" + name);
         textArea = new TextArea();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -606,6 +486,12 @@ public class HistoryApp extends Application implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                file.delete();
+            }
+        });
     }
 
     private void saveFileEncrypted(String path, String key) {
@@ -652,39 +538,39 @@ public class HistoryApp extends Application implements Initializable {
         }
     }
 
-    private void viewVideoFileEncrypted(byte[] decryptedBytes) {
-        File file = new File("D:/video.mp4");
-        try {
-            file.createNewFile();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
-        }catch (IOException e) {
-            e.printStackTrace();
-        }
-        Media media = new Media(file.toURI().toString());
-        MediaPlayer mp = new MediaPlayer(media);
-        mp.setAutoPlay(true);
-        MediaView mediaView = new MediaView(mp);
-        Group root = new Group();
-        root.getChildren().add(mediaView);
-        Scene scene = new Scene(root, mp.getMedia().getWidth(), mp.getMedia().getHeight());
-        Stage stage = new Stage();
-        mediaView.setFitHeight(stage.getHeight());
-        mediaView.setFitWidth(stage.getWidth());
-        stage.setScene(scene);
-        stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
-            @Override
-            public void handle(WindowEvent event) {
-                mp.stop();
-                mp.dispose();
-                file.delete();
-            }
-        });
-    }
+//    private void viewVideoFileEncrypted(byte[] decryptedBytes) {
+//        File file = new File("D:/video.mp4");
+//        try {
+//            file.createNewFile();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        try {
+//            Files.write(Path.of(file.getAbsolutePath()), decryptedBytes);
+//        }catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        Media media = new Media(file.toURI().toString());
+//        MediaPlayer mp = new MediaPlayer(media);
+//        mp.setAutoPlay(true);
+//        MediaView mediaView = new MediaView(mp);
+//        Group root = new Group();
+//        root.getChildren().add(mediaView);
+//        Scene scene = new Scene(root, mp.getMedia().getWidth(), mp.getMedia().getHeight());
+//        Stage stage = new Stage();
+//        mediaView.setFitHeight(stage.getHeight());
+//        mediaView.setFitWidth(stage.getWidth());
+//        stage.setScene(scene);
+//        stage.show();
+//        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+//            @Override
+//            public void handle(WindowEvent event) {
+//                mp.stop();
+//                mp.dispose();
+//                file.delete();
+//            }
+//        });
+//    }
 
     private String showDialogBox() {
         Dialog<String> dialog = new Dialog<>();

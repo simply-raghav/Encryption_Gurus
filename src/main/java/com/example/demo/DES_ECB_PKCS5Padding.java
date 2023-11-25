@@ -193,13 +193,33 @@ public class DES_ECB_PKCS5Padding {
         }
     }
 
-    public static byte[] decryptFile(byte[] encryptedBytes, String key) throws Exception{
-        SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DES");
-        Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
-        cipher.init(Cipher.DECRYPT_MODE, secretKey);
-        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        return decryptedBytes;
+    public static String decryptFile(String filePath, String key, String name) {
+        try {
+
+            System.out.println("Decyption: " + filePath + " and " + key);
+
+
+            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes(), "DES");
+            Cipher cipher = Cipher.getInstance("DES/ECB/PKCS5Padding");
+            cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+            Path inputPath = Paths.get(filePath);
+            byte[] encryptedBytes = Files.readAllBytes(inputPath);
+            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+
+            // String decryptedFilePath = filePath.replace(".encrypted", ".decrypted");
+            String decryptedcontent=Base64.getEncoder().encodeToString(decryptedBytes);
+            // Path outputPath = Paths.get(decryptedFilePath);
+            Files.write(Paths.get("D:/" + name), decryptedBytes);
+
+            return filePath;
+        } catch (Exception e) {
+            System.out.println(e.toString());
+            JOptionPane.showMessageDialog(null, "Wrong Encryption Key", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return null;
+        }
     }
+
 
 
 }

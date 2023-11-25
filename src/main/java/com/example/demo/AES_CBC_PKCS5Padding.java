@@ -79,11 +79,11 @@ import java.util.Scanner;
             return decryptedFilePath.toString();
         }
 
-        public static byte[] decryptFile(byte[] encryptedByteContent, String key) throws Exception {
+        public static String decryptFile(String filePath, String key, String name) throws Exception {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
             // Read the encrypted content from the file
-            String encryptedContent = new String(encryptedByteContent);
+            String encryptedContent = new String(Files.readAllBytes(Paths.get(filePath)));
 
             // Decode the Base64-encoded content
             byte[] combined = Base64.getDecoder().decode(encryptedContent);
@@ -102,8 +102,18 @@ import java.util.Scanner;
 
             // Decrypt the content
             byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-            return decryptedBytes;
+
+            // Write the decrypted content to a new file
+            Path decryptedFilePath = Paths.get("D:/" + name);
+            Files.write(decryptedFilePath, decryptedBytes, StandardOpenOption.CREATE);
+
+            return decryptedFilePath.toString();
         }
+
+
     }
+
+
+
 
 

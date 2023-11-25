@@ -13,6 +13,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class LogOutApp extends Application {
 
@@ -47,25 +48,51 @@ public class LogOutApp extends Application {
     private Stage stage;
 
 
-    public void openLogin(ActionEvent event){
+    public void openLogin(ActionEvent event) throws SQLException, ClassNotFoundException {
 
-        try{
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
-            root = (Parent) loader.load();
-            stage = new Stage();
-            stage.getIcons().add(icon);
-            stage.setTitle("Secure Vault");
-            stage.setScene(new Scene(root));
+        boolean isLogin = Check_login_DB.isExit();
 
-            new BounceIn(root).play();
-            stage.setResizable(false);
-            stage.centerOnScreen();
-            stage.show();
-        }catch(Exception e){
-            System.out.println(e.toString());
+
+        // If Already a user exit in DB then Open Login Page Directly, Else Open Register Page.
+
+
+        if(isLogin){
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("login.fxml"));
+                root = (Parent) loader.load();
+                stage = new Stage();
+                stage.getIcons().add(icon);
+                stage.setTitle("Secure Vault");
+                stage.setScene(new Scene(root));
+
+                new BounceIn(root).play();
+                stage.setResizable(false);
+                stage.centerOnScreen();
+                stage.show();
+            }catch(Exception e){
+                System.out.println(e.toString());
+            }
+
+            System.out.println("Login");
+        }else{
+            try{
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("userRegister.fxml"));
+                root = (Parent) loader.load();
+                stage = new Stage();
+                stage.getIcons().add(icon);
+                stage.setTitle("Secure Vault");
+                stage.setScene(new Scene(root));
+
+                new BounceIn(root).play();
+                stage.setResizable(false);
+                stage.centerOnScreen();
+                stage.show();
+            }catch(Exception e){
+                System.out.println(e.toString());
+            }
+
+            System.out.println("Login");
         }
-
-        System.out.println("Login");
     }
 
     public static void main(String[] args) {

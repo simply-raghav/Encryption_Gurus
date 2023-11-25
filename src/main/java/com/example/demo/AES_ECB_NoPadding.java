@@ -52,12 +52,23 @@ public class AES_ECB_NoPadding {
         return decryptedFilePath.toString();
     }
 
-    public static byte[] decryptFile(byte[] encryptedBytes, String key) throws Exception {
+    public static String decryptFile(String filePath, String key, String name) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
+
         SecretKey secretKey = new SecretKeySpec(key.getBytes(), "AES");
         cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+        String encryptedContent = new String(Files.readAllBytes(Paths.get(filePath)));
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedContent);
+
         byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
-        return decryptedBytes;
+
+        Path decryptedFilePath = Paths.get("D:/" + name);
+        Files.write(decryptedFilePath, decryptedBytes, StandardOpenOption.CREATE);
+
+        return decryptedFilePath.toString();
     }
+
+
 }
 

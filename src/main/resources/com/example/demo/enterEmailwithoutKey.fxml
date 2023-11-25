@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #bec0c1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EnterMailApp">
+<AnchorPane prefHeight="270.0" prefWidth="600.0" style="-fx-background-color: #bec0c1;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.demo.EnterMailwithoutKeyApp">
     <children>
     <Label alignment="CENTER" prefHeight="74.0" prefWidth="600.0" style="-fx-background-color: #ff6a41; -fx-background-radius: 0 0 20 20;" text="SECUREVAULT" textFill="WHITE">
         <font>

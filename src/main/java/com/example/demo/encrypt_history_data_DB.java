@@ -12,8 +12,8 @@ public class encrypt_history_data_DB {
         Class.forName("com.mysql.cj.jdbc.Driver");
         String url="jdbc:mysql://localhost:3306/history";
         String username="root";
-//        String password="0209rishi@Pa";
-        String password= "admin";
+        String password="0209rishi@Pa";
+//        String password= "admin";
 
         Connection con=DriverManager.getConnection(url,username,password);
         String q="Select filename,filepath,algorithm from encrypt_history";
@@ -40,8 +40,8 @@ public class encrypt_history_data_DB {
             Class.forName("com.mysql.cj.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/history";
             String username = "root";
-//            String password = "0209rishi@Pa";
-            String password= "admin";
+            String password = "0209rishi@Pa";
+//            String password= "admin";
 
             try (Connection con = DriverManager.getConnection(url, username, password)) {
                 String q = "DELETE FROM encrypt_history WHERE filepath = ?";

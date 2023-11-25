@@ -11,8 +11,6 @@ import java.util.Scanner;
 
 public class AES_ECB_NoPadding {
 
-    // **** AES key msut be equals to (16 characters)... ****
-
     public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
 
@@ -53,5 +51,24 @@ public class AES_ECB_NoPadding {
 
         return decryptedFilePath.toString();
     }
+
+    public static String decryptFile(String filePath, String key, String name) throws Exception {
+        Cipher cipher = Cipher.getInstance("AES/ECB/NoPadding");
+
+        SecretKey secretKey = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.DECRYPT_MODE, secretKey);
+
+        String encryptedContent = new String(Files.readAllBytes(Paths.get(filePath)));
+        byte[] encryptedBytes = Base64.getDecoder().decode(encryptedContent);
+
+        byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+
+        Path decryptedFilePath = Paths.get("D:/" + name);
+        Files.write(decryptedFilePath, decryptedBytes, StandardOpenOption.CREATE);
+
+        return decryptedFilePath.toString();
+    }
+
+
 }
 

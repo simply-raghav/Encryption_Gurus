@@ -12,7 +12,6 @@ import java.util.Scanner;
 
 public class DES_CBC_PKCS5Padding {
 
-    // **** DES key msut be equals to (8 characters)... ****
      public static String encryptFile(String filePath, String key) throws Exception {
         Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
 
@@ -60,6 +59,31 @@ public class DES_CBC_PKCS5Padding {
 
         return decryptedFilePath.toString();
     }
+
+    public static String decryptFile(String filePath, String key, String name) throws Exception {
+        Cipher cipher = Cipher.getInstance("DES/CBC/PKCS5Padding");
+
+        // Convert the key to a SecretKey
+        SecretKey secretKey = new SecretKeySpec(key.getBytes(), "DES");
+
+        // Use the first 8 bytes of the file as the IV
+        byte[] fileBytes = Files.readAllBytes(Paths.get(filePath));
+        IvParameterSpec iv = new IvParameterSpec(fileBytes, 0, 8);
+
+        // Initialize the cipher for decryption
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, iv);
+
+        // Decrypt the content
+        byte[] encryptedBytes = cipher.doFinal(fileBytes, 8, fileBytes.length - 8);
+
+//        Path decryptedFilePath = Paths.get(filePath + ".decrypted");
+        Path decryptedFilePath = Paths.get("D:/" + name);
+        Files.write(decryptedFilePath, encryptedBytes, StandardOpenOption.CREATE);
+
+        return decryptedFilePath.toString();
+    }
+
+
 }
 
 

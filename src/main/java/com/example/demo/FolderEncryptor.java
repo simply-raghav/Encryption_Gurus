@@ -14,26 +14,26 @@ import java.util.Scanner;
 
 public class FolderEncryptor {
 
-    public static void main(String[] args) {
+    public void  folderEnc(String path, String key){
         Scanner scanner = new Scanner(System.in);
 
         // Get the encryption key from the user
-        System.out.print("Enter encryption key: ");
-        String key = scanner.nextLine();
+//        System.out.print("Enter encryption key: ");
+//        String key = scanner.nextLine();
 
         // Get the folder path from the user
-        System.out.print("Enter folder path: ");
-        String folderPath = scanner.nextLine();
+//        System.out.print("Enter folder path: ");
+//        String folderPath = scanner.nextLine();
 
         try {
             // Generate a secret key from the user-provided key
             SecretKey secretKey = generateSecretKey(key);
 
             // Encrypt the folder
-           // encryptFolder(folderPath, secretKey);
+            encryptFolder(path, secretKey);
 
             // Decrypt the folder (for demonstration purposes)
-            decryptFolder(folderPath, secretKey);
+//            decryptFolder(folderPath, secretKey);
 
             System.out.println("Folder encryption and decryption completed successfully!");
         } catch (Exception e) {
@@ -42,6 +42,51 @@ public class FolderEncryptor {
             scanner.close();
         }
     }
+
+
+
+
+
+    public void  folderDec(String path, String key){
+        Scanner scanner = new Scanner(System.in);
+
+        // Get the encryption key from the user
+//        System.out.print("Enter encryption key: ");
+//        String key = scanner.nextLine();
+
+        // Get the folder path from the user
+//        System.out.print("Enter folder path: ");
+//        String folderPath = scanner.nextLine();
+
+        try {
+            // Generate a secret key from the user-provided key
+            SecretKey secretKey = generateSecretKey(key);
+
+            // Encrypt the folder
+//            encryptFolder(path, secretKey);
+
+            // Decrypt the folder (for demonstration purposes)
+            decryptFolder(path, secretKey);
+
+            System.out.println("Folder encryption and decryption completed successfully!");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            scanner.close();
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     private static SecretKey generateSecretKey(String key) throws Exception {
         // Use a KeyGenerator to generate a secret key based on the user-provided key

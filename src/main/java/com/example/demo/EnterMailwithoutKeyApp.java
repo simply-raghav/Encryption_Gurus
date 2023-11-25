@@ -11,11 +11,11 @@ import javafx.stage.Stage;
 import javafx.scene.control.TextField;
 import java.awt.*;
 
-public class EnterMailApp extends Application {
+public class EnterMailwithoutKeyApp extends Application {
 
     public void start(Stage stage) throws Exception{
         try{
-            Parent root = FXMLLoader.load(getClass().getResource("enterEMail.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("enterEmailwithoutKey.fxml"));
             Scene scene = new Scene(root);
             new FadeIn(root).play();
             stage.centerOnScreen();
@@ -43,7 +43,18 @@ public class EnterMailApp extends Application {
     public void sendMail(){
         String mail = mailTextField.getText();
         if(isValidMail(mail)){
-            System.out.println("Sending Mail to: " + mail);
+//            System.out.println("Sending Mail to: " + mail);
+            /*********************************************************************/
+            //calling class attachment mail
+            Attachment_mail sending_data=new Attachment_mail();
+            /****************************/
+            for(var file : HistoryApp.selectedHistoryFiles){
+                sending_data.send_data_to_mail(mail, file.getPath());
+                System.out.println("Sending file: " + file.getPath() + "To :" + mail);
+            }
+            System.out.println("Mail send");
+            System.out.println(mail);
+
         }else{
             System.out.println("Invalid Email");
         }

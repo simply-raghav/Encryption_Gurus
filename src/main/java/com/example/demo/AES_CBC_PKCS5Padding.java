@@ -12,9 +12,6 @@ import java.util.Scanner;
 
     public class AES_CBC_PKCS5Padding {
 
-        // **** AES key msut be equals to (16 characters)... ****
-
-
         public static String encryptFile(String filePath, String key) throws Exception {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
@@ -81,6 +78,42 @@ import java.util.Scanner;
 
             return decryptedFilePath.toString();
         }
+
+        public static String decryptFile(String filePath, String key, String name) throws Exception {
+            Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+
+            // Read the encrypted content from the file
+            String encryptedContent = new String(Files.readAllBytes(Paths.get(filePath)));
+
+            // Decode the Base64-encoded content
+            byte[] combined = Base64.getDecoder().decode(encryptedContent);
+
+            // Extract the IV and encrypted content
+            byte[] ivBytes = new byte[cipher.getBlockSize()];
+            byte[] encryptedBytes = new byte[combined.length - ivBytes.length];
+            System.arraycopy(combined, 0, ivBytes, 0, ivBytes.length);
+            System.arraycopy(combined, ivBytes.length, encryptedBytes, 0, encryptedBytes.length);
+
+            // Convert the key to a SecretKey
+            SecretKey secretKey = new SecretKeySpec(key.getBytes(), "AES");
+
+            // Initialize the cipher for decryption
+            cipher.init(Cipher.DECRYPT_MODE, secretKey, new IvParameterSpec(ivBytes));
+
+            // Decrypt the content
+            byte[] decryptedBytes = cipher.doFinal(encryptedBytes);
+
+            // Write the decrypted content to a new file
+            Path decryptedFilePath = Paths.get("D:/" + name);
+            Files.write(decryptedFilePath, decryptedBytes, StandardOpenOption.CREATE);
+
+            return decryptedFilePath.toString();
+        }
+
+
     }
+
+
+
 
 

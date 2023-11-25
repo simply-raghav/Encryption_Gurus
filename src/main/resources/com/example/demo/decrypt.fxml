@@ -131,9 +131,9 @@
                 <Cursor fx:constant="HAND" />
             </cursor>
         </MenuBar>
-        <Button fx:id="decryptButton" layoutX="331.0" layoutY="453.0" mnemonicParsing="false" onAction="#decryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Decrypt" textFill="#ff6a41">
+        <Button fx:id="decryptButton" layoutX="331.0" layoutY="453.0" mnemonicParsing="false" onAction="#decryptFiles" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Decrypt Files" textFill="#ff6a41">
             <font>
-                <Font name="Bauhaus 93" size="20.0" />
+                <Font name="Bauhaus 93" size="15.0" />
             </font>
          <cursor>
             <Cursor fx:constant="HAND" />
@@ -153,6 +153,14 @@
                </image>
             </ImageView>
          </graphic>
+      </Button>
+      <Button fx:id="decryptButton1" layoutX="732.0" layoutY="453.0" mnemonicParsing="false" onAction="#decryptFolders" style="-fx-background-radius: 10; -fx-background-color: #FFFFFF; -fx-border-color: ff6a41; -fx-border-radius: 10; -fx-border-width: 3;" text="Decrypt Folders" textFill="#ff6a41">
+         <font>
+            <Font name="Bauhaus 93" size="15.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
       </Button>
     </children>
 </AnchorPane>
